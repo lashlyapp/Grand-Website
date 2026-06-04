@@ -97,13 +97,12 @@ account that already serves content to the current site:
 > email keeps working.
 
 ### Vendor lock-in risks we must design around
-1. **Still images may be on Cendyn's CDNs.** Images load from
-   `cdn.traveltripper.io` (Travel Tripper = Cendyn) and `res.cloudinary.com`.
-   Any image served from a *Cendyn-owned* account disappears if Cendyn cuts
-   service — **those must be downloaded and re-hosted** (ideally onto the same
-   MyHotelOps Cloudflare account, alongside the video). Images already on the
-   MyHotelOps Cloudflare account are safe and need no migration. We'll separate
-   the two during asset capture.
+1. **Still images are on Cendyn's CDNs (confirmed) — and we can extract them.**
+   Images load from `cdn.traveltripper.io` (Travel Tripper = Cendyn) and
+   `res.cloudinary.com`. They disappear if Cendyn cuts service, so part of the
+   build is to **extract/download every image and re-host it on the MyHotelOps
+   Cloudflare account** (alongside the video). Straightforward, just must be
+   done before cutover so nothing 404s.
 2. **The CMS/templates are Cendyn's.** We cannot export them cleanly; we
    recreate the site (content + design) rather than "transfer" it.
 3. **The booking engine is also Cendyn.** Covered above — separate decision.
@@ -126,7 +125,7 @@ for a hotel), and direct-booking conversion.
 |------|--------|------------|
 | "Book Now" / reservations | **No** | Keep linking to `svgrandhotel.reztrip.com` (+ preserve `selected_room` deep-links) |
 | Videos | **No** | Already served from the MyHotelOps Cloudflare account — keep as-is |
-| Still images / gallery | **Only those on Cendyn CDNs** | Download Cendyn-hosted images, re-host on the MyHotelOps Cloudflare account; images already on Cloudflare are fine |
+| Still images / gallery | **Yes — Cendyn-hosted** | Extract/download all images from Cendyn CDNs (confirmed doable), re-host on the MyHotelOps Cloudflare account before cutover |
 | Page URLs / SEO ranking | Risk | Keep identical URL paths; add 301 redirects; re-submit sitemap; preserve metadata + add schema.org Hotel data |
 | Email (GoDaddy-hosted) | Low | Change only the web DNS records at GoDaddy; **leave GoDaddy MX/SPF/DKIM untouched** |
 | Google Business Profile / OTA listings | No | Independent of website host |
@@ -239,12 +238,16 @@ The booking-engine fee only goes away in Phase 2.
 - **Content model:** **developer-managed** (MDX/JSON in repo) now; light CMS
   functions added later for specific use cases.
 
+- **Images:** confirmed **Cendyn-hosted and extractable** — we download all and
+  re-host them on the MyHotelOps Cloudflare account.
+- **MyHotelOps access:** **read-only access granted** — enough to read video
+  sources and extract images. A short window of **write access** (or a hand-off
+  to a MyHotelOps admin) will be needed to upload the re-hosted images.
+
 ### Remaining items to gather (not blockers to start building)
-1. **Cloudflare access** to the MyHotelOps account (for video sources + to
-   re-host any Cendyn-hosted still images there).
-2. **Images:** confirm which stills are already on Cloudflare vs. still on
-   Cendyn's CDNs (`cdn.traveltripper.io` / Cloudinary), so we capture the rest.
-3. **GoDaddy access** (or a collaborator invite) for the DNS cutover when ready.
+1. **MyHotelOps write/upload path** for the re-hosted images (admin upload or
+   temporary write access) — needed before cutover, not before building.
+2. **GoDaddy access** (or a collaborator invite) for the DNS cutover when ready.
 
 ---
 
