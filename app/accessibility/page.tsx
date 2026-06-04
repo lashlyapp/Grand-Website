@@ -55,12 +55,42 @@ export default function AccessibilityPage() {
         We continually work to improve the experience for every visitor and to
         maintain conformance with these standards.
       </p>
-      <h2>Need assistance?</h2>
+      <h2>Conformance status</h2>
       <p>
-        If you encounter any difficulty using this site, or need help with a
-        reservation, please call <a href={`tel:${site.phone.tollFree}`}>{site.phone.tollFree}</a>{" "}
-        or email <a href={`mailto:${site.email}`}>{site.email}</a>. We are happy
-        to assist.
+        This website aims to conform to <strong>WCAG 2.1 Level AA</strong>.
+        &ldquo;Partially conformant&rdquo; means that some parts of the content
+        may not yet fully conform; we are actively working toward full
+        conformance. This statement was last reviewed in June 2026.
+      </p>
+
+      <h2>Ongoing monitoring</h2>
+      <p>
+        We run automated accessibility checks (axe-core, pa11y, and Lighthouse)
+        on every release to catch regressions, and we periodically conduct
+        manual reviews. Automated testing has known limits, so we welcome
+        feedback from people who use assistive technologies.
+      </p>
+
+      <h2>Reporting a barrier &amp; feedback</h2>
+      <p>
+        If you encounter any difficulty using this site, need help with a
+        reservation, or want to report an accessibility barrier, please contact
+        us — we treat accessibility issues as a priority:
+      </p>
+      <ul>
+        <li>
+          Phone: <a href={`tel:${site.phone.tollFree}`}>{site.phone.tollFree}</a> (toll-free)
+          or <a href={`tel:${site.phone.local}`}>{site.phone.local}</a>
+        </li>
+        <li>
+          Email: <a href={`mailto:${site.email}`}>{site.email}</a>
+        </li>
+        <li>Mail: {site.address.full}</li>
+      </ul>
+      <p>
+        We aim to respond to accessibility feedback within{" "}
+        <strong>3 business days</strong>. If you need information from this site
+        in an alternative format, let us know and we will provide it.
       </p>
     </ProsePage>
   );

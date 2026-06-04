@@ -43,9 +43,9 @@ export default function Footer() {
             </div>
 
             <div className="mt-8 max-w-sm">
-              <h3 className="text-xs font-semibold uppercase tracking-widest2 text-gold">
+              <h2 className="text-xs font-semibold uppercase tracking-widest2 text-gold">
                 Newsletter
-              </h3>
+              </h2>
               <p className="mt-3 text-sm text-white/60">
                 Subscribe for news, offers, and seasonal packages.
               </p>
@@ -56,9 +56,9 @@ export default function Footer() {
           </div>
 
           <div>
-            <h3 className="text-xs font-semibold uppercase tracking-widest2 text-gold">
+            <h2 className="text-xs font-semibold uppercase tracking-widest2 text-gold">
               Explore
-            </h3>
+            </h2>
             <ul className="mt-4 space-y-2 text-sm text-white/75">
               {mainNav.map((item) => (
                 <li key={item.href}>
@@ -71,9 +71,9 @@ export default function Footer() {
           </div>
 
           <div>
-            <h3 className="text-xs font-semibold uppercase tracking-widest2 text-gold">
+            <h2 className="text-xs font-semibold uppercase tracking-widest2 text-gold">
               Contact
-            </h3>
+            </h2>
             <address className="mt-4 space-y-2 text-sm not-italic text-white/75">
               <p>{site.address.full}</p>
               <p>

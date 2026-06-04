@@ -85,7 +85,7 @@ export default function BookingDrawer() {
       />
 
       {/* Panel */}
-      <aside
+      <div
         role="dialog"
         aria-modal="true"
         aria-label="Your booking"
@@ -93,7 +93,7 @@ export default function BookingDrawer() {
           open ? "translate-x-0" : "translate-x-full"
         }`}
       >
-        <header className="flex items-center justify-between bg-ink px-6 py-5">
+        <div className="flex items-center justify-between bg-ink px-6 py-5">
           <h2 className="font-serif text-2xl uppercase tracking-widest text-white">
             Your Booking
           </h2>
@@ -105,7 +105,7 @@ export default function BookingDrawer() {
           >
             ✕
           </button>
-        </header>
+        </div>
 
         <div className="flex-1 overflow-y-auto px-6 py-6">
           {selectedRoom && (
@@ -181,7 +181,7 @@ export default function BookingDrawer() {
           </div>
         </div>
 
-        <footer className="border-t border-ink/10 px-6 py-5">
+        <div className="border-t border-ink/10 px-6 py-5">
           <a
             href={href}
             target="_blank"
@@ -194,8 +194,8 @@ export default function BookingDrawer() {
           <p className="mt-3 text-center text-[11px] uppercase tracking-widest text-ink/40">
             Secure reservations via RezTrip
           </p>
-        </footer>
-      </aside>
+        </div>
+      </div>
     </>
   );
 }
