@@ -70,6 +70,13 @@ export default function AccessibilityPage() {
         manual reviews. Automated testing has known limits, so we welcome
         feedback from people who use assistive technologies.
       </p>
+      <p>
+        As evidence of this work, you can{" "}
+        <a href="/accessibility-report.html" target="_blank" rel="noopener noreferrer">
+          view our latest accessibility test report
+        </a>
+        .
+      </p>
 
       <h2>Reporting a barrier &amp; feedback</h2>
       <p>

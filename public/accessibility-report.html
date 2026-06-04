@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Accessibility Test Report — The Grand Hotel</title>
+<style>
+  :root { color-scheme: light; }
+  body { font-family: -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif; color:#1a1a1a; max-width: 820px; margin: 0 auto; padding: 2.5rem 1.25rem; line-height: 1.6; }
+  h1 { font-size: 1.7rem; margin-bottom: .25rem; }
+  h2 { font-size: 1.15rem; margin-top: 2rem; border-bottom: 1px solid #e5e5e5; padding-bottom: .3rem; }
+  .muted { color:#666; }
+  .ok { color:#15803d; font-weight:600; }
+  .warn { color:#b45309; font-weight:600; }
+  table { border-collapse: collapse; width: 100%; margin-top: .75rem; }
+  th, td { text-align: left; padding: .5rem .75rem; border-bottom: 1px solid #eee; font-size: .95rem; }
+  th { color:#555; font-weight:600; }
+  code { background:#f4f4f5; padding: .1rem .35rem; border-radius: 4px; font-size: .9em; }
+  .meta { display:grid; grid-template-columns: max-content 1fr; gap:.25rem 1rem; margin-top:1rem; font-size:.95rem; }
+  .badge { display:inline-block; background:#15803d; color:#fff; border-radius:999px; padding:.2rem .7rem; font-size:.8rem; font-weight:600; }
+  footer { margin-top:2.5rem; color:#777; font-size:.85rem; }
+</style>
+</head>
+<body>
+  <h1>Accessibility Test Report</h1>
+  <p class="muted">The Grand Hotel, Sunnyvale, CA — marketing website</p>
+  <p><span class="badge">0 structural violations</span></p>
+
+  <div class="meta">
+    <div>Target standard</div><div><strong>WCAG 2.1 Level AA</strong></div>
+    <div>Date generated</div><div>2026-06-04</div>
+    <div>Pages tested</div><div>12</div>
+    <div>Automated engine</div><div>axe-core 4.12.0 (structural)</div>
+  </div>
+
+  <h2>Results by page</h2>
+  <table>
+    <thead><tr><th>Page</th><th>Result</th></tr></thead>
+    <tbody>
+<tr><td><code>/accessibility</code></td><td class="ok">Pass</td></tr>
+<tr><td><code>/careers</code></td><td class="ok">Pass</td></tr>
+<tr><td><code>/contacts</code></td><td class="ok">Pass</td></tr>
+<tr><td><code>/events</code></td><td class="ok">Pass</td></tr>
+<tr><td><code>/gallery</code></td><td class="ok">Pass</td></tr>
+<tr><td><code>/</code></td><td class="ok">Pass</td></tr>
+<tr><td><code>/location</code></td><td class="ok">Pass</td></tr>
+<tr><td><code>/news</code></td><td class="ok">Pass</td></tr>
+<tr><td><code>/privacy-policy</code></td><td class="ok">Pass</td></tr>
+<tr><td><code>/rooms</code></td><td class="ok">Pass</td></tr>
+<tr><td><code>/vidovich-vineyards</code></td><td class="ok">Pass</td></tr>
+<tr><td><code>/villas</code></td><td class="ok">Pass</td></tr>
+    </tbody>
+  </table>
+
+  <h2>Violations</h2>
+  <p class="ok">No structural violations were detected.</p>
+
+  <h2>Scope &amp; methodology</h2>
+  <p>
+    This report reflects automated structural testing with axe-core against every
+    page of the site. Visual and interaction checks that require a rendering
+    engine — notably <strong>color contrast</strong> and <strong>keyboard
+    operability</strong> — are validated separately on every release using
+    headless-browser tools (<strong>pa11y-ci</strong> at WCAG 2.1 AA and
+    <strong>Lighthouse</strong>) in our continuous-integration pipeline.
+  </p>
+  <p class="muted">
+    Automated testing detects an estimated 30–40% of accessibility issues. This
+    report is evidence of ongoing good-faith conformance work and does not, by
+    itself, constitute certification. A periodic manual expert audit complements
+    these automated checks.
+  </p>
+
+  <footer>
+    Generated automatically by the project's accessibility scan
+    (<code>npm run a11y:scan</code>). For accessibility feedback, see our
+    Accessibility Statement.
+  </footer>
+</body>
+</html>
