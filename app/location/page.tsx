@@ -1,0 +1,79 @@
+import type { Metadata } from "next";
+import PageHero from "@/components/PageHero";
+import { Button, Container, SectionHeading } from "@/components/ui";
+import { site } from "@/content/site";
+
+export const metadata: Metadata = {
+  title: "Location",
+  description: `${site.name} is located at ${site.address.full} — minutes from San Jose International Airport and major Silicon Valley freeways.`,
+  alternates: { canonical: "/location/" },
+};
+
+const distances = [
+  { place: "San Jose International Airport (SJC)", time: "~15 minutes" },
+  { place: "San Francisco International Airport (SFO)", time: "30–40 minutes" },
+  { place: "Oakland International Airport (OAK)", time: "30–40 minutes" },
+  { place: "Downtown Sunnyvale & Caltrain", time: "A short drive" },
+];
+
+export default function LocationPage() {
+  const mapQuery = encodeURIComponent(site.address.full);
+  return (
+    <>
+      <PageHero
+        eyebrow="Find Us"
+        title="Location"
+        intro="At the center of Silicon Valley, easily reached from every major freeway."
+        image="/images/about_1.jpg"
+      />
+      <section className="py-16 sm:py-24">
+        <Container>
+          <div className="grid gap-12 lg:grid-cols-2">
+            <div>
+              <SectionHeading eyebrow="Getting Here" title="Central, convenient, connected">
+                <p>{site.address.full}</p>
+                <p className="mt-4">
+                  A welcoming haven for business travelers, The Grand Hotel is
+                  easily accessible from all major Silicon Valley freeways.
+                </p>
+              </SectionHeading>
+
+              <dl className="mt-8 divide-y divide-ink/10 border-y border-ink/10">
+                {distances.map((d) => (
+                  <div key={d.place} className="flex items-center justify-between gap-4 py-4">
+                    <dt className="text-sm text-ink/80">{d.place}</dt>
+                    <dd className="text-sm font-semibold text-gold">{d.time}</dd>
+                  </div>
+                ))}
+              </dl>
+
+              <div className="mt-8 flex flex-wrap gap-4">
+                <Button
+                  href={`https://www.google.com/maps/dir/?api=1&destination=${mapQuery}`}
+                  external
+                >
+                  Get Directions
+                </Button>
+                <Button href={`tel:${site.phone.local}`} variant="ghost">
+                  Call the Hotel
+                </Button>
+              </div>
+            </div>
+
+            <div className="overflow-hidden rounded-xl shadow-sm ring-1 ring-ink/5">
+              <iframe
+                title={`Map to ${site.name}`}
+                src={`https://www.google.com/maps?q=${mapQuery}&output=embed`}
+                width="100%"
+                height="100%"
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+                className="min-h-[420px] w-full border-0"
+              />
+            </div>
+          </div>
+        </Container>
+      </section>
+    </>
+  );
+}
