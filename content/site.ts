@@ -58,6 +58,19 @@ export const site = {
   },
 } as const;
 
+// Travel Tripper / Pegasus (RT3) booking widget — the live-rate slide-out used
+// on the current site. Both the booking widget and the social-proof ticker
+// (tonight's rate + recent bookings) are driven by this engine. The new domain
+// may need to be whitelisted in the Cendyn portal for it to load cross-origin.
+export const ttweb = {
+  hotelId: "CASVGH",
+  portalId: "svgrandhotel",
+  timezone: "America/New_York",
+  currency: "USD",
+  pluginBase: "https://plugins.traveltripper.io/v2",
+  jquery: "https://code.jquery.com/jquery-3.7.1.min.js",
+} as const;
+
 export type NavItem = { label: string; href: string };
 
 // Primary navigation — paths mirror the existing site to preserve SEO.

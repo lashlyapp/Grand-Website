@@ -8,6 +8,11 @@ import {
   useState,
 } from "react";
 import BookingDrawer from "./BookingDrawer";
+import BookingEngine, {
+  isBookingEngineReady,
+  loadBookingEngine,
+  openTtwebWidget,
+} from "./BookingEngine";
 
 // Params that can pre-seed the booking drawer when it is opened from a specific
 // context (e.g. a room card passes its RezTrip room code, the hero booking bar
@@ -44,6 +49,10 @@ export function BookingProvider({ children }: { children: React.ReactNode }) {
   const [params, setParams] = useState<BookingParams>({});
 
   const openBooking = useCallback((next?: BookingParams) => {
+    // Prefer the real Travel Tripper live-rate widget. Fall back to the custom
+    // drawer if the engine hasn't loaded yet (or fails to).
+    if (isBookingEngineReady() && openTtwebWidget()) return;
+    loadBookingEngine().catch(() => {});
     setParams(next ?? {});
     setOpen(true);
   }, []);
@@ -58,6 +67,7 @@ export function BookingProvider({ children }: { children: React.ReactNode }) {
   return (
     <BookingContext.Provider value={value}>
       {children}
+      <BookingEngine />
       <BookingDrawer />
     </BookingContext.Provider>
   );

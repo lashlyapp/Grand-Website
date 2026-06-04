@@ -3,6 +3,7 @@ import Link from "next/link";
 import BookingBar from "@/components/BookingBar";
 import BookingButton from "@/components/BookingButton";
 import HeroReviews from "@/components/HeroReviews";
+import HeroRateTicker from "@/components/HeroRateTicker";
 import RoomCard from "@/components/RoomCard";
 import { Button, Container, SectionHeading } from "@/components/ui";
 import { amenities, site, testimonials } from "@/content/site";
@@ -42,8 +43,9 @@ export default function HomePage() {
             </div>
           </div>
 
-          <div className="mt-8">
+          <div className="mt-8 flex flex-wrap items-center gap-4">
             <HeroReviews />
+            <HeroRateTicker />
           </div>
 
           <div className="mt-6 max-w-4xl">
