@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import Image from "next/image";
 import { useRoomDetail } from "./RoomDetailProvider";
 import { useBooking } from "./BookingProvider";
+import { site } from "@/content/site";
 
 function isVideoFile(url: string): boolean {
   return /\.(mp4|webm|ogg)(\?|#|$)/i.test(url);
@@ -150,7 +151,11 @@ export default function RoomModal() {
             </div>
           )}
 
-          <div className="mt-8 flex flex-wrap gap-3">
+          <p className="mt-6 text-xs italic text-ink/45">
+            {site.roomMediaDisclaimer}
+          </p>
+
+          <div className="mt-6 flex flex-wrap gap-3">
             <button
               type="button"
               onClick={() => {

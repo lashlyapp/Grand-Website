@@ -27,6 +27,9 @@ export const site = {
   // Booking is handled by RezTrip (Cendyn). We keep linking to it; the rebuild
   // changes the marketing site only, not the reservation flow.
   bookingBaseUrl: "https://svgrandhotel.reztrip.com/search",
+  // Shown on room listings and in the room detail / virtual-tour modal.
+  roomMediaDisclaimer:
+    "Photos and videos are for illustration only. Actual rooms may differ in furnishings, layout, view, and finishes.",
   social: {
     facebook: "https://www.facebook.com/svgrandhotel",
     instagram: "https://instagram.com/grandsiliconvalley/",

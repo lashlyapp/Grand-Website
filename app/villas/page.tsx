@@ -4,6 +4,7 @@ import PageHero from "@/components/PageHero";
 import RoomCard from "@/components/RoomCard";
 import { Container } from "@/components/ui";
 import { villas } from "@/content/rooms";
+import { site } from "@/content/site";
 
 export const metadata: Metadata = {
   title: "Villas",
@@ -31,6 +32,9 @@ export default function VillasPage() {
               <RoomCard key={room.code} room={room} />
             ))}
           </div>
+          <p className="mt-10 text-center text-xs text-ink/50">
+            {site.roomMediaDisclaimer}
+          </p>
         </Container>
       </section>
     </>
