@@ -33,11 +33,14 @@ Today, the "Book Now" buttons are just **outbound links** to
   decision we can make later. It is not required to escape the website hosting
   lock-in or to reduce part of the bill.
 
-**Recommendation:** Do this in two phases.
-**Phase 1** — rebuild + redesign the marketing site on Vercel, keep RezTrip as
-the booking link. Low risk, fast, immediately ends website hosting lock-in.
-**Phase 2 (optional)** — evaluate replacing the booking engine to fully leave
-Cendyn. Bigger project; only worth it if the booking-engine fees justify it.
+**Decision (confirmed):** We are replacing **only the marketing website** and
+**keeping RezTrip** as the booking engine. This is the low-risk path: we rebuild
+and redesign the marketing site on Vercel and keep "Book Now" pointing at the
+existing RezTrip engine, so the reservation flow is unchanged for guests.
+
+> The rest of this document focuses on that scope. A note on a possible later
+> full Cendyn exit (replacing RezTrip too) is kept in §7 for reference only and
+> is **out of scope** for this project.
 
 ---
 
@@ -179,10 +182,11 @@ small CMS plan) versus an ongoing captive monthly fee.
 4. QA on preview, stakeholder review.
 5. DNS cutover + post-launch monitoring + redirects/sitemap. *(~1 day + watch)*
 
-**Phase 2 — (Optional) Replace the RezTrip booking engine to fully exit Cendyn**
-- Requires a new booking engine/CRS + channel manager + PMS/OTA connectivity and
-  rate-parity setup. Larger vendor-selection + integration project. Evaluate the
-  RezTrip portion of the bill vs. switching cost before committing.
+**Out of scope — replacing the RezTrip booking engine**
+- We are **keeping RezTrip**. Noted only for completeness: a full Cendyn exit
+  would additionally require a new booking engine/CRS + channel manager +
+  PMS/OTA connectivity and rate-parity setup — a much larger project we are
+  intentionally not undertaking here.
 
 ---
 
@@ -209,8 +213,7 @@ The booking-engine fee only goes away in Phase 2.
    the website portion? Do website and booking engine renew separately?
 4. **Content editing:** Do staff need to self-edit content (→ headless CMS), or
    is developer-managed content acceptable (→ cheaper, code-based)?
-5. **Booking engine:** For now, keep RezTrip (Phase 1 only)? Or do you also want
-   me to scope Phase 2 (full Cendyn exit) and booking-engine alternatives?
+5. **Booking engine:** Confirmed — keeping RezTrip. (No action needed.)
 6. **Brand assets:** Do we have original-resolution logos/photography, or should
    we recover everything from the current site's CDNs?
 
