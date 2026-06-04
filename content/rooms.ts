@@ -11,7 +11,28 @@ export type Room = {
   accessible?: boolean;
   petFriendly?: boolean;
   image: string;
+  // Optional per-room "virtual tour" video shown in the room detail modal.
+  // Accepts either a direct file URL (…/tour.mp4, .webm) which renders in a
+  // native <video> player, or an embed URL (YouTube/Vimeo/Cloudflare Stream)
+  // which renders in an <iframe>. These point at the existing MyHotelOps
+  // (Cloudflare) CDN — the same source the current site uses — so the large
+  // video files are streamed, not committed to the repo. Mapping is approximate
+  // for review; swap individual URLs to fine-tune which tour plays per room.
+  video?: string;
+  // Optional extra photos for the detail modal; falls back to `image`.
+  gallery?: string[];
 };
+
+// Virtual-tour videos served from the MyHotelOps Cloudflare CDN (kept as-is per
+// the migration plan — videos are not locked into Cendyn).
+const CDN = "https://cdn.myhotelops.com/cg-hotel-group/grand-hotel";
+const tour = {
+  deluxeKing: `${CDN}/8582.11603.sunnyvale.grand-hotel-sunnyvale.room.deluxe-standard-king.mp4`,
+  deluxeRoom: `${CDN}/8582.11603.sunnyvale.grand-hotel-sunnyvale.room.deluxe-standard-room.mp4`,
+  villaKing: `${CDN}/8582.11603.sunnyvale.grand-hotel-sunnyvale.room.villa-1-king.mp4`,
+  villaQueen: `${CDN}/8582.11603.sunnyvale.grand-hotel-sunnyvale.room.villa-2-queen.mp4`,
+  fireplaceSuite: `${CDN}/Grand---Fireplace-Suite-King-standard-and-handicap.mp4`,
+} as const;
 
 export const rooms: Room[] = [
   {
@@ -22,7 +43,9 @@ export const rooms: Room[] = [
     description:
       "An oversized hotel room with a large, comfortable king bed — a relaxed, well-appointed base for your stay.",
     features: ["King bed", "Granite bathroom", "LCD TV", "iHome docking station", "Mini-fridge"],
-    image: "/images/suites.jpg",
+    image: "/images/rooms/tour-deluxe-king.jpg",
+    video: tour.deluxeKing,
+    gallery: ["/images/rooms/tour-deluxe-king.jpg", "/images/rooms/room-01.jpg", "/images/gallery/gallery-05.jpg"],
   },
   {
     code: "SK",
@@ -32,7 +55,9 @@ export const rooms: Room[] = [
     description:
       "Our superior king room adds a touch of indulgence with premium finishes and extra space to unwind.",
     features: ["King bed", "Jacuzzi tub", "Walk-in shower", "Granite countertops", "LCD TV"],
-    image: "/images/suites.jpg",
+    image: "/images/rooms/room-02.jpg",
+    video: tour.deluxeKing,
+    gallery: ["/images/rooms/room-02.jpg", "/images/gallery/gallery-07.jpg", "/images/gallery/gallery-08.jpg"],
   },
   {
     code: "DQ",
@@ -42,7 +67,9 @@ export const rooms: Room[] = [
     description:
       "Two queen beds and extra space make this a comfortable setting for families or colleagues traveling together.",
     features: ["Two queen beds", "Soaking tub", "Granite bathroom", "LCD TV", "Mini-fridge"],
-    image: "/images/about_2.jpg",
+    image: "/images/rooms/tour-deluxe-room.jpg",
+    video: tour.deluxeRoom,
+    gallery: ["/images/rooms/tour-deluxe-room.jpg", "/images/rooms/room-03.jpg", "/images/gallery/gallery-09.jpg"],
   },
   {
     code: "SQ",
@@ -52,7 +79,9 @@ export const rooms: Room[] = [
     description:
       "A superior take on our two-queen room, with elevated amenities and a spa-style bathroom.",
     features: ["Two queen beds", "Jacuzzi tub", "Walk-in shower", "Granite countertops"],
-    image: "/images/about_2.jpg",
+    image: "/images/rooms/room-04.jpg",
+    video: tour.deluxeRoom,
+    gallery: ["/images/rooms/room-04.jpg", "/images/gallery/gallery-14.jpg", "/images/gallery/gallery-15.jpg"],
   },
   {
     code: "QH",
@@ -63,7 +92,9 @@ export const rooms: Room[] = [
       "An ADA-accessible deluxe room with two queen beds and a full suite of bathroom amenities.",
     features: ["Two queen beds", "Accessible bathroom", "Soaking tub", "LCD TV"],
     accessible: true,
-    image: "/images/about_1.jpg",
+    image: "/images/rooms/room-05.jpg",
+    video: tour.deluxeRoom,
+    gallery: ["/images/rooms/room-05.jpg", "/images/gallery/gallery-16.jpg", "/images/gallery/gallery-17.jpg"],
   },
   {
     code: "VK",
@@ -73,7 +104,9 @@ export const rooms: Room[] = [
     description:
       "A private villa with a separate bedroom and living room, fireplace, and kitchen — a home away from home.",
     features: ["King bed", "Separate living room", "Fireplace", "Full kitchen"],
-    image: "/images/heated-pool.jpg",
+    image: "/images/rooms/tour-villa-king.jpg",
+    video: tour.villaKing,
+    gallery: ["/images/rooms/tour-villa-king.jpg", "/images/rooms/room-06.jpg", "/images/gallery/gallery-08.jpg"],
   },
   {
     code: "PK",
@@ -84,7 +117,9 @@ export const rooms: Room[] = [
       "A pet-friendly villa in peaceful color tones with chic decor, fireplace, and a full kitchen.",
     features: ["King bed", "Pet friendly", "Fireplace", "Full kitchen"],
     petFriendly: true,
-    image: "/images/heated-pool.jpg",
+    image: "/images/rooms/room-07.jpg",
+    video: tour.villaKing,
+    gallery: ["/images/rooms/room-07.jpg", "/images/gallery/gallery-06.jpg", "/images/gallery/gallery-09.jpg"],
   },
   {
     code: "VH",
@@ -95,7 +130,9 @@ export const rooms: Room[] = [
       "An ADA-accessible private villa with a separate bedroom, fireplace, and full kitchen.",
     features: ["King bed", "Accessible layout", "Fireplace", "Full kitchen"],
     accessible: true,
-    image: "/images/heated-pool.jpg",
+    image: "/images/rooms/room-08.jpg",
+    video: tour.villaKing,
+    gallery: ["/images/rooms/room-08.jpg", "/images/gallery/gallery-07.jpg", "/images/gallery/gallery-10.jpg"],
   },
   {
     code: "VQ",
@@ -105,7 +142,9 @@ export const rooms: Room[] = [
     description:
       "A private villa with two queen beds, fireplace, kitchen, and a comfortable living area.",
     features: ["Two queen beds", "Separate living room", "Fireplace", "Full kitchen"],
-    image: "/images/heated-pool.jpg",
+    image: "/images/rooms/tour-villa-queen.jpg",
+    video: tour.villaQueen,
+    gallery: ["/images/rooms/tour-villa-queen.jpg", "/images/gallery/gallery-14.jpg", "/images/gallery/gallery-16.jpg"],
   },
   {
     code: "PQ",
@@ -116,7 +155,9 @@ export const rooms: Room[] = [
       "A pet-friendly villa with two queen beds and sleek, modern decor, fireplace, and a full kitchen.",
     features: ["Two queen beds", "Pet friendly", "Fireplace", "Full kitchen"],
     petFriendly: true,
-    image: "/images/heated-pool.jpg",
+    image: "/images/rooms/room-02.jpg",
+    video: tour.villaQueen,
+    gallery: ["/images/rooms/room-02.jpg", "/images/gallery/gallery-15.jpg", "/images/gallery/gallery-17.jpg"],
   },
   {
     code: "FP",
@@ -126,7 +167,9 @@ export const rooms: Room[] = [
     description:
       "A spacious fireplace suite with a king bed and a separate living room — our most generous accommodation.",
     features: ["King bed", "Separate living room", "Fireplace", "Spacious suite"],
-    image: "/images/suites.jpg",
+    image: "/images/rooms/room-03.jpg",
+    video: tour.fireplaceSuite,
+    gallery: ["/images/rooms/room-03.jpg", "/images/gallery/gallery-05.jpg", "/images/gallery/gallery-07.jpg"],
   },
   {
     code: "HS",
@@ -137,7 +180,9 @@ export const rooms: Room[] = [
       "An ADA-accessible premier fireplace suite with a king bed and separate living area.",
     features: ["King bed", "Accessible layout", "Separate living area", "Fireplace"],
     accessible: true,
-    image: "/images/suites.jpg",
+    image: "/images/rooms/room-04.jpg",
+    video: tour.fireplaceSuite,
+    gallery: ["/images/rooms/room-04.jpg", "/images/gallery/gallery-06.jpg", "/images/gallery/gallery-08.jpg"],
   },
 ];
 

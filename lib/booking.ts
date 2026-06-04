@@ -9,11 +9,15 @@ export function bookingUrl(params?: {
   checkin?: string; // YYYY-MM-DD
   checkout?: string; // YYYY-MM-DD
   adults?: number;
+  children?: number;
+  offer?: string;
 }): string {
   const url = new URL(site.bookingBaseUrl);
   if (params?.room) url.searchParams.set("selected_room", params.room);
   if (params?.checkin) url.searchParams.set("arrival", params.checkin);
   if (params?.checkout) url.searchParams.set("departure", params.checkout);
   if (params?.adults) url.searchParams.set("adults", String(params.adults));
+  if (params?.children) url.searchParams.set("children", String(params.children));
+  if (params?.offer) url.searchParams.set("promo", params.offer);
   return url.toString();
 }

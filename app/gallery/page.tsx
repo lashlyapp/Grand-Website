@@ -12,12 +12,18 @@ export const metadata: Metadata = {
 
 const photos = [
   { src: "/images/suites.jpg", alt: "Guest suite", span: "lg:col-span-2 lg:row-span-2" },
-  { src: "/images/about_1.jpg", alt: "Hotel interior" },
-  { src: "/images/about_2.jpg", alt: "Guest room with two queen beds" },
+  { src: "/images/gallery/gallery-05.jpg", alt: "Guest room" },
+  { src: "/images/gallery/gallery-06.jpg", alt: "Guest room interior" },
   { src: "/images/heated-pool.jpg", alt: "Heated outdoor pool", span: "lg:col-span-2" },
-  { src: "/images/amenities.jpg", alt: "Hotel amenities" },
-  { src: "/images/services-first.jpg", alt: "Hotel services" },
-  { src: "/images/services-second.jpg", alt: "Hotel services" },
+  { src: "/images/gallery/gallery-07.jpg", alt: "Hotel interior" },
+  { src: "/images/gallery/gallery-08.jpg", alt: "Guest bathroom" },
+  { src: "/images/gallery/gallery-09.jpg", alt: "Villa living area" },
+  { src: "/images/gallery/gallery-10.jpg", alt: "Guest room with two queen beds", span: "lg:col-span-2" },
+  { src: "/images/gallery/gallery-14.jpg", alt: "Hotel grounds" },
+  { src: "/images/gallery/gallery-15.jpg", alt: "Hotel detail" },
+  { src: "/images/gallery/gallery-16.jpg", alt: "Guest room" },
+  { src: "/images/gallery/gallery-17.jpg", alt: "Hotel amenities" },
+  { src: "/images/amenities.jpg", alt: "Hotel amenities", span: "lg:col-span-2" },
 ];
 
 export default function GalleryPage() {

@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import BookingBar from "@/components/BookingBar";
+import BookingButton from "@/components/BookingButton";
 import RoomCard from "@/components/RoomCard";
 import { Button, Container, SectionHeading } from "@/components/ui";
 import { amenities, site } from "@/content/site";
@@ -146,9 +147,9 @@ export default function HomePage() {
               </p>
             </SectionHeading>
             <div className="mt-8 flex flex-wrap gap-4">
-              <Button href={site.bookingBaseUrl} external>
+              <BookingButton className="inline-flex items-center justify-center gap-2 rounded-full bg-gold px-6 py-3 text-sm font-medium uppercase tracking-widest text-white transition-colors duration-200 hover:bg-gold-dark">
                 Book Your Stay
-              </Button>
+              </BookingButton>
               <Button href="/location/" variant="outline">
                 Directions
               </Button>

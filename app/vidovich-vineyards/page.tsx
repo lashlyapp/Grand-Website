@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import PageHero from "@/components/PageHero";
+import BookingButton from "@/components/BookingButton";
 import { Button, Container, SectionHeading } from "@/components/ui";
-import { site } from "@/content/site";
 
 export const metadata: Metadata = {
   title: "Vidovich Vineyards Package",
@@ -37,9 +37,9 @@ export default function PackagePage() {
                 </p>
               </SectionHeading>
               <div className="mt-8 flex flex-wrap gap-4">
-                <Button href={site.bookingBaseUrl} external>
+                <BookingButton className="inline-flex items-center justify-center gap-2 rounded-full bg-gold px-6 py-3 text-sm font-medium uppercase tracking-widest text-white transition-colors duration-200 hover:bg-gold-dark">
                   Book a Stay
-                </Button>
+                </BookingButton>
                 <Button href="/contacts/" variant="ghost">
                   Ask About the Package
                 </Button>

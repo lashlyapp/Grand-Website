@@ -5,10 +5,11 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { mainNav, site } from "@/content/site";
-import { bookingUrl } from "@/lib/booking";
+import { useBooking } from "@/components/BookingProvider";
 
 export default function Header() {
   const pathname = usePathname();
+  const { openBooking } = useBooking();
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
@@ -56,14 +57,13 @@ export default function Header() {
               </Link>
             );
           })}
-          <a
-            href={bookingUrl()}
-            target="_blank"
-            rel="noopener noreferrer"
+          <button
+            type="button"
+            onClick={() => openBooking()}
             className="rounded-full bg-gold px-5 py-2.5 text-sm font-semibold uppercase tracking-widest text-white transition-colors hover:bg-gold-dark"
           >
             Book Now
-          </a>
+          </button>
         </nav>
 
         <button
@@ -89,14 +89,16 @@ export default function Header() {
                 {item.label}
               </Link>
             ))}
-            <a
-              href={bookingUrl()}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="mt-4 block rounded-full bg-gold px-5 py-3 text-center text-sm font-semibold uppercase tracking-widest text-white"
+            <button
+              type="button"
+              onClick={() => {
+                setOpen(false);
+                openBooking();
+              }}
+              className="mt-4 block w-full rounded-full bg-gold px-5 py-3 text-center text-sm font-semibold uppercase tracking-widest text-white"
             >
               Book Now
-            </a>
+            </button>
           </div>
         </nav>
       )}

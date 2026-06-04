@@ -1,11 +1,16 @@
 import Image from "next/image";
-import { bookingUrl } from "@/lib/booking";
+import BookingButton from "./BookingButton";
+import RoomDetailButton from "./RoomDetailButton";
 import type { Room } from "@/content/rooms";
 
 export default function RoomCard({ room }: { room: Room }) {
   return (
     <article className="group flex flex-col overflow-hidden rounded-xl bg-white shadow-sm ring-1 ring-ink/5 transition-shadow hover:shadow-lg">
-      <div className="relative aspect-[4/3] overflow-hidden">
+      {/* Image opens the detail / virtual-tour modal */}
+      <RoomDetailButton
+        room={room}
+        className="relative block aspect-[4/3] w-full overflow-hidden text-left"
+      >
         <Image
           src={room.image}
           alt={room.name}
@@ -17,7 +22,16 @@ export default function RoomCard({ room }: { room: Room }) {
           {room.accessible && <Badge>Accessible</Badge>}
           {room.petFriendly && <Badge>Pet Friendly</Badge>}
         </div>
-      </div>
+        {room.video && (
+          <>
+            <div className="absolute inset-0 bg-ink/0 transition-colors group-hover:bg-ink/20" />
+            <span className="absolute bottom-3 right-3 flex items-center gap-1.5 rounded-full bg-ink/70 px-3 py-1.5 text-[11px] font-semibold uppercase tracking-widest text-white">
+              <PlayIcon /> Virtual Tour
+            </span>
+          </>
+        )}
+      </RoomDetailButton>
+
       <div className="flex flex-1 flex-col p-6">
         <p className="text-xs font-semibold uppercase tracking-widest text-gold">
           {room.beds}
@@ -35,14 +49,20 @@ export default function RoomCard({ room }: { room: Room }) {
           ))}
         </ul>
         <div className="mt-6 flex-1" />
-        <a
-          href={bookingUrl({ room: room.code })}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="inline-flex w-full items-center justify-center rounded-full border border-ink/20 px-5 py-2.5 text-sm font-medium uppercase tracking-widest text-ink transition-colors hover:bg-ink hover:text-cream"
-        >
-          Check Rates
-        </a>
+        <div className="flex gap-3">
+          <RoomDetailButton
+            room={room}
+            className="inline-flex flex-1 items-center justify-center rounded-full border border-ink/20 px-5 py-2.5 text-sm font-medium uppercase tracking-widest text-ink transition-colors hover:bg-ink hover:text-cream"
+          >
+            View Details
+          </RoomDetailButton>
+          <BookingButton
+            params={{ room: room.code }}
+            className="inline-flex flex-1 items-center justify-center rounded-full bg-gold px-5 py-2.5 text-sm font-medium uppercase tracking-widest text-white transition-colors hover:bg-gold-dark"
+          >
+            Book
+          </BookingButton>
+        </div>
       </div>
     </article>
   );
@@ -53,5 +73,13 @@ function Badge({ children }: { children: React.ReactNode }) {
     <span className="rounded-full bg-ink/80 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-widest text-white backdrop-blur">
       {children}
     </span>
+  );
+}
+
+function PlayIcon() {
+  return (
+    <svg width="10" height="10" viewBox="0 0 12 12" fill="currentColor" aria-hidden="true">
+      <path d="M2 1.5v9l8-4.5-8-4.5z" />
+    </svg>
   );
 }
