@@ -1,11 +1,13 @@
 import type { Metadata } from "next";
 import PageHero from "@/components/PageHero";
-import { Button, Container, SectionHeading } from "@/components/ui";
+import EventInquiryForm from "@/components/EventInquiryForm";
+import { Container, SectionHeading } from "@/components/ui";
+import { meetingRooms } from "@/content/site";
 
 export const metadata: Metadata = {
   title: "Events",
   description:
-    "Host your next meeting, gathering, or special occasion at The Grand Hotel in Sunnyvale, Silicon Valley.",
+    "Host your next meeting, gathering, or special occasion at The Grand Hotel in Sunnyvale, Silicon Valley. Inquire about our Montebello Conference Room.",
   alternates: { canonical: "/events/" },
 };
 
@@ -33,6 +35,7 @@ export default function EventsPage() {
         intro="Spaces and service for meetings, celebrations, and everything in between."
         image="/images/services-first.jpg"
       />
+
       <section className="py-16 sm:py-24">
         <Container>
           <SectionHeading
@@ -48,11 +51,71 @@ export default function EventsPage() {
               </div>
             ))}
           </div>
-          <div className="mt-12 text-center">
-            <Button href="/contacts/">Inquire About Events</Button>
+        </Container>
+      </section>
+
+      {/* Meeting Rooms */}
+      <section className="bg-sand/50 py-16 sm:py-24">
+        <Container>
+          <SectionHeading eyebrow="Meeting Rooms" title="Montebello Conference Room" />
+          <div className="mt-10 grid gap-8 lg:grid-cols-2">
+            {meetingRooms.map((room) => (
+              <div
+                key={room.name}
+                className="rounded-xl bg-white p-8 shadow-sm ring-1 ring-ink/5"
+              >
+                <h3 className="font-serif text-2xl text-ink">{room.name}</h3>
+                <dl className="mt-5 grid grid-cols-2 gap-x-6 gap-y-3 text-sm">
+                  <Spec label="Dimensions" value={room.dimensions} />
+                  <Spec label="Ceiling Height" value={room.ceiling} />
+                  <Spec label="Total Area" value={room.squareFootage} />
+                  <Spec label="Price" value={room.price} />
+                </dl>
+
+                <h4 className="mt-6 text-xs font-semibold uppercase tracking-widest text-ink/50">
+                  Maximum Occupancy
+                </h4>
+                <ul className="mt-3 flex flex-wrap gap-2">
+                  {room.capacity.map((c) => (
+                    <li
+                      key={c.layout}
+                      className="rounded-full bg-sand px-3 py-1 text-xs text-ink/70"
+                    >
+                      {c.layout}: {c.seats}
+                    </li>
+                  ))}
+                </ul>
+
+                <p className="mt-5 text-xs leading-relaxed text-ink/55">
+                  {room.accessibility}
+                </p>
+              </div>
+            ))}
+
+            {/* Inquiry form */}
+            <div className="rounded-xl bg-white p-8 shadow-sm ring-1 ring-ink/5">
+              <h3 className="font-serif text-2xl text-ink">Inquiry Form</h3>
+              <p className="mt-2 text-sm text-ink/60">
+                Tell us about your event and we&rsquo;ll be in touch to help plan it.
+              </p>
+              <div className="mt-6">
+                <EventInquiryForm />
+              </div>
+            </div>
           </div>
         </Container>
       </section>
     </>
+  );
+}
+
+function Spec({ label, value }: { label: string; value: string }) {
+  return (
+    <div>
+      <dt className="text-xs font-semibold uppercase tracking-widest text-ink/45">
+        {label}
+      </dt>
+      <dd className="mt-1 text-ink/80">{value}</dd>
+    </div>
   );
 }

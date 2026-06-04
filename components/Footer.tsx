@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { Container } from "@/components/ui";
+import NewsletterForm from "@/components/NewsletterForm";
 import { footerNav, mainNav, site } from "@/content/site";
 
 const socialLinks = [
@@ -40,6 +41,18 @@ export default function Footer() {
                 </a>
               ))}
             </div>
+
+            <div className="mt-8 max-w-sm">
+              <h3 className="text-xs font-semibold uppercase tracking-widest2 text-gold">
+                Newsletter
+              </h3>
+              <p className="mt-3 text-sm text-white/60">
+                Subscribe for news, offers, and seasonal packages.
+              </p>
+              <div className="mt-4">
+                <NewsletterForm />
+              </div>
+            </div>
           </div>
 
           <div>
@@ -72,6 +85,7 @@ export default function Footer() {
                   {site.phone.local}
                 </a>
               </p>
+              <p>Fax: {site.phone.fax}</p>
               <p>
                 <a href={`mailto:${site.email}`} className="hover:text-gold">
                   {site.email}

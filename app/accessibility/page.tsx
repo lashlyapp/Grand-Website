@@ -22,10 +22,38 @@ export default function AccessibilityPage() {
         fireplace suite. Please contact us before your stay so we can ensure your
         needs are met.
       </p>
-      <h2>This website</h2>
+      <h2>Digital Accessibility Compliance Guidelines and Goals</h2>
       <p>
-        We aim to conform to the Web Content Accessibility Guidelines (WCAG) 2.1
-        Level AA. We continually work to improve the experience for every visitor.
+        We follow the World Wide Web Consortium (W3C) Web Accessibility Initiative
+        (WAI) guidelines, which are in line with our philosophy of promoting
+        usability for people of all abilities. In accordance with WCAG 2.1
+        AA-Level Compliance, our website strives to meet four core principles
+        known by the acronym POUR:
+      </p>
+      <ul>
+        <li>
+          <strong>Perceivable</strong> — information and interface components are
+          presented in ways users can perceive, including text alternatives,
+          captions, and sufficient color contrast.
+        </li>
+        <li>
+          <strong>Operable</strong> — interface components and navigation are
+          operable, including full keyboard access and enough time to read and
+          use content.
+        </li>
+        <li>
+          <strong>Understandable</strong> — information and the operation of the
+          interface are clear, readable, and predictable.
+        </li>
+        <li>
+          <strong>Robust</strong> — content is robust enough to be interpreted
+          reliably by a wide variety of user agents, including assistive
+          technologies.
+        </li>
+      </ul>
+      <p>
+        We continually work to improve the experience for every visitor and to
+        maintain conformance with these standards.
       </p>
       <h2>Need assistance?</h2>
       <p>

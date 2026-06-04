@@ -49,6 +49,22 @@ npm run extract-assets
 ```
 
 Videos remain served from the **MyHotelOps Cloudflare** account (not Cendyn).
+Per-room virtual-tour videos stream from `cdn.myhotelops.com`.
+
+## Forms / email
+
+The contact, event-inquiry, and newsletter forms post to serverless routes
+(`app/api/*`) that send email via the **Resend** API. Configure these env vars
+in Vercel (Project → Settings → Environment Variables):
+
+| Variable | Required | Default | Purpose |
+| --- | --- | --- | --- |
+| `RESEND_API_KEY` | **Yes** (to send) | — | Resend API key |
+| `CONTACT_TO_EMAIL` | No | `info@cghotelgroup.com` | Where submissions are delivered |
+| `CONTACT_FROM_EMAIL` | No | `onboarding@resend.dev` | Verified sender; use a domain address once verified in Resend |
+
+Until `RESEND_API_KEY` is set, the forms gracefully fall back to a `mailto:`
+link so submissions are never lost.
 
 ## Deployment & DNS cutover
 

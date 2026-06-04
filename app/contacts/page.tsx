@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import ContactForm from "@/components/ContactForm";
 import PageHero from "@/components/PageHero";
 import { Container, SectionHeading } from "@/components/ui";
-import { site } from "@/content/site";
+import { departments, site } from "@/content/site";
 
 export const metadata: Metadata = {
   title: "Contact",
@@ -35,11 +35,33 @@ export default function ContactPage() {
                     {site.phone.local}
                   </a>
                 </Detail>
+                <Detail label="Fax">{site.phone.fax}</Detail>
                 <Detail label="Email">
                   <a href={`mailto:${site.email}`} className="hover:text-gold">
                     {site.email}
                   </a>
                 </Detail>
+              </dl>
+
+              <h3 className="mt-10 text-xs font-semibold uppercase tracking-widest2 text-gold">
+                Department Information
+              </h3>
+              <dl className="mt-4 divide-y divide-ink/10 border-y border-ink/10">
+                {departments.map((d) => (
+                  <div key={d.label} className="flex flex-wrap items-baseline justify-between gap-2 py-3">
+                    <dt className="text-sm text-ink/80">
+                      {d.label}
+                      {d.note && <span className="text-ink/50"> · {d.note}</span>}
+                    </dt>
+                    {d.email && (
+                      <dd className="text-sm">
+                        <a href={`mailto:${d.email}`} className="text-gold hover:underline">
+                          {d.email}
+                        </a>
+                      </dd>
+                    )}
+                  </div>
+                ))}
               </dl>
             </div>
             <div className="rounded-xl bg-white p-8 shadow-sm ring-1 ring-ink/5">

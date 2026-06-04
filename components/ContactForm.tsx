@@ -3,25 +3,46 @@
 import { useState } from "react";
 import { site } from "@/content/site";
 
-// For now this composes a pre-filled email to the hotel (no backend needed).
-// A serverless route handler that posts to an email/CRM service can replace the
-// mailto behavior later without changing the markup.
-export default function ContactForm() {
-  const [sent, setSent] = useState(false);
+type Status = "idle" | "sending" | "sent" | "error";
 
-  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+// Posts to /api/contact (Resend). If the backend isn't configured yet, falls
+// back to opening the visitor's mail client so the message is never lost.
+export default function ContactForm() {
+  const [status, setStatus] = useState<Status>("idle");
+
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     const form = e.currentTarget;
     const data = new FormData(form);
-    const name = String(data.get("name") || "");
-    const email = String(data.get("email") || "");
-    const message = String(data.get("message") || "");
-    const subject = encodeURIComponent(`Website enquiry from ${name || "a guest"}`);
-    const body = encodeURIComponent(
-      `Name: ${name}\nEmail: ${email}\n\n${message}`
-    );
-    window.location.href = `mailto:${site.email}?subject=${subject}&body=${body}`;
-    setSent(true);
+    const payload = {
+      name: String(data.get("name") || ""),
+      email: String(data.get("email") || ""),
+      phone: String(data.get("phone") || ""),
+      message: String(data.get("message") || ""),
+    };
+
+    setStatus("sending");
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+      if (res.ok) {
+        setStatus("sent");
+        form.reset();
+        return;
+      }
+      // Backend not configured (or send failed) — fall back to mailto.
+      const subject = encodeURIComponent(`Website enquiry from ${payload.name || "a guest"}`);
+      const body = encodeURIComponent(
+        `Name: ${payload.name}\nEmail: ${payload.email}\nPhone: ${payload.phone}\n\n${payload.message}`,
+      );
+      window.location.href = `mailto:${site.email}?subject=${subject}&body=${body}`;
+      setStatus("error");
+    } catch {
+      setStatus("error");
+    }
   }
 
   return (
@@ -31,7 +52,7 @@ export default function ContactForm() {
       <Field id="phone" label="Phone" type="tel" />
       <div>
         <label htmlFor="message" className="block text-sm font-medium text-ink">
-          How can we help?
+          How can we help? <span className="text-gold">*</span>
         </label>
         <textarea
           id="message"
@@ -43,14 +64,19 @@ export default function ContactForm() {
       </div>
       <button
         type="submit"
-        className="inline-flex items-center justify-center rounded-full bg-gold px-7 py-3 text-sm font-semibold uppercase tracking-widest text-white transition-colors hover:bg-gold-dark"
+        disabled={status === "sending"}
+        className="inline-flex items-center justify-center rounded-full bg-gold px-7 py-3 text-sm font-semibold uppercase tracking-widest text-white transition-colors hover:bg-gold-dark disabled:opacity-60"
       >
-        Send Message
+        {status === "sending" ? "Sending…" : "Send Message"}
       </button>
-      {sent && (
+      {status === "sent" && (
+        <p className="text-sm text-green-700">
+          Thank you — your message has been sent. We&rsquo;ll be in touch shortly.
+        </p>
+      )}
+      {status === "error" && (
         <p className="text-sm text-ink/70">
-          Thank you — your email client should open to complete sending. You can
-          also reach us at{" "}
+          We&rsquo;ve opened your email app to finish sending. You can also reach us at{" "}
           <a href={`tel:${site.phone.tollFree}`} className="text-gold underline">
             {site.phone.tollFree}
           </a>

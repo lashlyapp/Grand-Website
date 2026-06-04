@@ -2,9 +2,10 @@ import Image from "next/image";
 import Link from "next/link";
 import BookingBar from "@/components/BookingBar";
 import BookingButton from "@/components/BookingButton";
+import HeroReviews from "@/components/HeroReviews";
 import RoomCard from "@/components/RoomCard";
 import { Button, Container, SectionHeading } from "@/components/ui";
-import { amenities, site } from "@/content/site";
+import { amenities, site, testimonials } from "@/content/site";
 import { guestRooms } from "@/content/rooms";
 
 export default function HomePage() {
@@ -41,7 +42,11 @@ export default function HomePage() {
             </div>
           </div>
 
-          <div className="mt-12 max-w-4xl">
+          <div className="mt-8">
+            <HeroReviews />
+          </div>
+
+          <div className="mt-6 max-w-4xl">
             <BookingBar floating />
           </div>
         </Container>
@@ -119,6 +124,32 @@ export default function HomePage() {
                   {a.description}
                 </p>
               </div>
+            ))}
+          </div>
+        </Container>
+      </section>
+
+      {/* Testimonials */}
+      <section className="bg-sand/50 py-20 sm:py-28">
+        <Container>
+          <SectionHeading
+            eyebrow="Testimonials"
+            title="What our guests say"
+            align="center"
+          />
+          <div className="mt-14 grid gap-6 md:grid-cols-3">
+            {testimonials.map((t) => (
+              <figure
+                key={t.author}
+                className="flex flex-col rounded-xl bg-white p-8 shadow-sm ring-1 ring-ink/5"
+              >
+                <blockquote className="font-serif text-xl leading-relaxed text-ink">
+                  &ldquo;{t.quote}&rdquo;
+                </blockquote>
+                <figcaption className="mt-4 text-sm font-semibold uppercase tracking-widest text-gold">
+                  {t.author}
+                </figcaption>
+              </figure>
             ))}
           </div>
         </Container>

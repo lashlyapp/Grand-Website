@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import PageHero from "@/components/PageHero";
 import { Button, Container, SectionHeading } from "@/components/ui";
-import { site } from "@/content/site";
+import { attractions, site } from "@/content/site";
 
 export const metadata: Metadata = {
   title: "Location",
@@ -71,6 +71,34 @@ export default function LocationPage() {
                 className="min-h-[420px] w-full border-0"
               />
             </div>
+          </div>
+        </Container>
+      </section>
+
+      {/* Nearby attractions & employers */}
+      <section className="bg-sand/50 py-16 sm:py-24">
+        <Container>
+          <SectionHeading
+            eyebrow="Proximity at its Best"
+            title="Silicon Valley at your doorstep"
+          >
+            <p>
+              In the center of the Bay Area, The Grand Hotel is minutes from
+              Stanford University, the San Jose Convention Center, and the
+              region&rsquo;s leading employers — and a short drive from San
+              Francisco, Santa Cruz, and the Monterey Peninsula.
+            </p>
+          </SectionHeading>
+          <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {attractions.map((a) => (
+              <div
+                key={a.name}
+                className="rounded-xl bg-white p-6 shadow-sm ring-1 ring-ink/5"
+              >
+                <h3 className="font-serif text-xl text-ink">{a.name}</h3>
+                <p className="mt-2 text-sm text-ink/60">{a.detail}</p>
+              </div>
+            ))}
           </div>
         </Container>
       </section>
