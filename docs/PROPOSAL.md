@@ -86,15 +86,15 @@ account that already serves content to the current site:
   i.e. they are **not** locked into Cendyn. We keep using them as-is (Cloudflare
   Stream / R2 / CDN) and point the new Vercel site at the same sources. **No
   video migration needed.**
-- **DNS is likely already managed in this Cloudflare account** (to confirm). If
-  so, the cutover is a simple, fully self-controlled DNS change — Cendyn never
-  touches it. This neutralizes the "who controls DNS" risk.
+- The Cloudflare account is the **media CDN only** — **DNS and email are hosted
+  at GoDaddy** (see below), which we own and control.
 - We should also confirm whether the **Cloudflare account holds the still
   images** too, or only video (see below).
 
-> Practical note for the build: when fronting Vercel with Cloudflare DNS, set the
-> Vercel records to **DNS-only (grey-cloud)** or follow Vercel's recommended
-> Cloudflare setup to avoid double-proxy/SSL conflicts.
+> **DNS + email are at GoDaddy** (self-owned). The cutover is a self-service
+> record edit there — Cendyn is never in the loop. We point the apex/`www`
+> records at Vercel and **leave the MX + SPF/DKIM/DMARC records untouched** so
+> email keeps working.
 
 ### Vendor lock-in risks we must design around
 1. **Still images may be on Cendyn's CDNs.** Images load from
@@ -128,7 +128,7 @@ for a hotel), and direct-booking conversion.
 | Videos | **No** | Already served from the MyHotelOps Cloudflare account — keep as-is |
 | Still images / gallery | **Only those on Cendyn CDNs** | Download Cendyn-hosted images, re-host on the MyHotelOps Cloudflare account; images already on Cloudflare are fine |
 | Page URLs / SEO ranking | Risk | Keep identical URL paths; add 301 redirects; re-submit sitemap; preserve metadata + add schema.org Hotel data |
-| Email (info@cghotelgroup.com / domain email) | Risk | Only change web DNS records (A/CNAME/ALIAS); **leave MX records untouched** |
+| Email (GoDaddy-hosted) | Low | Change only the web DNS records at GoDaddy; **leave GoDaddy MX/SPF/DKIM untouched** |
 | Google Business Profile / OTA listings | No | Independent of website host |
 | Contact / careers form submissions | Maybe | Rebuild forms (e.g., serverless function + email or a form service) |
 | Analytics history | Partial | Stand up GA4 fresh; historical Cendyn analytics may not export |
@@ -143,10 +143,10 @@ A fast, low-maintenance, fully-owned stack:
   fast. First-class on Vercel.
 - **Hosting:** Vercel (Git-connected; every push auto-deploys with preview URLs).
 - **Styling:** Tailwind CSS for a clean, modern, responsive design system.
-- **Content editing (recommended):** a lightweight headless CMS (e.g. Sanity or
-  Contentful) so non-technical staff can edit rooms, rates blurbs, news, and
-  gallery without code. *(Alternative: keep content in the repo as
-  MDX/JSON — cheaper, but edits require a developer.)*
+- **Content (decided): developer-managed for now.** Content lives in the repo as
+  structured **MDX/JSON**, edited via Git. We architect the content layer cleanly
+  so **light CMS functions can be layered on later** for specific use cases
+  (e.g. news/offers) without re-platforming.
 - **Media:** keep videos on the existing **MyHotelOps Cloudflare** account;
   download any Cendyn-hosted still images and re-host them on the same Cloudflare
   account. End state: all assets on infrastructure we control, none on Cendyn.
@@ -154,8 +154,8 @@ A fast, low-maintenance, fully-owned stack:
   modern date-picker widget on our site that hands off dates to RezTrip.
 - **Forms:** serverless route for Contact/Careers → email + optional database
   (Supabase) for lead capture.
-- **Domain/DNS:** repoint `www` + apex of `svgrandhotel.com` to Vercel; **MX/email
-  untouched.**
+- **Domain/DNS:** at **GoDaddy** (self-owned), repoint `www` + apex of
+  `svgrandhotel.com` to Vercel; **GoDaddy-hosted MX/email left untouched.**
 
 This stack is essentially free-to-cheap at this traffic level (Vercel Hobby/Pro,
 small CMS plan) versus an ongoing captive monthly fee.
@@ -165,20 +165,19 @@ small CMS plan) versus an ongoing captive monthly fee.
 ## 5. DNS cutover plan (zero-downtime)
 
 1. Build and fully QA the new site on a Vercel preview URL.
-2. Inventory existing DNS at the registrar (A, CNAME, **MX**, TXT/SPF/DKIM, NS).
+2. In the **GoDaddy** DNS panel, inventory existing records (A, CNAME, **MX**,
+   TXT/SPF/DKIM, NS).
 3. Add the domain in Vercel; Vercel issues SSL automatically.
-4. **Only** update the web records: apex `A`/`ALIAS` and `www` `CNAME` → Vercel.
-   Lower TTL ~24h beforehand for a quick rollback window.
-5. **Do not touch MX or email-auth (SPF/DKIM/DMARC) records.**
+4. **Only** update the web records: apex `A`/forwarding and `www` `CNAME` →
+   Vercel (per Vercel's GoDaddy instructions). Lower TTL ~24h beforehand for a
+   quick rollback window.
+5. **Do not touch the GoDaddy MX or email-auth (SPF/DKIM/DMARC) records.**
 6. Verify SSL, all pages, booking links, forms, and email send/receive.
 7. Submit new sitemap to Google Search Console; monitor for 404s/redirects.
 
-> **Likely already in our favor:** if the `svgrandhotel.com` zone is on the
-> MyHotelOps **Cloudflare** account, steps 2–5 are a self-service DNS edit we
-> fully control — Cendyn is never in the loop. We just add the apex/`www` records
-> pointing to Vercel (DNS-only / grey-cloud) and leave MX intact. If the zone
-> turns out to live with Cendyn, we first move it to Cloudflare (re-creating all
-> records) before repointing web traffic.
+> Because DNS lives at **GoDaddy** (which we own), this entire cutover is
+> self-service — Cendyn is never in the loop, and there's **no contractual notice
+> period** (we can leave Cendyn whenever). Email stays put on GoDaddy.
 
 ---
 
@@ -230,20 +229,22 @@ The booking-engine fee only goes away in Phase 2.
 
 ---
 
-## 9. Open questions / what I need from you
+## 9. Confirmed facts & decisions
 
-1. **DNS zone:** Is `svgrandhotel.com`'s DNS managed in the **MyHotelOps
-   Cloudflare** account? (If yes, the cutover is fully self-service.) Can I get
-   access to that Cloudflare account for DNS + asset hosting?
-2. **Email:** Is hotel email tied to this domain's DNS, and where is it hosted?
-   (So we protect MX during cutover.)
-3. **Images:** Are the still images also on the MyHotelOps Cloudflare account, or
-   still on Cendyn's CDNs (`cdn.traveltripper.io` / Cloudinary)? Determines how
-   much image migration is needed.
-4. **Cendyn contract:** Any notice period / minimum term on the *website* portion?
-5. **Content editing:** Do staff need to self-edit content (→ headless CMS), or
-   is developer-managed content acceptable (→ cheaper, code-based)?
-6. **Booking engine:** Confirmed — keeping RezTrip. (No action needed.)
+- **DNS + email:** hosted at **GoDaddy** (self-owned). Cutover is a self-service
+  record edit there; MX/email left untouched.
+- **Cendyn contract:** **no notice period** — we can leave whenever. No blocker.
+- **Booking engine:** **keep RezTrip** (out of scope to replace).
+- **Videos:** served from the **MyHotelOps Cloudflare** account — kept as-is.
+- **Content model:** **developer-managed** (MDX/JSON in repo) now; light CMS
+  functions added later for specific use cases.
+
+### Remaining items to gather (not blockers to start building)
+1. **Cloudflare access** to the MyHotelOps account (for video sources + to
+   re-host any Cendyn-hosted still images there).
+2. **Images:** confirm which stills are already on Cloudflare vs. still on
+   Cendyn's CDNs (`cdn.traveltripper.io` / Cloudinary), so we capture the rest.
+3. **GoDaddy access** (or a collaborator invite) for the DNS cutover when ready.
 
 ---
 
