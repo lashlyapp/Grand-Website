@@ -78,11 +78,32 @@ A ~10–12 page brochure/marketing website:
 - **`reztrip.com` is Cendyn's own domain, not yours** — so it keeps working no
   matter where the marketing site is hosted. This is why migration is low-risk.
 
+### Assets we already control via MyHotelOps (Cloudflare)
+The Grand Hotel is a customer of **MyHotelOps**, which operates a **Cloudflare**
+account that already serves content to the current site:
+
+- **Videos on the current site are fed from the MyHotelOps Cloudflare account** —
+  i.e. they are **not** locked into Cendyn. We keep using them as-is (Cloudflare
+  Stream / R2 / CDN) and point the new Vercel site at the same sources. **No
+  video migration needed.**
+- **DNS is likely already managed in this Cloudflare account** (to confirm). If
+  so, the cutover is a simple, fully self-controlled DNS change — Cendyn never
+  touches it. This neutralizes the "who controls DNS" risk.
+- We should also confirm whether the **Cloudflare account holds the still
+  images** too, or only video (see below).
+
+> Practical note for the build: when fronting Vercel with Cloudflare DNS, set the
+> Vercel records to **DNS-only (grey-cloud)** or follow Vercel's recommended
+> Cloudflare setup to avoid double-proxy/SSL conflicts.
+
 ### Vendor lock-in risks we must design around
-1. **Media is on Cendyn's CDNs.** Images load from `cdn.traveltripper.io`
-   (Travel Tripper = Cendyn) and `res.cloudinary.com`. If Cendyn cuts service,
-   these images disappear. **The rebuild must download and re-host every image
-   onto our own storage/CDN.** This is the biggest "gotcha."
+1. **Still images may be on Cendyn's CDNs.** Images load from
+   `cdn.traveltripper.io` (Travel Tripper = Cendyn) and `res.cloudinary.com`.
+   Any image served from a *Cendyn-owned* account disappears if Cendyn cuts
+   service — **those must be downloaded and re-hosted** (ideally onto the same
+   MyHotelOps Cloudflare account, alongside the video). Images already on the
+   MyHotelOps Cloudflare account are safe and need no migration. We'll separate
+   the two during asset capture.
 2. **The CMS/templates are Cendyn's.** We cannot export them cleanly; we
    recreate the site (content + design) rather than "transfer" it.
 3. **The booking engine is also Cendyn.** Covered above — separate decision.
@@ -104,7 +125,8 @@ for a hotel), and direct-booking conversion.
 | Item | Breaks? | Mitigation |
 |------|--------|------------|
 | "Book Now" / reservations | **No** | Keep linking to `svgrandhotel.reztrip.com` (+ preserve `selected_room` deep-links) |
-| Images / gallery | **Yes, if not handled** | Download all media from Cendyn CDNs, re-host on our own CDN |
+| Videos | **No** | Already served from the MyHotelOps Cloudflare account — keep as-is |
+| Still images / gallery | **Only those on Cendyn CDNs** | Download Cendyn-hosted images, re-host on the MyHotelOps Cloudflare account; images already on Cloudflare are fine |
 | Page URLs / SEO ranking | Risk | Keep identical URL paths; add 301 redirects; re-submit sitemap; preserve metadata + add schema.org Hotel data |
 | Email (info@cghotelgroup.com / domain email) | Risk | Only change web DNS records (A/CNAME/ALIAS); **leave MX records untouched** |
 | Google Business Profile / OTA listings | No | Independent of website host |
@@ -125,8 +147,9 @@ A fast, low-maintenance, fully-owned stack:
   Contentful) so non-technical staff can edit rooms, rates blurbs, news, and
   gallery without code. *(Alternative: keep content in the repo as
   MDX/JSON — cheaper, but edits require a developer.)*
-- **Media:** download all current images, re-host on our CDN (Vercel/Cloudinary
-  under *our* account / Supabase Storage). No more Cendyn-owned assets.
+- **Media:** keep videos on the existing **MyHotelOps Cloudflare** account;
+  download any Cendyn-hosted still images and re-host them on the same Cloudflare
+  account. End state: all assets on infrastructure we control, none on Cendyn.
 - **Booking:** "Book Now" continues to deep-link to RezTrip, with an optional
   modern date-picker widget on our site that hands off dates to RezTrip.
 - **Forms:** serverless route for Contact/Careers → email + optional database
@@ -150,9 +173,12 @@ small CMS plan) versus an ongoing captive monthly fee.
 6. Verify SSL, all pages, booking links, forms, and email send/receive.
 7. Submit new sitemap to Google Search Console; monitor for 404s/redirects.
 
-> Note: if Cendyn currently *hosts the DNS zone itself*, we first move DNS to a
-> registrar/provider we control (e.g. Cloudflare/registrar DNS), re-creating all
-> records, before repointing web traffic. We'll confirm where the zone lives.
+> **Likely already in our favor:** if the `svgrandhotel.com` zone is on the
+> MyHotelOps **Cloudflare** account, steps 2–5 are a self-service DNS edit we
+> fully control — Cendyn is never in the loop. We just add the apex/`www` records
+> pointing to Vercel (DNS-only / grey-cloud) and leave MX intact. If the zone
+> turns out to live with Cendyn, we first move it to Cloudflare (re-creating all
+> records) before repointing web traffic.
 
 ---
 
@@ -206,16 +232,18 @@ The booking-engine fee only goes away in Phase 2.
 
 ## 9. Open questions / what I need from you
 
-1. **Email:** Is `svgrandhotel.com` (or CG Hotel Group) email tied to this
-   domain's DNS, and who hosts it? (So we protect MX during cutover.)
-2. **DNS zone:** Who controls the DNS zone today — your registrar, or Cendyn?
-3. **Cendyn contract:** Any notice period / minimum term / early-termination on
-   the website portion? Do website and booking engine renew separately?
-4. **Content editing:** Do staff need to self-edit content (→ headless CMS), or
+1. **DNS zone:** Is `svgrandhotel.com`'s DNS managed in the **MyHotelOps
+   Cloudflare** account? (If yes, the cutover is fully self-service.) Can I get
+   access to that Cloudflare account for DNS + asset hosting?
+2. **Email:** Is hotel email tied to this domain's DNS, and where is it hosted?
+   (So we protect MX during cutover.)
+3. **Images:** Are the still images also on the MyHotelOps Cloudflare account, or
+   still on Cendyn's CDNs (`cdn.traveltripper.io` / Cloudinary)? Determines how
+   much image migration is needed.
+4. **Cendyn contract:** Any notice period / minimum term on the *website* portion?
+5. **Content editing:** Do staff need to self-edit content (→ headless CMS), or
    is developer-managed content acceptable (→ cheaper, code-based)?
-5. **Booking engine:** Confirmed — keeping RezTrip. (No action needed.)
-6. **Brand assets:** Do we have original-resolution logos/photography, or should
-   we recover everything from the current site's CDNs?
+6. **Booking engine:** Confirmed — keeping RezTrip. (No action needed.)
 
 ---
 
