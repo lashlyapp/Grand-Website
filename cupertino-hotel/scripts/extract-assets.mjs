@@ -15,9 +15,10 @@
  *   Grand's 362_543_22953)
  * - res.cloudinary.com/traveltripperweb                  (feature photo)
  *
- * The wordmark logo is an inline SVG (public/images/logotype.svg) so it reads
- * cleanly on the dark header/footer; we don't overwrite it with the source logo
- * (which is dark, for a light background).
+ * The wordmark is the property's official vector logo, self-hosted as SVG:
+ * - logotype.svg / logotype-white.svg — white fill, for the dark header/footer
+ * - logotype-black.svg                — black fill, for light backgrounds
+ * (sourced from cupertino-hotel.com/images/logotype{,-black}.svg).
  */
 import { mkdir, writeFile } from "node:fs/promises";
 import { dirname, join } from "node:path";
