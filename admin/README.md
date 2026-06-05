@@ -9,15 +9,30 @@ writes room data; both public sites read it.
 
 ## Status (phased build)
 
-- **Phase 0 ✅ (this):** Shared Supabase schema (`hotels`, `rooms`, `room_frames`)
-  + RLS, seeded from both sites' `content/rooms.ts`. Admin app shell that lists
-  all rooms per hotel (read-only).
-- **Phase 1:** Supabase Auth (admin allowlist) + room create/edit/reorder, with
-  publish that revalidates the public sites.
+- **Phase 0 ✅:** Shared Supabase schema (`hotels`, `rooms`, `room_frames`) +
+  RLS, seeded from both sites' `content/rooms.ts`.
+- **Phase 1 ✅:** Magic-link auth (`@supabase/ssr`) + admin allowlist; every
+  route gated by middleware. Room **create / edit / delete** via server actions
+  (writes enforced by RLS to admins). List view links into the editor.
 - **Phase 2:** Update a room's tour video, auto-generate **3 candidate cover
   frames** from it (server-side ffmpeg, range-reading the MyHotelOps CDN), and
   pick one — FB/TikTok/YouTube-style. Manual upload remains as a fallback.
-- **Phase 3:** Polish — drag-reorder, audit log, live room preview.
+- **Phase 3:** Polish — drag-reorder, audit log, live room preview, and wiring
+  the public sites to read from Supabase (with publish → revalidate).
+
+## Auth setup (one-time)
+
+1. **Supabase → Authentication → URL Configuration:** set **Site URL** and add
+   to **Redirect URLs**: `http://localhost:3002/auth/callback` (dev) and
+   `https://<admin-domain>/auth/callback` (prod).
+2. **Add the first admin.** The `admins` table starts empty and RLS blocks
+   writes until you're in it. Sign in once (creates your `auth.users` row),
+   then run in the Supabase SQL editor:
+   ```sql
+   insert into public.admins (user_id, email)
+   select id, email from auth.users where email = 'you@cghotelgroup.com'
+   on conflict (user_id) do nothing;
+   ```
 
 ## Local development
 

@@ -1,13 +1,20 @@
 import "./globals.css";
 import Link from "next/link";
 import type { Metadata } from "next";
+import { getUser } from "@/lib/auth";
 
 export const metadata: Metadata = {
   title: "CG Hotels Admin",
   description: "Manage room content for The Grand and The Cupertino hotels.",
 };
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default async function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  const user = await getUser();
+
   return (
     <html lang="en">
       <body>
@@ -21,6 +28,16 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 Rooms
               </Link>
             </nav>
+            {user && (
+              <div className="ml-auto flex items-center gap-3 text-sm text-ink/60">
+                <span>{user.email}</span>
+                <form action="/auth/signout" method="post">
+                  <button className="text-gold hover:text-gold-dark">
+                    Sign out
+                  </button>
+                </form>
+              </div>
+            )}
           </div>
         </header>
         <main className="mx-auto max-w-6xl px-5 py-8">{children}</main>
