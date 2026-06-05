@@ -35,9 +35,9 @@ export default function Header() {
           <Image
             src="/images/the-grand-logo.png"
             alt={site.name}
-            width={160}
-            height={56}
-            className="h-14 w-auto"
+            width={150}
+            height={52}
+            className="h-12 w-auto"
             priority
           />
         </Link>
