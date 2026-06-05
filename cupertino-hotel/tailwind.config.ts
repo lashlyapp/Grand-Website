@@ -9,16 +9,23 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        // Modern refresh of the existing brand: warm, understated luxury.
+        // The Cupertino Hotel shares the sister property's design system but
+        // wears its own skin: where The Grand (Sunnyvale) is warm and boutique,
+        // Cupertino is cooler, cleaner and more contemporary — fitting a hotel
+        // directly across from Apple Park. Same token names, distinct values,
+        // so the whole site re-skins without structural changes.
         ink: {
-          DEFAULT: "#1c1b19",
-          soft: "#2c2a27",
+          DEFAULT: "#15171c", // cool charcoal (vs the Grand's warm near-black)
+          soft: "#252934",
         },
-        cream: "#f7f3ec",
-        sand: "#efe7da",
+        cream: "#f5f6f8", // cool off-white (vs the Grand's warm cream)
+        sand: "#e7ebef", // cool stone (vs the Grand's warm sand)
+        // Accent: a deeper, cooler antique brass — distinct from the Grand's
+        // lighter warm bronze, and dark enough to read cleanly on the cool
+        // neutrals. Token stays "gold" so the shared components don't change.
         gold: {
-          DEFAULT: "#b08d57",
-          dark: "#947341",
+          DEFAULT: "#9c7b3c",
+          dark: "#856634",
         },
       },
       fontFamily: {

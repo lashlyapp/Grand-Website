@@ -9,6 +9,16 @@ import { Button, Container, SectionHeading } from "@/components/ui";
 import { amenities, site, testimonials } from "@/content/site";
 import { guestRooms } from "@/content/rooms";
 
+// Cupertino's signature: the address itself. These travel facts anchor the
+// site's personality on what's unique to this property — being across the
+// street from Apple Park, at the center of Silicon Valley.
+const locationFacts = [
+  { value: "Across the street", label: "Apple Park" },
+  { value: "15 min", label: "San Jose Int'l Airport" },
+  { value: "15 min", label: "Levi's Stadium" },
+  { value: "30–40 min", label: "SF & Oakland airports" },
+];
+
 export default function HomePage() {
   return (
     <>
@@ -26,7 +36,7 @@ export default function HomePage() {
         <Container className="relative z-10 pt-24">
           <div className="max-w-2xl">
             <p className="text-xs font-semibold uppercase tracking-widest2 text-gold">
-              Cupertino · Silicon Valley
+              Across from Apple Park · Cupertino
             </p>
             <h1 className="mt-4 font-serif text-5xl leading-[1.05] text-white sm:text-6xl">
               A welcoming haven in the heart of Silicon Valley
@@ -90,6 +100,28 @@ export default function HomePage() {
               </div>
             </div>
           </div>
+        </Container>
+      </section>
+
+      {/* Signature band — Cupertino's defining address (across from Apple Park) */}
+      <section className="border-y border-ink/10 bg-cream py-14">
+        <Container>
+          <p className="text-center text-xs font-semibold uppercase tracking-widest2 text-gold">
+            Across from Apple Park
+          </p>
+          <p className="mx-auto mt-3 max-w-2xl text-center font-serif text-2xl leading-snug text-ink sm:text-3xl">
+            No other Silicon Valley address puts you closer to it all.
+          </p>
+          <dl className="mt-10 grid grid-cols-2 gap-px overflow-hidden rounded-xl bg-ink/10 lg:grid-cols-4">
+            {locationFacts.map((f) => (
+              <div key={f.label} className="bg-cream px-6 py-8 text-center">
+                <dt className="font-serif text-2xl leading-tight text-gold sm:text-3xl">
+                  {f.value}
+                </dt>
+                <dd className="mt-2 text-sm text-ink/70">{f.label}</dd>
+              </div>
+            ))}
+          </dl>
         </Container>
       </section>
 
