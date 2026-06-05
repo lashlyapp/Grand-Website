@@ -1,5 +1,5 @@
 import { createSupabaseServerClient } from "./supabase/server";
-import type { Hotel, Room } from "./types";
+import type { Hotel, Room, RoomFrame } from "./types";
 
 export async function getHotels(): Promise<Hotel[]> {
   const supabase = createSupabaseServerClient();
@@ -33,4 +33,15 @@ export async function getRoomById(id: string): Promise<Room | null> {
     .maybeSingle();
   if (error) throw new Error(`Failed to load room: ${error.message}`);
   return (data as Room) ?? null;
+}
+
+export async function getRoomFrames(roomId: string): Promise<RoomFrame[]> {
+  const supabase = createSupabaseServerClient();
+  const { data, error } = await supabase
+    .from("room_frames")
+    .select("*")
+    .eq("room_id", roomId)
+    .order("timestamp_seconds");
+  if (error) throw new Error(`Failed to load room frames: ${error.message}`);
+  return (data ?? []) as RoomFrame[];
 }

@@ -63,3 +63,23 @@ export async function deleteRoom(id: string) {
   revalidatePath("/rooms");
   redirect("/rooms");
 }
+
+// Picks one of the generated frames (or any URL) as the room's cover.
+export async function selectCover(roomId: string, url: string) {
+  const supabase = createSupabaseServerClient();
+  const { error } = await supabase
+    .from("rooms")
+    .update({ cover_image_url: url })
+    .eq("id", roomId);
+  if (error) throw new Error(`Set cover failed: ${error.message}`);
+
+  await supabase.from("room_frames").update({ selected: false }).eq("room_id", roomId);
+  await supabase
+    .from("room_frames")
+    .update({ selected: true })
+    .eq("room_id", roomId)
+    .eq("url", url);
+
+  revalidatePath("/rooms");
+  revalidatePath(`/rooms/${roomId}/edit`);
+}

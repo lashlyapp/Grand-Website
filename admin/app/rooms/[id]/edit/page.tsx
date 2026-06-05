@@ -1,7 +1,8 @@
 import { notFound } from "next/navigation";
-import { getRoomById } from "@/lib/rooms";
+import { getRoomById, getRoomFrames } from "@/lib/rooms";
 import { isAdmin } from "@/lib/auth";
 import RoomForm from "@/components/RoomForm";
+import CoverPicker from "@/components/CoverPicker";
 import NotAdmin from "@/components/NotAdmin";
 import { updateRoom, deleteRoom } from "@/app/rooms/actions";
 
@@ -13,7 +14,10 @@ export default async function EditRoomPage({
   params: { id: string };
 }) {
   if (!(await isAdmin())) return <NotAdmin />;
-  const room = await getRoomById(params.id);
+  const [room, frames] = await Promise.all([
+    getRoomById(params.id),
+    getRoomFrames(params.id),
+  ]);
   if (!room) notFound();
 
   const update = updateRoom.bind(null, room.id);
@@ -34,6 +38,17 @@ export default async function EditRoomPage({
           </button>
         </form>
       </div>
+
+      <CoverPicker
+        roomId={room.id}
+        videoUrl={room.video_url}
+        cover={room.cover_image_url}
+        initialFrames={frames.map((f) => ({
+          url: f.url,
+          timestamp_seconds: f.timestamp_seconds,
+        }))}
+      />
+
       <RoomForm action={update} room={room} submitLabel="Save changes" />
     </div>
   );

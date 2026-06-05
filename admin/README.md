@@ -14,11 +14,25 @@ writes room data; both public sites read it.
 - **Phase 1 ✅:** Magic-link auth (`@supabase/ssr`) + admin allowlist; every
   route gated by middleware. Room **create / edit / delete** via server actions
   (writes enforced by RLS to admins). List view links into the editor.
-- **Phase 2:** Update a room's tour video, auto-generate **3 candidate cover
-  frames** from it (server-side ffmpeg, range-reading the MyHotelOps CDN), and
-  pick one — FB/TikTok/YouTube-style. Manual upload remains as a fallback.
+- **Phase 2 ✅:** Update a room's tour video, then **capture 3 candidate cover
+  frames** from it and pick one (YouTube/TikTok-style) — no separate photo
+  upload. Frames are extracted server-side with a bundled static **ffmpeg**
+  (`/api/frames`, Node runtime), uploaded to the `room-media` bucket, and listed
+  as a picker on the room editor. Manual `cover_image_url` entry remains a
+  fallback.
 - **Phase 3:** Polish — drag-reorder, audit log, live room preview, and wiring
   the public sites to read from Supabase (with publish → revalidate).
+
+### Phase 2 notes (frame capture)
+
+- The MyHotelOps CDN has **no CORS**, so browser `<canvas>` capture is
+  impossible; extraction runs server-side. The route **downloads the full video
+  to `/tmp`** and runs ffmpeg locally (ffmpeg's own HTTP layer is unreliable
+  across runtimes). Videos are ~50 MB; budget is `maxDuration = 60s`.
+- `ffmpeg-static` (~80 MB binary) is bundled into the `/api/frames` function via
+  `outputFileTracingIncludes` in `next.config.mjs`.
+- Frames are written to `room-media/rooms/{roomId}/frame-{0..2}.jpg` (upsert),
+  1600px wide, JPEG q≈3. Regeneration replaces the previous candidates.
 
 ## Auth setup (one-time)
 
