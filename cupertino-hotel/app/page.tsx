@@ -25,7 +25,7 @@ export default function HomePage() {
       {/* Hero */}
       <section className="relative flex min-h-[92vh] items-center overflow-hidden bg-ink">
         <Image
-          src="/images/hero.png"
+          src="/images/hero.jpg"
           alt="A king suite at The Cupertino Hotel"
           fill
           priority
