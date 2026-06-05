@@ -141,11 +141,30 @@ export function isBookingEngineReady(): boolean {
   return typeof window !== "undefined" && !!window.__ttwebReady;
 }
 
+// Collapses the live widget when a pointer press lands outside it. The widget's
+// root element carries `.ttweb-booking-widget` (and `.show` while open) and is
+// appended to <body>, so anything outside it is page content. We listen on
+// pointerdown (not click) so the button press that opens the widget — its click
+// fires afterwards — doesn't immediately re-close it.
+function onPointerDownOutside(e: PointerEvent) {
+  const booking = window.__ttBooking;
+  const widget: HTMLElement | undefined = booking?.$widget?.[0];
+  if (!widget || !widget.classList.contains("show")) return;
+  if (widget.contains(e.target as Node)) return;
+  try {
+    if (typeof booking.hideWidget === "function") booking.hideWidget();
+  } catch {
+    // Best-effort; leave the widget open if the API drifts.
+  }
+}
+
 export default function BookingEngine() {
   useEffect(() => {
     loadBookingEngine().catch((err) =>
       console.warn("Booking engine failed to load; using fallback drawer.", err),
     );
+    document.addEventListener("pointerdown", onPointerDownOutside);
+    return () => document.removeEventListener("pointerdown", onPointerDownOutside);
   }, []);
   return null;
 }
