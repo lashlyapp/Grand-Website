@@ -67,8 +67,10 @@ All imagery is **real Cupertino photography**, self-hosted in `public/images/`:
 **Virtual-tour videos** stream directly from MyHotelOps (not committed) — the
 four room tours (`deluxe-room`, `executive-suite-king`, `executive-suite-queen`,
 `fireplace-parlor`) are mapped to the booking rooms in `content/rooms.ts` and
-play in the room-detail modal. The hotel wordmark is an inline SVG
-(`public/images/logotype.svg`).
+play in the room-detail modal. The hotel wordmark is the property's official
+vector logo, self-hosted as SVG — `public/images/logotype.svg` /
+`logotype-white.svg` (white, for the dark header/footer) and
+`logotype-black.svg` (black, for light backgrounds).
 
 ## Known placeholders / TODO
 
