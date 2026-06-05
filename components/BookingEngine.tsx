@@ -66,14 +66,69 @@ export function loadBookingEngine(): Promise<void> {
   return loadPromise;
 }
 
-// Opens the live-rate booking slide-out. Returns false if the engine isn't
-// available so the caller can fall back to the custom drawer.
-export function openTtwebWidget(): boolean {
+// Dates/guests chosen elsewhere (e.g. the hero booking bar) that should pre-seed
+// the live widget when it opens. Dates are YYYY-MM-DD — the same format the
+// widget stores internally (its "reztrip" date format).
+export type WidgetParams = {
+  checkin?: string;
+  checkout?: string;
+  adults?: number;
+};
+
+// Parses a YYYY-MM-DD string as a local Date (avoiding the UTC-midnight
+// off-by-one of `new Date("2026-06-18")`). Used only to point the calendar at
+// the arrival month.
+function localDate(day: string): Date {
+  const [y, m, d] = day.split("-").map(Number);
+  return new Date(y, m - 1, d);
+}
+
+// Pushes the chosen dates/guests onto an (already built) TTWeb booking widget so
+// the slide-out reflects what the user picked. The widget is third-party and
+// minified, so every call is feature-detected and the whole thing is wrapped by
+// the caller — if any of this drifts, the widget still opens with its defaults.
+function applyWidgetParams(booking: any, params: WidgetParams) {
+  if (params.checkin && typeof booking.setArrival === "function") {
+    booking.setArrival(params.checkin);
+  }
+  if (params.checkout && typeof booking.setDeparture === "function") {
+    booking.setDeparture(params.checkout);
+  }
+  // Point the calendar at the arrival month so the selected range is visible.
+  if (params.checkin) booking.currentMonth = localDate(params.checkin);
+
+  // Syncing the guest count through the widget's own <select> change handler
+  // updates the visible dropdown AND re-renders the calendar/footer rate for the
+  // new dates (updateAdults calls loadRateCalendarMonth + getRates). When no
+  // guest count is supplied we trigger that refresh ourselves.
+  if (typeof params.adults === "number" && booking.$adultSelector?.length) {
+    booking.$adultSelector.val(String(params.adults)).trigger("change");
+  } else {
+    if (typeof booking.loadRateCalendarMonth === "function") {
+      booking.loadRateCalendarMonth(booking.currentMonth);
+    }
+    if (typeof booking.getRates === "function") booking.getRates();
+  }
+}
+
+// Opens the live-rate booking slide-out, pre-seeded with any chosen dates/guests.
+// Returns false if the engine isn't available so the caller can fall back to the
+// custom drawer.
+export function openTtwebWidget(params: WidgetParams = {}): boolean {
   const TT = typeof window !== "undefined" ? window.TTWeb : undefined;
   if (!TT?.Booking) return false;
   try {
     if (!window.__ttBooking) {
-      window.__ttBooking = new TT.Booking({ showRateCalendar: true, showOfferCode: true });
+      window.__ttBooking = new TT.Booking({
+        showRateCalendar: true,
+        showOfferCode: true,
+        adults: params.adults,
+      });
+    }
+    try {
+      applyWidgetParams(window.__ttBooking, params);
+    } catch {
+      // Seeding failed — still open the widget with its own defaults.
     }
     window.__ttBooking.showWidget();
     return true;

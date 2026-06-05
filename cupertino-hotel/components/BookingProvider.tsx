@@ -49,9 +49,10 @@ export function BookingProvider({ children }: { children: React.ReactNode }) {
   const [params, setParams] = useState<BookingParams>({});
 
   const openBooking = useCallback((next?: BookingParams) => {
-    // Prefer the real Travel Tripper live-rate widget. Fall back to the custom
-    // drawer if the engine hasn't loaded yet (or fails to).
-    if (isBookingEngineReady() && openTtwebWidget()) return;
+    // Prefer the real Travel Tripper live-rate widget, seeded with whatever the
+    // caller chose (e.g. the hero booking bar's dates/guests). Fall back to the
+    // custom drawer if the engine hasn't loaded yet (or fails to).
+    if (isBookingEngineReady() && openTtwebWidget(next)) return;
     loadBookingEngine().catch(() => {});
     setParams(next ?? {});
     setOpen(true);
