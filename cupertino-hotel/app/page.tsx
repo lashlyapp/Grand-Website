@@ -32,9 +32,9 @@ export default function HomePage() {
               A welcoming haven in the heart of Silicon Valley
             </h1>
             <p className="mt-6 max-w-xl text-lg leading-relaxed text-white/85">
-              {site.tagline}. Directly across from Apple Park and minutes from San
-              Jose International Airport — value, comfort, and an unbeatable
-              location await.
+              {site.tagline}. The Cupertino Hotel is easily accessible from all
+              major Silicon Valley freeways — directly across the street from
+              Apple Park and just 15 minutes from San Jose International Airport.
             </p>
             <div className="mt-8 flex flex-wrap gap-4">
               <Button href="/rooms/">Explore Rooms</Button>
@@ -69,17 +69,18 @@ export default function HomePage() {
               />
             </div>
             <div>
-              <SectionHeading eyebrow="Our Hotel" title="A welcoming haven for every traveler">
+              <SectionHeading eyebrow="Comfort & Style" title="Value and an unbeatable location in the heart of Silicon Valley">
                 <p>
-                  The Cupertino Hotel is easily accessible from all major Silicon
-                  Valley freeways — 15 minutes from San Jose International Airport
-                  and only 30 to 40 minutes from both San Francisco and Oakland
-                  International Airports.
+                  Relax in the comfort of the Cupertino Hotel — offering value and
+                  an unbeatable location in the heart of Silicon Valley, surrounded
+                  by the region&rsquo;s largest high-tech companies, financial
+                  institutions, and major universities.
                 </p>
                 <p className="mt-4">
-                  Whether you are here for business or leisure, our property pairs
-                  spacious, modern rooms with warm, attentive service — right
-                  across the street from Apple Park.
+                  Whether you are here for business or leisure, we take pride in our
+                  exemplary guest service, pairing spacious, modern, elegant rooms
+                  and suites with a warm welcome — right across the street from
+                  Apple Park.
                 </p>
               </SectionHeading>
               <div className="mt-8">
@@ -96,7 +97,7 @@ export default function HomePage() {
       <section className="bg-sand/50 py-20 sm:py-28">
         <Container>
           <div className="flex flex-col items-start justify-between gap-6 sm:flex-row sm:items-end">
-            <SectionHeading eyebrow="Stay" title="Rooms & suites for every stay" />
+            <SectionHeading eyebrow="Accommodations" title="Sleek, modern rooms designed to inspire rest" />
             <Link
               href="/rooms/"
               className="text-sm font-semibold uppercase tracking-widest text-gold hover:text-gold-dark"
@@ -176,9 +177,11 @@ export default function HomePage() {
               light
             >
               <p>
-                {site.address.full} — directly across from Apple Park, at the
-                intersection of Highway 280 and De Anza Boulevard, moments from the
-                region&rsquo;s leading employers, shopping, and dining.
+                {site.address.full} — directly across the street from Apple Park,
+                at the intersection of Highway 280 and De Anza Boulevard. Just 15
+                minutes from San Jose International Airport and Levi&rsquo;s
+                Stadium, and moments from the region&rsquo;s leading employers,
+                shopping, and dining.
               </p>
             </SectionHeading>
             <div className="mt-8 flex flex-wrap gap-4">
