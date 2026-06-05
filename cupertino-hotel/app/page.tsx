@@ -15,7 +15,7 @@ export default function HomePage() {
       {/* Hero */}
       <section className="relative flex min-h-[92vh] items-center overflow-hidden bg-ink">
         <Image
-          src="/images/suites.jpg"
+          src="/images/hero.jpg"
           alt="The Cupertino Hotel, across from Apple Park"
           fill
           priority
@@ -61,7 +61,7 @@ export default function HomePage() {
           <div className="grid items-center gap-12 lg:grid-cols-2">
             <div className="relative aspect-[5/4] overflow-hidden rounded-xl">
               <Image
-                src="/images/about_1.jpg"
+                src="/images/lobby.jpg"
                 alt="Inside The Cupertino Hotel"
                 fill
                 sizes="(min-width: 1024px) 50vw, 100vw"
@@ -162,7 +162,7 @@ export default function HomePage() {
       {/* Location strip */}
       <section className="relative overflow-hidden bg-ink py-20 sm:py-28">
         <Image
-          src="/images/heated-pool.jpg"
+          src="/images/pool.jpg"
           alt=""
           fill
           sizes="100vw"

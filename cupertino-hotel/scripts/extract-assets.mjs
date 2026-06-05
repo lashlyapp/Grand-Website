@@ -25,6 +25,9 @@ import { dirname, join } from "node:path";
 const OUT = join(process.cwd(), "public", "images");
 const SITE = "https://www.cupertino-hotel.com/images";
 const CDN = "https://cdn.traveltripper.io/site-assets/362_837_22955/media";
+// MyHotelOps (Cloudflare R2) CDN — the property's real photo/video library.
+const MHO =
+  "https://cdn.myhotelops.com/cg-hotel-group/cupertino-hotel/8583.11604.cupertino.cupertino-hotel";
 
 // Key = local filename used by the app, value = source URL on the live site.
 const ASSETS = {
@@ -54,6 +57,23 @@ const ASSETS = {
   // Feature photo (Cloudinary).
   "feature.jpg":
     "https://res.cloudinary.com/traveltripperweb/image/upload/c_limit,f_auto,h_2500,q_auto,w_2500/v1624043137/kzm6gsf5gtszmdnqpxy9.jpg",
+
+  // --- MyHotelOps poster stills (real Cupertino photography) ---------------
+  // The hotel's MyHotelOps account (cg-hotel-group/cupertino-hotel) holds the
+  // real room + amenity media. Each tour video has a matching .jpg poster; we
+  // self-host the posters here and stream the .mp4 tours directly (see
+  // content/rooms.ts). File prefix: 8583.11604.cupertino.cupertino-hotel.
+  "hero.jpg": `${MHO}.hero.jpg`,
+  "lobby.jpg": `${MHO}.other.lobby-reception.jpg`,
+  "overview.jpg": `${MHO}.overview.jpg`,
+  "overview-2.jpg": `${MHO}.premium-overview.jpg`,
+  "pool.jpg": `${MHO}.amenity.swimming-pool.jpg`,
+  "breakfast.jpg": `${MHO}.amenity.breakfast-restaurant-bar.jpg`,
+  "meeting-room.jpg": `${MHO}.amenity.meeting-room.jpg`,
+  "rooms/deluxe-room.jpg": `${MHO}.room.deluxe-room.jpg`,
+  "rooms/executive-suite-king.jpg": `${MHO}.room.executive-suite-king.jpg`,
+  "rooms/executive-suite-queen.jpg": `${MHO}.room.executive-suite-queen.jpg`,
+  "rooms/fireplace-parlor.jpg": `${MHO}.room.fireplace-parlor.jpg`,
 };
 
 async function download(name, url) {

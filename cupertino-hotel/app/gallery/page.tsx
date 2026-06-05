@@ -11,18 +11,20 @@ export const metadata: Metadata = {
 };
 
 const photos = [
-  { src: "/images/suites.jpg", alt: "The Cupertino Hotel — guest suite", span: "lg:col-span-2 lg:row-span-2" },
-  { src: "/images/gallery/c-01.jpg", alt: "The Cupertino Hotel interior" },
-  { src: "/images/gallery/c-02.jpg", alt: "The Cupertino Hotel — guest room" },
-  { src: "/images/gallery/c-03.jpg", alt: "The Cupertino Hotel amenities", span: "lg:col-span-2" },
-  { src: "/images/gallery/c-04.jpg", alt: "The Cupertino Hotel interior" },
-  { src: "/images/gallery/c-05.jpg", alt: "The Cupertino Hotel — guest room" },
-  { src: "/images/gallery/c-06.jpg", alt: "The Cupertino Hotel interior" },
-  { src: "/images/gallery/c-07.jpg", alt: "The Cupertino Hotel amenities", span: "lg:col-span-2" },
-  { src: "/images/gallery/c-08.jpg", alt: "The Cupertino Hotel interior" },
-  { src: "/images/gallery/c-09.jpg", alt: "The Cupertino Hotel — guest room" },
-  { src: "/images/feature.jpg", alt: "The Cupertino Hotel" },
-  { src: "/images/amenities.jpg", alt: "The Cupertino Hotel amenities", span: "lg:col-span-2" },
+  { src: "/images/hero.jpg", alt: "The Cupertino Hotel", span: "lg:col-span-2 lg:row-span-2" },
+  { src: "/images/rooms/executive-suite-king.jpg", alt: "Executive king suite" },
+  { src: "/images/rooms/deluxe-room.jpg", alt: "Deluxe guest room" },
+  { src: "/images/pool.jpg", alt: "Heated outdoor pool", span: "lg:col-span-2" },
+  { src: "/images/lobby.jpg", alt: "Lobby and reception" },
+  { src: "/images/rooms/executive-suite-queen.jpg", alt: "Executive two-queen room" },
+  { src: "/images/breakfast.jpg", alt: "Breakfast, restaurant & bar" },
+  { src: "/images/overview.jpg", alt: "The Cupertino Hotel", span: "lg:col-span-2" },
+  { src: "/images/rooms/fireplace-parlor.jpg", alt: "Fireplace parlor suite" },
+  { src: "/images/meeting-room.jpg", alt: "Meeting room" },
+  { src: "/images/gallery/c-02.jpg", alt: "The Cupertino Hotel interior" },
+  { src: "/images/gallery/c-05.jpg", alt: "The Cupertino Hotel grounds", span: "lg:col-span-2" },
+  { src: "/images/gallery/c-07.jpg", alt: "The Cupertino Hotel interior" },
+  { src: "/images/overview-2.jpg", alt: "The Cupertino Hotel" },
 ];
 
 export default function GalleryPage() {

@@ -33,7 +33,7 @@ export default function EventsPage() {
         eyebrow="Gather"
         title="Events"
         intro="Spaces and service for meetings, celebrations, and everything in between."
-        image="/images/services-first.jpg"
+        image="/images/meeting-room.jpg"
       />
 
       <section className="py-16 sm:py-24">

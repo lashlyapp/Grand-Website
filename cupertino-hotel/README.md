@@ -54,17 +54,21 @@ live Cupertino site into `public/images/` (self-hosted). To re-pull:
 npm run extract-assets
 ```
 
-Gallery photos in `public/images/gallery/c-01..c-09.jpg` are **real Cupertino
-property photos** pulled from the property's TravelTripper asset library
-(`cdn.traveltripper.io/site-assets/362_837_22955`). They're reused on the room
-cards, where exact per-room assignment is approximate. The hotel wordmark is an
-inline SVG (`public/images/logotype.svg`).
+All imagery is **real Cupertino photography**, self-hosted in `public/images/`:
 
-True **per-room photos and virtual-tour videos** live on the hotel's MyHotelOps
-account (`cdn.myhotelops.com/cg-hotel-group/...`, the same place the Grand pulls
-its tours). To wire those in, supply the Cupertino property's MyHotelOps asset
-path / id (or a sample asset URL) — then add the per-room URLs to the `image`,
-`gallery`, and `video` fields in `content/rooms.ts`.
+- **Room + amenity posters** (`hero`, `lobby`, `pool`, `breakfast`,
+  `meeting-room`, `rooms/deluxe-room`, `rooms/executive-suite-king`,
+  `rooms/executive-suite-queen`, `rooms/fireplace-parlor`) come from the hotel's
+  **MyHotelOps** account (`cdn.myhotelops.com/cg-hotel-group/cupertino-hotel/`,
+  file prefix `8583.11604.cupertino.cupertino-hotel`).
+- **Supporting gallery shots** (`gallery/c-01..c-09`) come from the property's
+  TravelTripper library (`cdn.traveltripper.io/site-assets/362_837_22955`).
+
+**Virtual-tour videos** stream directly from MyHotelOps (not committed) — the
+four room tours (`deluxe-room`, `executive-suite-king`, `executive-suite-queen`,
+`fireplace-parlor`) are mapped to the booking rooms in `content/rooms.ts` and
+play in the room-detail modal. The hotel wordmark is an inline SVG
+(`public/images/logotype.svg`).
 
 ## Known placeholders / TODO
 
@@ -74,9 +78,9 @@ path / id (or a sample asset URL) — then add the per-room URLs to the `image`,
 - **Reviews** in the hero are mocked numbers — swap for a live SerpAPI feed.
 - **Social handles** default to the CG Hotel Group accounts — confirm
   Cupertino-specific handles.
-- **Per-room photos & tour videos** from MyHotelOps are pending the property's
-  asset path (see Media above). Gallery/room photos currently use the real
-  TravelTripper property library, assigned to rooms approximately.
+- **Room media** uses the four real MyHotelOps room tours/posters mapped to the
+  ten booking rooms; the per-room mapping is a best-fit (MyHotelOps groups rooms
+  into deluxe / executive-king / executive-queen / fireplace).
 
 ## Forms / email
 
