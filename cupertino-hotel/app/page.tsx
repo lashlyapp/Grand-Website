@@ -32,7 +32,9 @@ export default function HomePage() {
           sizes="100vw"
           className="object-cover opacity-70"
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-ink/60 via-ink/30 to-ink/80" />
+        {/* Tint is heaviest at the top (for the header + headline) and fades
+            lighter toward the bottom so the hero image opens up. */}
+        <div className="absolute inset-0 bg-gradient-to-b from-ink/85 via-ink/40 to-ink/10" />
         <Container className="relative z-10 pt-24">
           <div className="max-w-2xl">
             <p className="text-xs font-semibold uppercase tracking-widest2 text-gold">
