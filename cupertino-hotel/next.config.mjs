@@ -12,6 +12,8 @@ const nextConfig = {
       { protocol: "https", hostname: "cdn.traveltripper.io" },
       { protocol: "https", hostname: "*.cloudflarestream.com" },
       { protocol: "https", hostname: "videodelivery.net" },
+      // Supabase Storage — room cover images generated from tour-video frames.
+      { protocol: "https", hostname: "*.supabase.co" },
     ],
   },
 };

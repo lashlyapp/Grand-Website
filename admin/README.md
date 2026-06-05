@@ -20,8 +20,27 @@ writes room data; both public sites read it.
   (`/api/frames`, Node runtime), uploaded to the `room-media` bucket, and listed
   as a picker on the room editor. Manual `cover_image_url` entry remains a
   fallback.
-- **Phase 3:** Polish — drag-reorder, audit log, live room preview, and wiring
-  the public sites to read from Supabase (with publish → revalidate).
+- **Phase 3 (in progress):** ✅ Public sites now read rooms from Supabase (with
+  a static `content/rooms.ts` fallback) and revalidate on publish. Remaining
+  polish: drag-reorder, audit log, live room preview, near-black frame skipping.
+
+## Public-site integration (Phase 3)
+
+Both marketing sites read rooms from the shared Supabase via a small
+`lib/rooms-data.ts` (Next `fetch` against the REST endpoint, ISR `revalidate:
+300`, tag `"rooms"`). If Supabase is unconfigured/unreachable/empty they fall
+back to the committed `content/rooms.ts`, so a data hiccup can't break a site.
+
+Each site exposes `POST /api/revalidate?secret=...`; the admin calls both after
+a change so edits appear immediately. Set on **each public site**:
+
+| Var | Value |
+|-----|-------|
+| `NEXT_PUBLIC_SUPABASE_URL` / `NEXT_PUBLIC_SUPABASE_ANON_KEY` | same shared values |
+| `REVALIDATE_SECRET` | a shared secret, also set in the admin |
+
+And on the **admin**: `REVALIDATE_SECRET`, `GRAND_REVALIDATE_URL`,
+`CUPERTINO_REVALIDATE_URL` (see `.env.example`).
 
 ### Phase 2 notes (frame capture)
 

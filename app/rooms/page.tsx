@@ -3,7 +3,7 @@ import BookingBar from "@/components/BookingBar";
 import PageHero from "@/components/PageHero";
 import RoomCard from "@/components/RoomCard";
 import { Container } from "@/components/ui";
-import { guestRooms } from "@/content/rooms";
+import { getGuestRooms } from "@/lib/rooms-data";
 import { site } from "@/content/site";
 
 export const metadata: Metadata = {
@@ -13,7 +13,8 @@ export const metadata: Metadata = {
   alternates: { canonical: "/rooms/" },
 };
 
-export default function RoomsPage() {
+export default async function RoomsPage() {
+  const guestRooms = await getGuestRooms();
   return (
     <>
       <PageHero

@@ -3,6 +3,7 @@
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
+import { revalidatePublicSites } from "@/lib/revalidate";
 import type { RoomCategory } from "@/lib/types";
 
 const CATEGORIES: RoomCategory[] = ["room", "villa", "suite"];
@@ -42,6 +43,7 @@ export async function updateRoom(id: string, formData: FormData) {
     .eq("id", id);
   if (error) throw new Error(`Update failed: ${error.message}`);
   revalidatePath("/rooms");
+  await revalidatePublicSites();
   redirect("/rooms");
 }
 
@@ -53,6 +55,7 @@ export async function createRoom(formData: FormData) {
     .insert({ hotel_id, ...parseRoom(formData) });
   if (error) throw new Error(`Create failed: ${error.message}`);
   revalidatePath("/rooms");
+  await revalidatePublicSites();
   redirect("/rooms");
 }
 
@@ -61,6 +64,7 @@ export async function deleteRoom(id: string) {
   const { error } = await supabase.from("rooms").delete().eq("id", id);
   if (error) throw new Error(`Delete failed: ${error.message}`);
   revalidatePath("/rooms");
+  await revalidatePublicSites();
   redirect("/rooms");
 }
 
@@ -82,4 +86,5 @@ export async function selectCover(roomId: string, url: string) {
 
   revalidatePath("/rooms");
   revalidatePath(`/rooms/${roomId}/edit`);
+  await revalidatePublicSites();
 }

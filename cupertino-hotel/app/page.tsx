@@ -7,7 +7,7 @@ import HeroRateTicker from "@/components/HeroRateTicker";
 import RoomCard from "@/components/RoomCard";
 import { Button, Container, SectionHeading } from "@/components/ui";
 import { amenities, site, testimonials } from "@/content/site";
-import { guestRooms } from "@/content/rooms";
+import { getGuestRooms } from "@/lib/rooms-data";
 
 // Cupertino's signature: the address itself. These travel facts anchor the
 // site's personality on what's unique to this property — being across the
@@ -19,7 +19,8 @@ const locationFacts = [
   { value: "30–40 min", label: "SF & Oakland airports" },
 ];
 
-export default function HomePage() {
+export default async function HomePage() {
+  const guestRooms = await getGuestRooms();
   return (
     <>
       {/* Hero */}
