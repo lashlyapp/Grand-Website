@@ -1,0 +1,31 @@
+{
+  "name": "grand-hotel-website",
+  "version": "1.0.0",
+  "private": true,
+  "description": "The Grand Hotel, Sunnyvale — marketing website (Next.js on Vercel)",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "postbuild": "node scripts/a11y-scan.mjs || true",
+    "start": "next start",
+    "lint": "next lint",
+    "extract-assets": "node scripts/extract-assets.mjs",
+    "a11y:scan": "node scripts/a11y-scan.mjs"
+  },
+  "dependencies": {
+    "next": "14.2.5",
+    "react": "18.3.1",
+    "react-dom": "18.3.1"
+  },
+  "devDependencies": {
+    "@types/node": "20.14.10",
+    "@types/react": "18.3.3",
+    "@types/react-dom": "18.3.0",
+    "autoprefixer": "10.4.19",
+    "axe-core": "^4.12.0",
+    "jsdom": "^29.1.1",
+    "postcss": "8.4.39",
+    "tailwindcss": "3.4.6",
+    "typescript": "5.5.3"
+  }
+}

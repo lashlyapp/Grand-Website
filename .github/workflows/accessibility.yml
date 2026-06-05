@@ -1,0 +1,71 @@
+name: Accessibility
+
+# Runs WCAG 2.1 AA checks on every push/PR and publishes a shareable report.
+# Three layers of coverage:
+#   1. axe-core (jsdom) — fast structural gate, no browser required.
+#   2. pa11y-ci (headless Chrome) — full WCAG2AA scan incl. color-contrast,
+#      uploads an HTML report artifact.
+#   3. Lighthouse — accessibility score per key page.
+# NOTE: automated tools catch ~30-40% of issues. A professional manual audit is
+# still required for a defensible conformance claim.
+
+on:
+  push:
+    branches: ["**"]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  a11y:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build
+        run: npm run build
+
+      # 1) Fast structural scan (no browser)
+      - name: axe-core structural scan
+        run: npm run a11y:scan
+
+      # 2) Full WCAG2AA scan with headless Chrome + HTML report
+      - name: Start server
+        run: npm run start &
+      - name: Wait for server
+        run: npx --yes wait-on http://localhost:3000 --timeout 60000
+
+      - name: pa11y-ci (HTML report)
+        run: |
+          npx --yes pa11y-ci \
+            --reporter cli \
+            --reporter "pa11y-ci-reporter-html" \
+            || true
+        env:
+          PA11Y_CI_REPORTER_HTML_DESTINATION: pa11y-report
+          PA11Y_CI_REPORTER_HTML_FILENAME: index.html
+
+      - name: Upload accessibility report
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: accessibility-report
+          path: pa11y-report
+
+      # 3) Lighthouse accessibility score on key pages
+      - name: Lighthouse (accessibility)
+        uses: treosh/lighthouse-ci-action@v12
+        with:
+          urls: |
+            http://localhost:3000/
+            http://localhost:3000/rooms/
+            http://localhost:3000/contacts/
+          uploadArtifacts: true
+          temporaryPublicStorage: true
