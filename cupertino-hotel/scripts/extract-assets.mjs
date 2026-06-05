@@ -2,41 +2,58 @@
 /**
  * Asset extraction helper — The Cupertino Hotel.
  *
- * Downloads media from the current Cupertino Hotel site into ./public/images so
- * the rebuilt site is fully self-hosted. Re-run as you discover more asset URLs
- * (e.g. real room and gallery photos), then commit the results.
+ * Downloads media from the current Cupertino Hotel site (and its TravelTripper
+ * asset CDN) into ./public/images so the rebuilt site is fully self-hosted.
+ * Re-run as you discover more asset URLs, then commit the results.
  *
  * Usage:  node scripts/extract-assets.mjs
  *
- * Notes:
- * - We save the homepage marketing images under the local filenames the code
- *   already references (e.g. Cupertino's suites.png is saved as suites.jpg).
- * - The site logo is a wordmark we render as an inline SVG (public/images/
- *   logotype.svg) so it reads cleanly on the dark header/footer. We deliberately
- *   do NOT overwrite it with the source logo, which is dark and built for a
- *   light background.
- * - Room and gallery photos: the originals live on the RezTrip/Cendyn booking
- *   CDN and aren't trivially enumerable. The room-*.jpg / gallery-*.jpg files
- *   currently in public/images are generic placeholders — drop real Cupertino
- *   photos in under the same filenames as they become available.
+ * Sources:
+ * - https://www.cupertino-hotel.com/images/...           (homepage marketing art)
+ * - https://cdn.traveltripper.io/site-assets/362_837_22955 (Cupertino property
+ *   photo library — folder id 362_837_22955 is Cupertino's, distinct from the
+ *   Grand's 362_543_22953)
+ * - res.cloudinary.com/traveltripperweb                  (feature photo)
+ *
+ * The wordmark logo is an inline SVG (public/images/logotype.svg) so it reads
+ * cleanly on the dark header/footer; we don't overwrite it with the source logo
+ * (which is dark, for a light background).
  */
 import { mkdir, writeFile } from "node:fs/promises";
 import { dirname, join } from "node:path";
 
 const OUT = join(process.cwd(), "public", "images");
-const SRC = "https://www.cupertino-hotel.com/images";
+const SITE = "https://www.cupertino-hotel.com/images";
+const CDN = "https://cdn.traveltripper.io/site-assets/362_837_22955/media";
 
 // Key = local filename used by the app, value = source URL on the live site.
 const ASSETS = {
-  "suites.jpg": `${SRC}/suites.png`,
-  "about_1.jpg": `${SRC}/about_1.jpg`,
-  "about_2.jpg": `${SRC}/about_2.png`,
-  "amenities.jpg": `${SRC}/amenities.png`,
-  "services-first.jpg": `${SRC}/services-first.jpg`,
-  "services-second.jpg": `${SRC}/services-second.jpg`,
-  // No dedicated pool image on the source site — reuse a services photo for the
-  // dark "central location" strip until a real pool photo is supplied.
-  "heated-pool.jpg": `${SRC}/services-second.jpg`,
+  // Homepage marketing images.
+  "suites.jpg": `${SITE}/suites.png`,
+  "about_1.jpg": `${SITE}/about_1.jpg`,
+  "about_2.jpg": `${SITE}/about_2.png`,
+  "amenities.jpg": `${SITE}/amenities.png`,
+  "services-first.jpg": `${SITE}/services-first.jpg`,
+  "services-second.jpg": `${SITE}/services-second.jpg`,
+  // Page hero banners.
+  "rooms-theme.jpg": `${SITE}/rooms-theme.jpg`,
+  "gallery-theme.jpg": `${SITE}/gallery-theme.jpg`,
+  "heated-pool.jpg": `${SITE}/services-second.jpg`,
+
+  // Cupertino property photo library (real photos) → gallery/c-01..c-09.
+  "gallery/c-01.jpg": `${CDN}/2019-01-22-071554/large_services-1.jpg`,
+  "gallery/c-02.jpg": `${CDN}/2019-01-22-071714/large_services-2.jpg`,
+  "gallery/c-03.jpg": `${CDN}/2019-01-22-071917/large_services-3.jpg`,
+  "gallery/c-04.jpg": `${CDN}/2019-01-22-072003/large_services-4.jpg`,
+  "gallery/c-05.jpg": `${CDN}/2019-01-22-072055/large_services-5.jpg`,
+  "gallery/c-06.jpg": `${CDN}/2019-01-22-072401/large_services-6.jpg`,
+  "gallery/c-07.jpg": `${CDN}/2019-01-22-072506/large_services-7.jpg`,
+  "gallery/c-08.jpg": `${CDN}/2019-01-22-072608/large_services-8.jpg`,
+  "gallery/c-09.jpg": `${CDN}/2019-01-22-072651/large_services-9.jpg`,
+
+  // Feature photo (Cloudinary).
+  "feature.jpg":
+    "https://res.cloudinary.com/traveltripperweb/image/upload/c_limit,f_auto,h_2500,q_auto,w_2500/v1624043137/kzm6gsf5gtszmdnqpxy9.jpg",
 };
 
 async function download(name, url) {

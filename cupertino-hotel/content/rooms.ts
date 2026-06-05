@@ -15,7 +15,9 @@ export type Room = {
   // Optional per-room "virtual tour" video shown in the room detail modal.
   // Accepts either a direct file URL (…/tour.mp4, .webm) which renders in a
   // native <video> player, or an embed URL (YouTube/Vimeo/Cloudflare Stream)
-  // which renders in an <iframe>.
+  // which renders in an <iframe>. The Cupertino property's tour videos live on
+  // the MyHotelOps CDN (cdn.myhotelops.com/cg-hotel-group/...) — add the URLs
+  // here once the property's MyHotelOps asset path is confirmed.
   video?: string;
   // Optional extra photos for the detail modal; falls back to `image`.
   gallery?: string[];
@@ -34,6 +36,11 @@ const STANDARD = [
   "Free Wi-Fi",
 ];
 
+// Real Cupertino property photos pulled from the live site (see
+// scripts/extract-assets.mjs). Exact per-room assignment is approximate until
+// the MyHotelOps per-room photos/videos are wired in.
+const G = (n: string) => `/images/gallery/${n}.jpg`;
+
 export const rooms: Room[] = [
   {
     code: "EQ",
@@ -43,8 +50,8 @@ export const rooms: Room[] = [
     description:
       "An executive room with two queen beds and modern furnishings — comfortable space for families or colleagues traveling together.",
     features: ["Two queen beds", ...STANDARD],
-    image: "/images/rooms/room-01.jpg",
-    gallery: ["/images/rooms/room-01.jpg", "/images/gallery/gallery-05.jpg", "/images/gallery/gallery-07.jpg"],
+    image: G("c-01"),
+    gallery: [G("c-01"), G("c-02"), "/images/feature.jpg"],
   },
   {
     code: "DK",
@@ -54,8 +61,8 @@ export const rooms: Room[] = [
     description:
       "An oversized hotel room with a large, comfortable king bed and extra space — a relaxed base for business or leisure.",
     features: ["King bed", ...STANDARD],
-    image: "/images/rooms/room-02.jpg",
-    gallery: ["/images/rooms/room-02.jpg", "/images/gallery/gallery-08.jpg", "/images/gallery/gallery-09.jpg"],
+    image: G("c-02"),
+    gallery: [G("c-02"), G("c-03"), "/images/suites.jpg"],
   },
   {
     code: "EK",
@@ -65,8 +72,8 @@ export const rooms: Room[] = [
     description:
       "An executive king room with sleek, modern design and peaceful color tones — made for rest and relaxation.",
     features: ["King bed", ...STANDARD],
-    image: "/images/rooms/room-03.jpg",
-    gallery: ["/images/rooms/room-03.jpg", "/images/gallery/gallery-10.jpg", "/images/gallery/gallery-14.jpg"],
+    image: G("c-03"),
+    gallery: [G("c-03"), G("c-04"), G("c-05")],
   },
   {
     code: "DQ",
@@ -76,8 +83,8 @@ export const rooms: Room[] = [
     description:
       "An oversized room with two queen beds and extra space for comfort during your stay in Silicon Valley.",
     features: ["Two queen beds", ...STANDARD],
-    image: "/images/rooms/room-04.jpg",
-    gallery: ["/images/rooms/room-04.jpg", "/images/gallery/gallery-15.jpg", "/images/gallery/gallery-16.jpg"],
+    image: G("c-04"),
+    gallery: [G("c-04"), G("c-05"), G("c-06")],
   },
   {
     code: "QH",
@@ -88,8 +95,8 @@ export const rooms: Room[] = [
       "A deluxe room with two queen beds and ADA-accessible accommodations and bathroom amenities.",
     features: ["Two queen beds", "Accessible bathroom", ...STANDARD],
     accessible: true,
-    image: "/images/rooms/room-05.jpg",
-    gallery: ["/images/rooms/room-05.jpg", "/images/gallery/gallery-17.jpg", "/images/gallery/gallery-06.jpg"],
+    image: G("c-05"),
+    gallery: [G("c-05"), G("c-06"), G("c-07")],
   },
   {
     code: "FP",
@@ -99,8 +106,8 @@ export const rooms: Room[] = [
     description:
       "A spacious parlor suite with a king bed and a cozy fireplace — our most inviting accommodation for a longer stay.",
     features: ["King bed", "Fireplace", "Separate parlor", ...STANDARD],
-    image: "/images/rooms/room-06.jpg",
-    gallery: ["/images/rooms/room-06.jpg", "/images/gallery/gallery-07.jpg", "/images/gallery/gallery-08.jpg"],
+    image: G("c-06"),
+    gallery: [G("c-06"), G("c-07"), G("c-08")],
   },
   {
     code: "DS",
@@ -110,8 +117,8 @@ export const rooms: Room[] = [
     description:
       "A spacious king suite designed for comfort during extended stays, with room to work and unwind.",
     features: ["King bed", "Spacious suite", ...STANDARD],
-    image: "/images/rooms/room-07.jpg",
-    gallery: ["/images/rooms/room-07.jpg", "/images/gallery/gallery-09.jpg", "/images/gallery/gallery-05.jpg"],
+    image: G("c-07"),
+    gallery: [G("c-07"), G("c-08"), G("c-09")],
   },
   {
     code: "PK",
@@ -122,8 +129,8 @@ export const rooms: Room[] = [
       "A pet-friendly king suite that welcomes your furry companion — dogs under 50 lbs, one per room, with a $35/day cleaning fee.",
     features: ["King bed", "Pet friendly", "Spacious suite", ...STANDARD],
     petFriendly: true,
-    image: "/images/rooms/room-08.jpg",
-    gallery: ["/images/rooms/room-08.jpg", "/images/gallery/gallery-10.jpg", "/images/gallery/gallery-14.jpg"],
+    image: G("c-08"),
+    gallery: [G("c-08"), G("c-09"), G("c-01")],
   },
   {
     code: "PQ",
@@ -134,8 +141,8 @@ export const rooms: Room[] = [
       "A pet-friendly suite with two queen beds for guests traveling with pets — dogs under 50 lbs, one per room, with a $35/day cleaning fee.",
     features: ["Two queen beds", "Pet friendly", ...STANDARD],
     petFriendly: true,
-    image: "/images/rooms/room-01.jpg",
-    gallery: ["/images/rooms/room-01.jpg", "/images/gallery/gallery-15.jpg", "/images/gallery/gallery-16.jpg"],
+    image: G("c-09"),
+    gallery: [G("c-09"), G("c-01"), G("c-02")],
   },
   {
     code: "KH",
@@ -146,8 +153,8 @@ export const rooms: Room[] = [
       "An oversized deluxe king room with ADA-accessible features and a full suite of bathroom amenities.",
     features: ["King bed", "Accessible bathroom", ...STANDARD],
     accessible: true,
-    image: "/images/rooms/room-05.jpg",
-    gallery: ["/images/rooms/room-05.jpg", "/images/gallery/gallery-17.jpg", "/images/gallery/gallery-06.jpg"],
+    image: "/images/feature.jpg",
+    gallery: ["/images/feature.jpg", G("c-03"), G("c-04")],
   },
 ];
 

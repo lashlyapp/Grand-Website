@@ -54,10 +54,17 @@ live Cupertino site into `public/images/` (self-hosted). To re-pull:
 npm run extract-assets
 ```
 
-Room and gallery photos in `public/images/rooms` and `public/images/gallery` are
-**generic placeholders** for now — the originals live on the RezTrip/Cendyn
-booking CDN. Drop real Cupertino photos in under the same filenames to replace
-them. The hotel wordmark is an inline SVG (`public/images/logotype.svg`).
+Gallery photos in `public/images/gallery/c-01..c-09.jpg` are **real Cupertino
+property photos** pulled from the property's TravelTripper asset library
+(`cdn.traveltripper.io/site-assets/362_837_22955`). They're reused on the room
+cards, where exact per-room assignment is approximate. The hotel wordmark is an
+inline SVG (`public/images/logotype.svg`).
+
+True **per-room photos and virtual-tour videos** live on the hotel's MyHotelOps
+account (`cdn.myhotelops.com/cg-hotel-group/...`, the same place the Grand pulls
+its tours). To wire those in, supply the Cupertino property's MyHotelOps asset
+path / id (or a sample asset URL) — then add the per-room URLs to the `image`,
+`gallery`, and `video` fields in `content/rooms.ts`.
 
 ## Known placeholders / TODO
 
@@ -67,7 +74,9 @@ them. The hotel wordmark is an inline SVG (`public/images/logotype.svg`).
 - **Reviews** in the hero are mocked numbers — swap for a live SerpAPI feed.
 - **Social handles** default to the CG Hotel Group accounts — confirm
   Cupertino-specific handles.
-- **Room/gallery photos** are placeholders (see Media above).
+- **Per-room photos & tour videos** from MyHotelOps are pending the property's
+  asset path (see Media above). Gallery/room photos currently use the real
+  TravelTripper property library, assigned to rooms approximately.
 
 ## Forms / email
 

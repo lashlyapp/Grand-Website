@@ -11,19 +11,18 @@ export const metadata: Metadata = {
 };
 
 const photos = [
-  { src: "/images/suites.jpg", alt: "Guest suite", span: "lg:col-span-2 lg:row-span-2" },
-  { src: "/images/gallery/gallery-05.jpg", alt: "Guest room" },
-  { src: "/images/gallery/gallery-06.jpg", alt: "Guest room interior" },
-  { src: "/images/heated-pool.jpg", alt: "Heated outdoor pool", span: "lg:col-span-2" },
-  { src: "/images/gallery/gallery-07.jpg", alt: "Hotel interior" },
-  { src: "/images/gallery/gallery-08.jpg", alt: "Guest bathroom" },
-  { src: "/images/gallery/gallery-09.jpg", alt: "Suite living area" },
-  { src: "/images/gallery/gallery-10.jpg", alt: "Guest room with two queen beds", span: "lg:col-span-2" },
-  { src: "/images/gallery/gallery-14.jpg", alt: "Hotel grounds" },
-  { src: "/images/gallery/gallery-15.jpg", alt: "Hotel detail" },
-  { src: "/images/gallery/gallery-16.jpg", alt: "Guest room" },
-  { src: "/images/gallery/gallery-17.jpg", alt: "Hotel amenities" },
-  { src: "/images/amenities.jpg", alt: "Hotel amenities", span: "lg:col-span-2" },
+  { src: "/images/suites.jpg", alt: "The Cupertino Hotel — guest suite", span: "lg:col-span-2 lg:row-span-2" },
+  { src: "/images/gallery/c-01.jpg", alt: "The Cupertino Hotel interior" },
+  { src: "/images/gallery/c-02.jpg", alt: "The Cupertino Hotel — guest room" },
+  { src: "/images/gallery/c-03.jpg", alt: "The Cupertino Hotel amenities", span: "lg:col-span-2" },
+  { src: "/images/gallery/c-04.jpg", alt: "The Cupertino Hotel interior" },
+  { src: "/images/gallery/c-05.jpg", alt: "The Cupertino Hotel — guest room" },
+  { src: "/images/gallery/c-06.jpg", alt: "The Cupertino Hotel interior" },
+  { src: "/images/gallery/c-07.jpg", alt: "The Cupertino Hotel amenities", span: "lg:col-span-2" },
+  { src: "/images/gallery/c-08.jpg", alt: "The Cupertino Hotel interior" },
+  { src: "/images/gallery/c-09.jpg", alt: "The Cupertino Hotel — guest room" },
+  { src: "/images/feature.jpg", alt: "The Cupertino Hotel" },
+  { src: "/images/amenities.jpg", alt: "The Cupertino Hotel amenities", span: "lg:col-span-2" },
 ];
 
 export default function GalleryPage() {
@@ -33,7 +32,7 @@ export default function GalleryPage() {
         eyebrow="Explore"
         title="Gallery"
         intro="Step inside The Cupertino Hotel."
-        image="/images/amenities.jpg"
+        image="/images/gallery-theme.jpg"
       />
       <section className="py-16 sm:py-24">
         <Container>

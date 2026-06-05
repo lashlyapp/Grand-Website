@@ -20,7 +20,7 @@ export default function RoomsPage() {
         eyebrow="Accommodations"
         title="Rooms"
         intro="Sleek, modern rooms and suites in peaceful color tones — designed to inspire rest and relaxation."
-        image="/images/suites.jpg"
+        image="/images/rooms-theme.jpg"
       />
       <Container className="-mt-8 relative z-10">
         <BookingBar />
