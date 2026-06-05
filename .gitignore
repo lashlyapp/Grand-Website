@@ -29,3 +29,6 @@ next-env.d.ts
 
 # vercel
 .vercel
+
+# Generated accessibility report (postbuild)
+/public/accessibility-report.html

@@ -15,14 +15,16 @@ export default function HomePage() {
       {/* Hero */}
       <section className="relative flex min-h-[92vh] items-center overflow-hidden bg-ink">
         <Image
-          src="/images/suites.jpg"
-          alt="The Grand Hotel, Sunnyvale"
+          src="/images/hero.jpg"
+          alt="A guest room at The Grand Hotel, Sunnyvale"
           fill
           priority
           sizes="100vw"
           className="object-cover opacity-70"
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-ink/60 via-ink/30 to-ink/80" />
+        {/* This hero photo is bright, so the tint runs darker at the top to keep
+            the header + headline legible, then fades lighter toward the bottom. */}
+        <div className="absolute inset-0 bg-gradient-to-b from-ink/90 via-ink/55 to-ink/15" />
         <Container className="relative z-10 pt-24">
           <div className="max-w-2xl">
             <p className="text-xs font-semibold uppercase tracking-widest2 text-gold">
