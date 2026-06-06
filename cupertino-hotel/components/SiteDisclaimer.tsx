@@ -15,11 +15,8 @@ export default async function SiteDisclaimer() {
       aria-label="Hotel service notice"
       className="relative z-30 border-b border-gold/30 bg-ink pb-6 pt-24 text-white"
     >
-      <div className="mx-auto max-w-content px-5 sm:px-8">
-        <p className="text-xs font-semibold uppercase tracking-widest text-gold">
-          Hotel Service Notice
-        </p>
-        <p className="mt-2 text-sm font-medium leading-relaxed text-white/90">
+      <div className="w-full px-5 sm:px-8">
+        <p className="text-xs leading-relaxed text-white/80">
           {text}
         </p>
       </div>
