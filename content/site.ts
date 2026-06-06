@@ -70,7 +70,7 @@ export const site = {
 export const ttweb = {
   hotelId: "CASVGH",
   portalId: "svgrandhotel",
-  timezone: "America/New_York",
+  timezone: "America/Los_Angeles",
   currency: "USD",
   pluginBase: "https://plugins.traveltripper.io/v2",
   jquery: "https://code.jquery.com/jquery-3.7.1.min.js",
