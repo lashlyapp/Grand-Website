@@ -72,10 +72,10 @@ export const site = {
 // on the current site. Both the booking widget and the social-proof ticker
 // (tonight's rate + recent bookings) are driven by this engine. The new domain
 // may need to be whitelisted in the Cendyn portal for it to load cross-origin.
-// TODO: confirm the Cupertino RT3 hotelId in the Cendyn portal — `CACUPH` is a
-// placeholder. The portalId mirrors the booking subdomain (cupertinohotel).
+// The hotelId is the property's RT3 code (resolved from the portal config at
+// /portals/cupertinohotel.json → hotel_id "CASVCH").
 export const ttweb = {
-  hotelId: "CACUPH",
+  hotelId: "CASVCH",
   portalId: "cupertinohotel",
   timezone: "America/New_York",
   currency: "USD",
