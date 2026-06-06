@@ -14,7 +14,7 @@ export default async function HomePage() {
   return (
     <>
       {/* Hero */}
-      <section className="relative flex min-h-[78vh] items-center overflow-hidden bg-ink">
+      <section className="relative flex min-h-[88vh] items-center overflow-hidden bg-ink">
         <Image
           src="/images/hero.jpg"
           alt="A guest room at The Grand Hotel, Sunnyvale"

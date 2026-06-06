@@ -79,7 +79,7 @@ export default function HeroRateTicker() {
     <div className="inline-flex flex-wrap overflow-hidden rounded-lg shadow-xl">
       {bookings != null && (
         <div className="flex items-center gap-3 bg-white/95 px-5 py-3 backdrop-blur">
-          <span className="font-serif text-2xl font-semibold text-ink">{bookings}</span>
+          <span className="text-2xl font-bold tabular-nums text-ink">{bookings}</span>
           <span className="text-sm text-ink/70">
             People booked our hotel in the last 2 days
           </span>
