@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Cormorant_Garamond, Inter } from "next/font/google";
 import Header from "@/components/Header";
+import SiteDisclaimer from "@/components/SiteDisclaimer";
 import Footer from "@/components/Footer";
 import { BookingProvider } from "@/components/BookingProvider";
 import { RoomDetailProvider } from "@/components/RoomDetailProvider";
@@ -89,6 +90,7 @@ export default function RootLayout({
         <BookingProvider>
           <RoomDetailProvider>
             <Header />
+            <SiteDisclaimer />
             <main>{children}</main>
             <Footer />
           </RoomDetailProvider>
