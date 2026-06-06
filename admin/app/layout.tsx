@@ -27,6 +27,9 @@ export default async function RootLayout({
               <Link href="/rooms" className="hover:text-ink">
                 Rooms
               </Link>
+              <Link href="/settings" className="hover:text-ink">
+                Settings
+              </Link>
             </nav>
             {user && (
               <div className="ml-auto flex items-center gap-3 text-sm text-ink/60">

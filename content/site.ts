@@ -31,6 +31,11 @@ export const site = {
   // Shown on room listings and in the room detail / virtual-tour modal.
   roomMediaDisclaimer:
     "Photos and videos are for illustration only. Actual rooms may differ in furnishings, layout, view, and finishes.",
+  // Site-wide service notice rendered in a band under the header on every page.
+  // Set to an empty string to hide the banner. This statement is intended to
+  // supersede other (possibly outdated) information elsewhere on the site.
+  disclaimer:
+    "This notice reflects current hotel operations and supersedes all other information on this website. Continental breakfast is served daily, 6:30–10 AM (Mon–Fri) and 7–10:30 AM (Sat–Sun). Happy hour is daily, 5–6 PM (drinks only, up to two complimentary per guest). The pool is open 7 AM–10 PM. DoorDash deliveries may be received at the front desk. Room service and the hotel shuttle are not currently operating.",
   // Guest-review ratings featured in the hero. MOCKED for now — these are
   // placeholder numbers. Later, swap this static data for a live feed from
   // SerpAPI (Google + TripAdvisor) via a cached server route; the HeroReviews

@@ -6,6 +6,7 @@ import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { mainNav, site } from "@/content/site";
 import { useBooking } from "@/components/BookingProvider";
+import LanguageSwitcher from "@/components/LanguageSwitcher";
 
 export default function Header() {
   const pathname = usePathname();
@@ -42,39 +43,43 @@ export default function Header() {
           />
         </Link>
 
-        <nav className="hidden items-center gap-7 lg:flex" aria-label="Primary">
-          {mainNav.map((item) => {
-            const active = pathname === item.href;
-            return (
-              <Link
-                key={item.href}
-                href={item.href}
-                className={`text-sm font-medium uppercase tracking-widest transition-colors ${
-                  active ? "text-gold" : "text-white/85 hover:text-gold"
-                }`}
-              >
-                {item.label}
-              </Link>
-            );
-          })}
+        <div className="flex items-center gap-4">
+          <nav className="hidden items-center gap-7 lg:flex" aria-label="Primary">
+            {mainNav.map((item) => {
+              const active = pathname === item.href;
+              return (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  className={`text-sm font-medium uppercase tracking-widest transition-colors ${
+                    active ? "text-gold" : "text-white/85 hover:text-gold"
+                  }`}
+                >
+                  {item.label}
+                </Link>
+              );
+            })}
+            <button
+              type="button"
+              onClick={() => openBooking()}
+              className="rounded-full bg-gold px-5 py-2.5 text-sm font-semibold uppercase tracking-widest text-white transition-colors hover:bg-gold-dark"
+            >
+              Book Now
+            </button>
+          </nav>
+
+          <LanguageSwitcher />
+
           <button
             type="button"
-            onClick={() => openBooking()}
-            className="rounded-full bg-gold px-5 py-2.5 text-sm font-semibold uppercase tracking-widest text-white transition-colors hover:bg-gold-dark"
+            onClick={() => setOpen((v) => !v)}
+            className="flex h-10 w-10 items-center justify-center text-white lg:hidden"
+            aria-label={open ? "Close menu" : "Open menu"}
+            aria-expanded={open}
           >
-            Book Now
+            <span className="text-2xl">{open ? "✕" : "☰"}</span>
           </button>
-        </nav>
-
-        <button
-          type="button"
-          onClick={() => setOpen((v) => !v)}
-          className="flex h-10 w-10 items-center justify-center text-white lg:hidden"
-          aria-label={open ? "Close menu" : "Open menu"}
-          aria-expanded={open}
-        >
-          <span className="text-2xl">{open ? "✕" : "☰"}</span>
-        </button>
+        </div>
       </div>
 
       {open && (

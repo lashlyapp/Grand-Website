@@ -6,6 +6,7 @@ export type Hotel = {
   name: string;
   slug: string;
   booking_base_url: string | null;
+  disclaimer: string; // site-wide service notice; '' hides the banner
 };
 
 export type RoomCategory = "room" | "villa" | "suite";
