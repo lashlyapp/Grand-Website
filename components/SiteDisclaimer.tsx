@@ -11,7 +11,7 @@ export default async function SiteDisclaimer() {
 
   return (
     <aside
-      role="note"
+      role="region"
       aria-label="Hotel service notice"
       className="relative z-30 border-b border-gold/30 bg-ink pb-6 pt-24 text-white"
     >
