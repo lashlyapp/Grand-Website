@@ -5,7 +5,7 @@ export async function getHotels(): Promise<Hotel[]> {
   const supabase = createSupabaseServerClient();
   const { data, error } = await supabase
     .from("hotels")
-    .select("id, name, slug, booking_base_url")
+    .select("id, name, slug, booking_base_url, disclaimer")
     .order("id");
   if (error) throw new Error(`Failed to load hotels: ${error.message}`);
   return data ?? [];

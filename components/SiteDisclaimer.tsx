@@ -1,10 +1,12 @@
-import { site } from "@/content/site";
+import { getDisclaimer } from "@/lib/site-data";
 
 // Site-wide service notice shown in a band directly under the (fixed, overlay)
-// header on every page. The top padding clears the 80px fixed header so the
-// text is never hidden behind it. Renders nothing when no disclaimer is set.
-export default function SiteDisclaimer() {
-  const text = site.disclaimer?.trim();
+// header on every page. The text is managed from the admin Settings page (live
+// via Supabase, with the static content/site.ts value as fallback). The top
+// padding clears the 80px fixed header so the text is never hidden behind it.
+// Renders nothing when no disclaimer is set.
+export default async function SiteDisclaimer() {
+  const text = (await getDisclaimer()).trim();
   if (!text) return null;
 
   return (
