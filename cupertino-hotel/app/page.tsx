@@ -24,7 +24,7 @@ export default async function HomePage() {
   return (
     <>
       {/* Hero */}
-      <section className="relative flex min-h-[92vh] items-center overflow-hidden bg-ink">
+      <section className="relative flex min-h-[78vh] items-center overflow-hidden bg-ink">
         <Image
           src="/images/hero.jpg"
           alt="A king suite at The Cupertino Hotel"
@@ -36,7 +36,7 @@ export default async function HomePage() {
         {/* Tint is heaviest at the top (for the header + headline) and fades
             lighter toward the bottom so the hero image opens up. */}
         <div className="absolute inset-0 bg-gradient-to-b from-ink/85 via-ink/40 to-ink/10" />
-        <Container className="relative z-10 pt-24">
+        <Container className="relative z-10 pt-12">
           <div className="max-w-2xl">
             <p className="text-xs font-semibold uppercase tracking-widest2 text-gold">
               Across from Apple Park · Cupertino
@@ -44,12 +44,12 @@ export default async function HomePage() {
             <h1 className="mt-4 font-serif text-5xl leading-[1.05] text-white sm:text-6xl">
               A welcoming haven in the heart of Silicon Valley
             </h1>
-            <p className="mt-6 max-w-xl text-lg leading-relaxed text-white/85">
+            <p className="mt-5 max-w-xl text-lg leading-relaxed text-white/85">
               {site.tagline}. The Cupertino Hotel is easily accessible from all
               major Silicon Valley freeways — directly across the street from
               Apple Park and just 15 minutes from San Jose International Airport.
             </p>
-            <div className="mt-8 flex flex-wrap gap-4">
+            <div className="mt-6 flex flex-wrap gap-4">
               <Button href="/rooms/">Explore Rooms</Button>
               <Button href="/location/" variant="outline">
                 Find Us
@@ -57,12 +57,12 @@ export default async function HomePage() {
             </div>
           </div>
 
-          <div className="mt-8 flex flex-wrap items-center gap-4">
+          <div className="mt-6 flex flex-wrap items-center gap-4">
             <HeroReviews />
             <HeroRateTicker />
           </div>
 
-          <div className="mt-6 max-w-4xl">
+          <div className="mt-5 max-w-4xl">
             <BookingBar floating />
           </div>
         </Container>

@@ -14,7 +14,7 @@ export default async function HomePage() {
   return (
     <>
       {/* Hero */}
-      <section className="relative flex min-h-[92vh] items-center overflow-hidden bg-ink">
+      <section className="relative flex min-h-[78vh] items-center overflow-hidden bg-ink">
         <Image
           src="/images/hero.jpg"
           alt="A guest room at The Grand Hotel, Sunnyvale"
@@ -26,7 +26,7 @@ export default async function HomePage() {
         {/* This hero photo is bright, so the tint runs darker at the top to keep
             the header + headline legible, then fades lighter toward the bottom. */}
         <div className="absolute inset-0 bg-gradient-to-b from-ink/90 via-ink/55 to-ink/15" />
-        <Container className="relative z-10 pt-24">
+        <Container className="relative z-10 pt-12">
           <div className="max-w-2xl">
             <p className="text-xs font-semibold uppercase tracking-widest2 text-gold">
               Sunnyvale · Silicon Valley
@@ -34,11 +34,11 @@ export default async function HomePage() {
             <h1 className="mt-4 font-serif text-5xl leading-[1.05] text-white sm:text-6xl">
               A grand welcome in the heart of Silicon Valley
             </h1>
-            <p className="mt-6 max-w-xl text-lg leading-relaxed text-white/85">
+            <p className="mt-5 max-w-xl text-lg leading-relaxed text-white/85">
               {site.tagline}. Minutes from San Jose International Airport and every
               major freeway — comfort, style, and genuine hospitality await.
             </p>
-            <div className="mt-8 flex flex-wrap gap-4">
+            <div className="mt-6 flex flex-wrap gap-4">
               <Button href="/rooms/">Explore Rooms</Button>
               <Button href="/location/" variant="outline">
                 Find Us
@@ -46,12 +46,12 @@ export default async function HomePage() {
             </div>
           </div>
 
-          <div className="mt-8 flex flex-wrap items-center gap-4">
+          <div className="mt-6 flex flex-wrap items-center gap-4">
             <HeroReviews />
             <HeroRateTicker />
           </div>
 
-          <div className="mt-6 max-w-4xl">
+          <div className="mt-5 max-w-4xl">
             <BookingBar floating />
           </div>
         </Container>

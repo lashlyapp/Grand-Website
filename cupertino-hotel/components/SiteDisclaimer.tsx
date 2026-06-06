@@ -13,7 +13,7 @@ export default async function SiteDisclaimer() {
     <aside
       role="region"
       aria-label="Hotel service notice"
-      className="relative z-30 border-b border-gold/30 bg-ink pb-6 pt-24 text-white"
+      className="relative z-30 border-b border-gold/30 bg-ink pb-3 pt-[84px] text-white"
     >
       <div className="w-full px-5 sm:px-8">
         <p className="text-xs leading-relaxed text-white/80">
