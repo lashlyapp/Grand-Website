@@ -177,35 +177,51 @@ export default async function HomePage() {
             className="flex w-max animate-marquee py-4 group-hover:[animation-play-state:paused] group-focus-within:[animation-play-state:paused] motion-reduce:animate-none"
             style={{ animationDuration: `${amenities.length * 7}s` }}
           >
-            {[...amenities, ...amenities].map((a, i) => (
-              <li
-                key={i}
-                aria-hidden={i >= amenities.length}
-                className="mr-5 flex w-72 shrink-0 flex-col rounded-xl bg-white p-7 shadow-sm ring-1 ring-ink/5"
-              >
-                <h3 className="font-serif text-xl leading-snug text-ink text-balance">
-                  {a.title}
-                </h3>
-                {a.description && (
-                  <p className="mt-3 text-sm leading-relaxed text-ink/70">
-                    {a.description}
-                  </p>
-                )}
-                {a.details && a.details.length > 0 && (
-                  <ul className="mt-3 space-y-1.5 text-sm leading-relaxed text-ink/70">
-                    {a.details.map((detail) => (
-                      <li key={detail} className="flex gap-2.5">
-                        <span
-                          aria-hidden
-                          className="mt-[0.5em] size-1 shrink-0 rounded-full bg-gold"
-                        />
-                        <span>{detail}</span>
-                      </li>
+            {[...amenities, ...amenities].map((a, i) => {
+              const bullets = a.details && a.details.length > 0 && (
+                <ul className="mt-3 space-y-1.5 text-sm leading-relaxed text-ink/70">
+                  {a.details.map((detail) => (
+                    <li key={detail} className="flex gap-2.5">
+                      <span
+                        aria-hidden
+                        className="mt-[0.5em] size-1 shrink-0 rounded-full bg-gold"
+                      />
+                      <span>{detail}</span>
+                    </li>
+                  ))}
+                </ul>
+              );
+              return (
+                <li
+                  key={i}
+                  aria-hidden={i >= amenities.length}
+                  className="mr-5 flex w-72 shrink-0 flex-col rounded-xl bg-white p-7 shadow-sm ring-1 ring-ink/5"
+                >
+                  <h3 className="font-serif text-xl leading-snug text-ink text-balance">
+                    {a.title}
+                  </h3>
+                  {a.description && (
+                    <p className="mt-3 text-sm leading-relaxed text-ink/70">
+                      {a.description}
+                    </p>
+                  )}
+                  {bullets &&
+                    (a.collapsible ? (
+                      <details className="group/more mt-2">
+                        <summary className="cursor-pointer list-none text-sm font-medium text-gold transition-colors hover:text-gold-dark">
+                          <span className="group-open/more:hidden">More</span>
+                          <span className="hidden group-open/more:inline">
+                            Less
+                          </span>
+                        </summary>
+                        {bullets}
+                      </details>
+                    ) : (
+                      bullets
                     ))}
-                  </ul>
-                )}
-              </li>
-            ))}
+                </li>
+              );
+            })}
           </ul>
         </div>
       </section>

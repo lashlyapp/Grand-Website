@@ -106,6 +106,9 @@ export type Amenity = {
   description?: string;
   // Optional bullet points for structured details (hours, pricing, etc.).
   details?: string[];
+  // When true, the details are hidden behind a "More" toggle so a long card
+  // doesn't stretch the height of every card in the row.
+  collapsible?: boolean;
 };
 
 // Services & amenities from the current Cupertino Hotel site, organized into a

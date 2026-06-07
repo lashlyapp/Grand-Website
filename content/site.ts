@@ -104,6 +104,9 @@ export type Amenity = {
   description?: string;
   // Optional bullet points for structured details (hours, pricing, etc.).
   details?: string[];
+  // When true, the details are hidden behind a "More" toggle so a long card
+  // doesn't stretch the height of every card in the row.
+  collapsible?: boolean;
 };
 
 // Amenity details from the current site, organized into a short lead-in plus
@@ -150,13 +153,14 @@ export const amenities: Amenity[] = [
   {
     title: "Deliveries, Shipping & Handling",
     description:
-      "Receive packages for registered guests — up to 7 lbs complimentary. Additional charges:",
+      "Receive packages for registered guests — up to 7 lbs complimentary.",
     details: [
       "Boxes: $0.35 / lb",
       "Pallets: $0.50 / lb",
       "Envelopes: $4.00 each",
       "Storage: $20.00 per day, per shipment",
     ],
+    collapsible: true,
   },
   {
     title: "Business Services & Express Checkout",
