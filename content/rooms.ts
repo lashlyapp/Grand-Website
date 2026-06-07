@@ -4,7 +4,7 @@
 export type Room = {
   code: string;
   name: string;
-  category: "room" | "villa" | "suite";
+  category: "room" | "villa" | "suite" | "annex";
   beds: string;
   description: string;
   features: string[];
@@ -97,6 +97,42 @@ export const rooms: Room[] = [
     gallery: ["/images/rooms/room-05.jpg", "/images/gallery/gallery-16.jpg", "/images/gallery/gallery-17.jpg"],
   },
   {
+    code: "ADK",
+    name: "Annex Deluxe King",
+    category: "annex",
+    beds: "1 King Bed",
+    description:
+      "A Deluxe Room with 1 king bed in our newly constructed Annex. This sumptuous, oversized hotel room has extra space to make it a comfortable and relaxing setting for your luxury holiday or business trip to the heart of Silicon Valley. Floor-to-ceiling windows provide ample natural lighting and a view of beautiful California. Each room features a key-card switch to promote energy efficiency, a king-sized bed, air conditioning, direct access to the hotel gym, and a full-sized bathroom with granite countertops, dual vanity mirrors, and a spacious soaking tub.",
+    features: [
+      "King bed",
+      "Floor-to-ceiling windows",
+      "Direct gym access",
+      "Soaking tub",
+      "Granite countertops",
+      "Air conditioning",
+    ],
+    image: "/images/rooms/tour-deluxe-king.jpg",
+    gallery: ["/images/rooms/tour-deluxe-king.jpg", "/images/rooms/room-01.jpg"],
+  },
+  {
+    code: "ADQ",
+    name: "Annex Deluxe Two Queens",
+    category: "annex",
+    beds: "2 Queen Beds",
+    description:
+      "A Deluxe Room with 2 queen beds in our newly constructed Annex. This sumptuous, oversized hotel room has extra space to make it a comfortable and relaxing setting for your luxury holiday or business trip to the heart of Silicon Valley. Floor-to-ceiling windows provide ample natural lighting and a view of beautiful California. Each room features a key-card switch to promote energy efficiency, two queen-sized beds, air conditioning, direct access to the hotel gym, and a full-sized bathroom with granite countertops, dual vanity mirrors, and a spacious soaking tub.",
+    features: [
+      "Two queen beds",
+      "Floor-to-ceiling windows",
+      "Direct gym access",
+      "Soaking tub",
+      "Granite countertops",
+      "Air conditioning",
+    ],
+    image: "/images/rooms/tour-deluxe-room.jpg",
+    gallery: ["/images/rooms/tour-deluxe-room.jpg", "/images/rooms/room-03.jpg"],
+  },
+  {
     code: "VK",
     name: "Villa King",
     category: "villa",
@@ -186,5 +222,8 @@ export const rooms: Room[] = [
   },
 ];
 
-export const guestRooms = rooms.filter((r) => r.category !== "villa");
+export const guestRooms = rooms.filter(
+  (r) => r.category !== "villa" && r.category !== "annex",
+);
 export const villas = rooms.filter((r) => r.category === "villa");
+export const annexRooms = rooms.filter((r) => r.category === "annex");

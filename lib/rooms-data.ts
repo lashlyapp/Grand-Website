@@ -64,9 +64,19 @@ export async function getRooms(): Promise<Room[]> {
 }
 
 export async function getGuestRooms(): Promise<Room[]> {
-  return (await getRooms()).filter((r) => r.category !== "villa");
+  return (await getRooms()).filter(
+    (r) => r.category !== "villa" && r.category !== "annex",
+  );
 }
 
 export async function getVillas(): Promise<Room[]> {
   return (await getRooms()).filter((r) => r.category === "villa");
+}
+
+export async function getAnnexRooms(): Promise<Room[]> {
+  const annex = (await getRooms()).filter((r) => r.category === "annex");
+  if (annex.length) return annex;
+  // The CMS doesn't carry the newly constructed Annex rooms yet, so fall back to
+  // their static definitions whenever the live data returns none.
+  return fallbackRooms.filter((r) => r.category === "annex");
 }
