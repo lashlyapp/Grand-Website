@@ -183,10 +183,27 @@ export default async function HomePage() {
                 aria-hidden={i >= amenities.length}
                 className="mr-5 flex w-72 shrink-0 flex-col rounded-xl bg-white p-7 shadow-sm ring-1 ring-ink/5"
               >
-                <h3 className="font-serif text-xl text-ink">{a.title}</h3>
-                <p className="mt-3 text-sm leading-relaxed text-ink/70">
-                  {a.description}
-                </p>
+                <h3 className="font-serif text-xl leading-snug text-ink text-balance">
+                  {a.title}
+                </h3>
+                {a.description && (
+                  <p className="mt-3 text-sm leading-relaxed text-ink/70">
+                    {a.description}
+                  </p>
+                )}
+                {a.details && a.details.length > 0 && (
+                  <ul className="mt-3 space-y-1.5 text-sm leading-relaxed text-ink/70">
+                    {a.details.map((detail) => (
+                      <li key={detail} className="flex gap-2.5">
+                        <span
+                          aria-hidden
+                          className="mt-[0.5em] size-1 shrink-0 rounded-full bg-gold"
+                        />
+                        <span>{detail}</span>
+                      </li>
+                    ))}
+                  </ul>
+                )}
               </li>
             ))}
           </ul>

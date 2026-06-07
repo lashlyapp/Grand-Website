@@ -100,24 +100,31 @@ export const footerNav: NavItem[] = [
 
 export type Amenity = {
   title: string;
-  description: string;
+  // Optional short lead-in shown above the details.
+  description?: string;
+  // Optional bullet points for structured details (hours, pricing, etc.).
+  details?: string[];
 };
 
-// Verbatim amenity details from the current site, lightly tidied.
+// Amenity details from the current site, organized into a short lead-in plus
+// bullets where there are multiple facts to scan (hours, pricing, policies).
 export const amenities: Amenity[] = [
   {
     title: "Heated Pool",
-    description: "Our heated outdoor pool is open daily from 7:00 am to 10:00 pm.",
+    description: "Our heated outdoor pool is open daily, 7:00 am to 10:00 pm.",
   },
   {
     title: "Continental Breakfast",
-    description:
-      "Continental breakfast is served daily — 6:30 am to 10:00 am (Monday–Friday) and 7:00 am to 10:30 am (Saturday & Sunday).",
+    description: "Complimentary continental breakfast, served daily:",
+    details: [
+      "Monday–Friday: 6:30 am – 10:00 am",
+      "Saturday & Sunday: 7:00 am – 10:30 am",
+    ],
   },
   {
     title: "Happy Hour",
-    description:
-      "Happy hour (drinks only) is available daily from 5:00 pm to 6:00 pm, with a maximum of two complimentary drinks per person.",
+    description: "Complimentary happy hour (drinks only):",
+    details: ["Daily: 5:00 pm – 6:00 pm", "Up to two drinks per guest"],
   },
   {
     title: "High-Speed Internet",
@@ -125,7 +132,7 @@ export const amenities: Amenity[] = [
   },
   {
     title: "24-Hour Room Service",
-    description: "In-room dining and service available around the clock.",
+    description: "In-room dining and service, available around the clock.",
   },
   {
     title: "Fitness On Site",
@@ -133,8 +140,8 @@ export const amenities: Amenity[] = [
   },
   {
     title: "Pet Friendly",
-    description:
-      "We recognize the growing need for pet-friendly accommodations and offer pet-friendly villas. Dogs under 50 lbs are welcome — ask about our pet policy when you book.",
+    description: "Pet-friendly villas for you and your companion:",
+    details: ["Dogs under 50 lbs welcome", "Ask about our pet policy when you book"],
   },
   {
     title: "DoorDash at the Front Desk",
@@ -143,12 +150,18 @@ export const amenities: Amenity[] = [
   {
     title: "Deliveries, Shipping & Handling",
     description:
-      "Send packages to the hotel for registered guests — up to 7 lbs complimentary. Additional weight: boxes $0.35/lb, pallets $0.50/lb, envelopes $4.00 each; storage $20.00 per day, per shipment.",
+      "Receive packages for registered guests — up to 7 lbs complimentary. Additional charges:",
+    details: [
+      "Boxes: $0.35 / lb",
+      "Pallets: $0.50 / lb",
+      "Envelopes: $4.00 each",
+      "Storage: $20.00 per day, per shipment",
+    ],
   },
   {
     title: "Business Services & Express Checkout",
-    description:
-      "Business services are available to keep you productive, and express checkout makes departure quick and easy.",
+    description: "Stay productive and depart with ease:",
+    details: ["Business services on site", "Express checkout available"],
   },
 ];
 
