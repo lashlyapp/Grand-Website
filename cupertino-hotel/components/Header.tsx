@@ -70,6 +70,16 @@ export default function Header() {
 
           <LanguageSwitcher />
 
+          {/* Persistent booking CTA on mobile/tablet (desktop has it in the nav
+              above). The header is fixed, so this stays visible at all times. */}
+          <button
+            type="button"
+            onClick={() => openBooking()}
+            className="rounded-full bg-gold px-4 py-2 text-xs font-semibold uppercase tracking-widest text-white transition-colors hover:bg-gold-dark lg:hidden"
+          >
+            Book Now
+          </button>
+
           <button
             type="button"
             onClick={() => setOpen((v) => !v)}
@@ -94,16 +104,6 @@ export default function Header() {
                 {item.label}
               </Link>
             ))}
-            <button
-              type="button"
-              onClick={() => {
-                setOpen(false);
-                openBooking();
-              }}
-              className="mt-4 block w-full rounded-full bg-gold px-5 py-3 text-center text-sm font-semibold uppercase tracking-widest text-white"
-            >
-              Book Now
-            </button>
           </div>
         </nav>
       )}

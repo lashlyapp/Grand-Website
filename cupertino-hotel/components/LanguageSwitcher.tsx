@@ -7,13 +7,15 @@ import { useEffect, useState } from "react";
 // `googtrans` cookie (set cookie + reload), exposing our own curated dropdown
 // instead. This keeps visitors on our domain rather than sending them to a
 // separate translated site.
+// `short` is what shows in the compact header switcher (e.g. "EN"); `label` is
+// the full name kept for the accessible title/tooltip.
 const LANGS = [
-  { code: "en", label: "English" },
-  { code: "zh-CN", label: "中文" },
-  { code: "es", label: "Español" },
-  { code: "ja", label: "日本語" },
-  { code: "ko", label: "한국어" },
-  { code: "fr", label: "Français" },
+  { code: "en", label: "English", short: "EN" },
+  { code: "zh-CN", label: "中文", short: "中文" },
+  { code: "es", label: "Español", short: "ES" },
+  { code: "ja", label: "日本語", short: "日本語" },
+  { code: "ko", label: "한국어", short: "한국어" },
+  { code: "fr", label: "Français", short: "FR" },
 ] as const;
 
 const INCLUDED = LANGS.map((l) => l.code).join(",");
@@ -111,8 +113,8 @@ export default function LanguageSwitcher() {
         onChange={(e) => changeLanguage(e.target.value)}
       >
         {LANGS.map((l) => (
-          <option key={l.code} value={l.code} className="bg-white text-ink">
-            {l.label}
+          <option key={l.code} value={l.code} title={l.label} className="bg-white text-ink">
+            {l.short}
           </option>
         ))}
       </select>

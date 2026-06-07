@@ -86,7 +86,6 @@ export const mainNav: NavItem[] = [
   { label: "Package", href: "/vidovich-vineyards/" },
   { label: "Events", href: "/events/" },
   { label: "Location", href: "/location/" },
-  { label: "News", href: "/news/" },
   { label: "Contact", href: "/contacts/" },
 ];
 
