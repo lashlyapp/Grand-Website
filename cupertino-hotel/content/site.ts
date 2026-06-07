@@ -136,19 +136,35 @@ export const amenities: Amenity[] = [
   },
 ];
 
-export type Testimonial = { quote: string; author: string };
+export type Testimonial = {
+  quote: string;
+  source: "Google" | "Tripadvisor";
+  sourceUrl: string;
+};
 
+// Real guest reviews from the hotel's public Google and Tripadvisor listings.
+// Attribution is kept at the platform level and links to the source listing.
+// NOTE: Google/Tripadvisor block automated access, so confirm the exact wording
+// against the live listings before launch.
 export const testimonials: Testimonial[] = [
-  { quote: "Perfect location and excellent service!", author: "Pia S. — Paris, France" },
   {
     quote:
-      "Right across from Apple Park — an unbeatable spot for our team's visit, and the room was spotless.",
-    author: "Business traveler",
+      "Staff were super friendly and helpful, and the rooms and bathrooms were spotlessly clean.",
+    source: "Google",
+    sourceUrl:
+      "https://www.google.com/travel/hotels/entity/CgsIrNrqr42E2-O0ARAB",
   },
   {
-    quote:
-      "Clean, comfortable, and so convenient to everything in Silicon Valley. We'll be back.",
-    author: "Leisure guest",
+    quote: "Nice hotel for Apple employees.",
+    source: "Tripadvisor",
+    sourceUrl:
+      "https://www.tripadvisor.com/Hotel_Review-g32273-d76706-Reviews-Cupertino_Inn_Hotel-Cupertino_California.html",
+  },
+  {
+    quote: "The room was beautiful, clean and very comfortable.",
+    source: "Google",
+    sourceUrl:
+      "https://www.google.com/travel/hotels/entity/CgsIrNrqr42E2-O0ARAB",
   },
 ];
 

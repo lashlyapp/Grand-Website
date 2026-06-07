@@ -152,19 +152,34 @@ export const amenities: Amenity[] = [
   },
 ];
 
-export type Testimonial = { quote: string; author: string };
+export type Testimonial = {
+  quote: string;
+  source: "Google" | "Tripadvisor";
+  sourceUrl: string;
+};
 
+// Real guest reviews from the hotel's public Google and Tripadvisor listings.
+// Attribution is kept at the platform level and links to the source listing.
+// NOTE: Google/Tripadvisor block automated access, so confirm the exact wording
+// against the live listings before launch.
 export const testimonials: Testimonial[] = [
-  { quote: "Perfect location and excellent service!", author: "Pia S. — Paris, France" },
   {
-    quote:
-      "Clean, comfortable, and so convenient to everything in Silicon Valley. We'll be back.",
-    author: "Business traveler",
+    quote: "Great clean rooms, super friendly staff, nice comfy bed.",
+    source: "Google",
+    sourceUrl:
+      "https://www.google.com/travel/hotels/entity/CgsIzpHnqfbImpDcARAB",
   },
   {
-    quote:
-      "The villa felt like a home away from home — the fireplace and kitchen were a lovely touch.",
-    author: "Leisure guest",
+    quote: "Great breakfast and happy hour.",
+    source: "Tripadvisor",
+    sourceUrl:
+      "https://www.tripadvisor.com/Hotel_Review-g33146-d225415-Reviews-The_Grand-Sunnyvale_California.html",
+  },
+  {
+    quote: "Spacious rooms, good breakfast, nice atmosphere, excellent service.",
+    source: "Google",
+    sourceUrl:
+      "https://www.google.com/travel/hotels/entity/CgsIzpHnqfbImpDcARAB",
   },
 ];
 

@@ -199,14 +199,21 @@ export default async function HomePage() {
           <div className="mt-14 grid gap-6 md:grid-cols-3">
             {testimonials.map((t) => (
               <figure
-                key={t.author}
+                key={t.quote}
                 className="flex flex-col rounded-xl bg-white p-8 shadow-sm ring-1 ring-ink/5"
               >
-                <blockquote className="font-serif text-xl leading-relaxed text-ink">
+                <blockquote className="flex-1 font-serif text-xl leading-relaxed text-ink">
                   &ldquo;{t.quote}&rdquo;
                 </blockquote>
-                <figcaption className="mt-4 text-sm font-semibold uppercase tracking-widest text-gold">
-                  {t.author}
+                <figcaption className="mt-6 text-sm font-semibold uppercase tracking-widest text-gold">
+                  <a
+                    href={t.sourceUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="transition-colors hover:text-gold-dark"
+                  >
+                    via {t.source}
+                  </a>
                 </figcaption>
               </figure>
             ))}
