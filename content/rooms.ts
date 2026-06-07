@@ -102,7 +102,7 @@ export const rooms: Room[] = [
     category: "annex",
     beds: "1 King Bed",
     description:
-      "A Deluxe Room with 1 king bed in our newly constructed Annex. This sumptuous, oversized hotel room has extra space to make it a comfortable and relaxing setting for your luxury holiday or business trip to the heart of Silicon Valley. Floor-to-ceiling windows provide ample natural lighting and a view of beautiful California. Each room features a key-card switch to promote energy efficiency, a king-sized bed, air conditioning, direct access to the hotel gym, and a full-sized bathroom with granite countertops, dual vanity mirrors, and a spacious soaking tub.",
+      "Deluxe Room with 1 King bed in our newly constructed Annex. The Annex Deluxe Room is an oversized hotel room with a large and comfortable bed. This sumptuous hotel room has extra space to make it a comfortable and relaxing setting for your luxury holiday or business trip to the Heart of Silicon Valley. Floor to ceiling windows provide ample natural lighting and a view of beautiful California. Each room features a key card switch to promote energy efficiency in our part to protect the environment, a king-sized bed, air conditioning, direct access to the hotel gym, and a full-sized bathroom with: granite countertops, dual vanity mirrors and a spacious soaking tub.",
     features: [
       "King bed",
       "Floor-to-ceiling windows",
@@ -120,7 +120,7 @@ export const rooms: Room[] = [
     category: "annex",
     beds: "2 Queen Beds",
     description:
-      "A Deluxe Room with 2 queen beds in our newly constructed Annex. This sumptuous, oversized hotel room has extra space to make it a comfortable and relaxing setting for your luxury holiday or business trip to the heart of Silicon Valley. Floor-to-ceiling windows provide ample natural lighting and a view of beautiful California. Each room features a key-card switch to promote energy efficiency, two queen-sized beds, air conditioning, direct access to the hotel gym, and a full-sized bathroom with granite countertops, dual vanity mirrors, and a spacious soaking tub.",
+      "Deluxe Room with 2 Queens beds in our newly constructed Annex. The Annex Deluxe Room is an oversized hotel room with a large and comfortable bed. This sumptuous hotel room has extra space to make it a comfortable and relaxing setting for your luxury holiday or business trip to the Heart of Silicon Valley. Floor to ceiling windows provide ample natural lighting and a view of beautiful California. Each room features a key card switch to promote energy efficiency in our part to protect the environment, a king-sized bed, air conditioning, direct access to the hotel gym, and a full-sized bathroom with: granite countertops, dual vanity mirrors and a spacious soaking tub.",
     features: [
       "Two queen beds",
       "Floor-to-ceiling windows",
