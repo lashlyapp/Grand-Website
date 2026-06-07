@@ -89,7 +89,6 @@ export type NavItem = { label: string; href: string };
 export const mainNav: NavItem[] = [
   { label: "Rooms", href: "/rooms/" },
   { label: "Gallery", href: "/gallery/" },
-  { label: "Package", href: "/vidovich-vineyards/" },
   { label: "Events", href: "/events/" },
   { label: "Location", href: "/location/" },
   { label: "Contact", href: "/contacts/" },
