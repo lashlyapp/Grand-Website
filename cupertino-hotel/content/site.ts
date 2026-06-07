@@ -102,24 +102,34 @@ export const footerNav: NavItem[] = [
 
 export type Amenity = {
   title: string;
-  description: string;
+  // Optional short lead-in shown above the details.
+  description?: string;
+  // Optional bullet points for structured details (hours, pricing, etc.).
+  details?: string[];
+  // When true, the details are hidden behind a "More" toggle so a long card
+  // doesn't stretch the height of every card in the row.
+  collapsible?: boolean;
 };
 
-// Services & amenities from the current Cupertino Hotel site.
+// Services & amenities from the current Cupertino Hotel site, organized into a
+// short lead-in plus bullets where there are multiple facts to scan.
 export const amenities: Amenity[] = [
   {
     title: "Heated Pool",
-    description: "Our heated outdoor pool is open daily from 7:00 am to 10:00 pm.",
+    description: "Our heated outdoor pool is open daily, 7:00 am to 10:00 pm.",
   },
   {
     title: "Complimentary Continental Breakfast",
-    description:
-      "Continental breakfast is served daily — 6:30 am to 10:00 am (Monday–Friday) and 7:00 am to 10:30 am (Saturday & Sunday).",
+    description: "Complimentary continental breakfast, served daily:",
+    details: [
+      "Monday–Friday: 6:30 am – 10:00 am",
+      "Saturday & Sunday: 7:00 am – 10:30 am",
+    ],
   },
   {
     title: "Happy Hour",
-    description:
-      "Happy hour (drinks only) is available daily from 5:00 pm to 6:00 pm, with a maximum of two complimentary drinks per person.",
+    description: "Complimentary happy hour (drinks only):",
+    details: ["Daily: 5:00 pm – 6:00 pm", "Up to two drinks per guest"],
   },
   {
     title: "High-Speed Internet",
@@ -127,12 +137,16 @@ export const amenities: Amenity[] = [
   },
   {
     title: "24-Hour Room Service",
-    description: "In-room dining and service available around the clock.",
+    description: "In-room dining and service, available around the clock.",
   },
   {
     title: "Pet Friendly",
-    description:
-      "We welcome your furry companions in our pet rooms and suites — dogs under 50 lbs, one per room, with a $35/day cleaning fee. Ask about our pet policy when you book.",
+    description: "We welcome your furry companions in our pet rooms and suites:",
+    details: [
+      "Dogs under 50 lbs, one per room",
+      "$35 / day cleaning fee",
+      "Ask about our pet policy when you book",
+    ],
   },
 ];
 
