@@ -31,6 +31,13 @@ export const site = {
   // Shown on room listings and in the room detail / virtual-tour modal.
   roomMediaDisclaimer:
     "Photos and videos are for illustration only. Actual rooms may differ in furnishings, layout, view, and finishes.",
+  // New on-site fitness center, featured on the homepage. Point `gymVideoUrl` at
+  // the uploaded clip — either a /public path (e.g. "/videos/gym.mp4") or a CDN
+  // URL (e.g. the MyHotelOps Cloudflare account used for the room tours). Large
+  // video files should live on the CDN, not be committed to the repo.
+  // `gymPoster` is the still shown before the video plays.
+  gymVideoUrl: "/videos/gym.mp4",
+  gymPoster: "/images/about_1.jpg",
   // Site-wide service notice rendered in a band under the header on every page.
   // Set to an empty string to hide the banner. This statement is intended to
   // supersede other (possibly outdated) information elsewhere on the site.

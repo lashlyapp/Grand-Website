@@ -122,6 +122,39 @@ export default async function HomePage() {
         </Container>
       </section>
 
+      {/* Fitness — new gym (video featured) */}
+      <section className="relative overflow-hidden bg-ink py-20 sm:py-28">
+        <Container>
+          <div className="grid items-center gap-12 lg:grid-cols-2">
+            <div>
+              <SectionHeading
+                eyebrow="Fitness"
+                title="Train in our brand-new fitness center"
+                light
+              >
+                <p>
+                  Our newly built gym is open to all guests and connects directly
+                  to the Annex — modern equipment and room to move, so you can keep
+                  your routine without leaving the hotel.
+                </p>
+              </SectionHeading>
+            </div>
+            <div className="relative aspect-video overflow-hidden rounded-xl bg-black ring-1 ring-white/10">
+              <video
+                className="h-full w-full object-cover"
+                controls
+                playsInline
+                preload="metadata"
+                poster={site.gymPoster}
+              >
+                <source src={site.gymVideoUrl} type="video/mp4" />
+                Your browser does not support the video tag.
+              </video>
+            </div>
+          </div>
+        </Container>
+      </section>
+
       {/* Amenities */}
       <section className="py-20 sm:py-28">
         <Container>
