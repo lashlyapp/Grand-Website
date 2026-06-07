@@ -155,7 +155,6 @@ export const amenities: Amenity[] = [
 export type Testimonial = {
   quote: string;
   source: "Google" | "Tripadvisor";
-  sourceUrl: string;
 };
 
 // Real guest reviews from the hotel's public Google and Tripadvisor listings.
@@ -166,20 +165,14 @@ export const testimonials: Testimonial[] = [
   {
     quote: "Great clean rooms, super friendly staff, nice comfy bed.",
     source: "Google",
-    sourceUrl:
-      "https://www.google.com/travel/hotels/entity/CgsIzpHnqfbImpDcARAB",
   },
   {
     quote: "Great breakfast and happy hour.",
     source: "Tripadvisor",
-    sourceUrl:
-      "https://www.tripadvisor.com/Hotel_Review-g33146-d225415-Reviews-The_Grand-Sunnyvale_California.html",
   },
   {
     quote: "Spacious rooms, good breakfast, nice atmosphere, excellent service.",
     source: "Google",
-    sourceUrl:
-      "https://www.google.com/travel/hotels/entity/CgsIzpHnqfbImpDcARAB",
   },
 ];
 

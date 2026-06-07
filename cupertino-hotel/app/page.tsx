@@ -9,6 +9,7 @@ import { Button, Container, SectionHeading } from "@/components/ui";
 import { amenities, site, testimonials } from "@/content/site";
 import { getGuestRooms } from "@/lib/rooms-data";
 import { getDisclaimer } from "@/lib/site-data";
+import { GoogleLogo, TripadvisorLogo } from "@/components/BrandLogos";
 
 // Cupertino's signature: the address itself. These travel facts anchor the
 // site's personality on what's unique to this property — being across the
@@ -209,15 +210,8 @@ export default async function HomePage() {
                 <blockquote className="flex-1 font-serif text-xl leading-relaxed text-ink">
                   &ldquo;{t.quote}&rdquo;
                 </blockquote>
-                <figcaption className="mt-6 text-sm font-semibold uppercase tracking-widest text-gold">
-                  <a
-                    href={t.sourceUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="transition-colors hover:text-gold-dark"
-                  >
-                    via {t.source}
-                  </a>
+                <figcaption className="mt-6">
+                  {t.source === "Google" ? <GoogleLogo /> : <TripadvisorLogo />}
                 </figcaption>
               </figure>
             ))}

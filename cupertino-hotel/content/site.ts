@@ -139,7 +139,6 @@ export const amenities: Amenity[] = [
 export type Testimonial = {
   quote: string;
   source: "Google" | "Tripadvisor";
-  sourceUrl: string;
 };
 
 // Real guest reviews from the hotel's public Google and Tripadvisor listings.
@@ -151,20 +150,14 @@ export const testimonials: Testimonial[] = [
     quote:
       "Staff were super friendly and helpful, and the rooms and bathrooms were spotlessly clean.",
     source: "Google",
-    sourceUrl:
-      "https://www.google.com/travel/hotels/entity/CgsIrNrqr42E2-O0ARAB",
   },
   {
     quote: "Nice hotel for Apple employees.",
     source: "Tripadvisor",
-    sourceUrl:
-      "https://www.tripadvisor.com/Hotel_Review-g32273-d76706-Reviews-Cupertino_Inn_Hotel-Cupertino_California.html",
   },
   {
     quote: "The room was beautiful, clean and very comfortable.",
     source: "Google",
-    sourceUrl:
-      "https://www.google.com/travel/hotels/entity/CgsIrNrqr42E2-O0ARAB",
   },
 ];
 
