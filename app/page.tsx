@@ -170,7 +170,7 @@ export default async function HomePage() {
           <ul
             aria-label="Hotel amenities"
             className="flex w-max animate-marquee py-4 group-hover:[animation-play-state:paused] group-focus-within:[animation-play-state:paused] motion-reduce:animate-none"
-            style={{ animationDuration: `${amenities.length * 4.5}s` }}
+            style={{ animationDuration: `${amenities.length * 7}s` }}
           >
             {[...amenities, ...amenities].map((a, i) => (
               <li
