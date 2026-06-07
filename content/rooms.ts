@@ -133,6 +133,23 @@ export const rooms: Room[] = [
     gallery: ["/images/rooms/tour-deluxe-room.jpg", "/images/rooms/room-03.jpg"],
   },
   {
+    code: "ADQH",
+    name: "Annex Deluxe Two Queens — Accessible",
+    category: "annex",
+    beds: "2 Queen Beds",
+    description:
+      "An ADA-accessible deluxe room in our newly constructed Annex with two queen beds, floor-to-ceiling windows, and direct access to the hotel gym.",
+    features: [
+      "Two queen beds",
+      "Accessible bathroom",
+      "Floor-to-ceiling windows",
+      "Direct gym access",
+    ],
+    accessible: true,
+    image: "/images/rooms/tour-deluxe-room.jpg",
+    gallery: ["/images/rooms/tour-deluxe-room.jpg", "/images/rooms/room-05.jpg"],
+  },
+  {
     code: "VK",
     name: "Villa King",
     category: "villa",
