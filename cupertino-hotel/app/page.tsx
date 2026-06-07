@@ -178,6 +178,9 @@ export default async function HomePage() {
             style={{ animationDuration: `${amenities.length * 7}s` }}
           >
             {[...amenities, ...amenities].map((a, i) => {
+              // The list is duplicated for the seamless marquee; the second
+              // copy is aria-hidden, so keep its toggle out of the tab order.
+              const hidden = i >= amenities.length;
               const bullets = a.details && a.details.length > 0 && (
                 <ul className="mt-3 space-y-1.5 text-sm leading-relaxed text-ink/70">
                   {a.details.map((detail) => (
@@ -194,7 +197,7 @@ export default async function HomePage() {
               return (
                 <li
                   key={i}
-                  aria-hidden={i >= amenities.length}
+                  aria-hidden={hidden}
                   className="mr-5 flex w-72 shrink-0 flex-col rounded-xl bg-white p-7 shadow-sm ring-1 ring-ink/5"
                 >
                   <h3 className="font-serif text-xl leading-snug text-ink text-balance">
@@ -208,7 +211,10 @@ export default async function HomePage() {
                   {bullets &&
                     (a.collapsible ? (
                       <details className="group/more mt-2">
-                        <summary className="cursor-pointer list-none text-sm font-medium text-gold transition-colors hover:text-gold-dark">
+                        <summary
+                          tabIndex={hidden ? -1 : undefined}
+                          className="cursor-pointer list-none text-sm font-medium text-gold transition-colors hover:text-gold-dark"
+                        >
                           <span className="group-open/more:hidden">More</span>
                           <span className="hidden group-open/more:inline">
                             Less
