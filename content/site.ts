@@ -31,6 +31,9 @@ export const site = {
   // Shown on room listings and in the room detail / virtual-tour modal.
   roomMediaDisclaimer:
     "Photos and videos are for illustration only. Actual rooms may differ in furnishings, layout, view, and finishes.",
+  // New on-site fitness center, featured on the homepage. Point `gymImage` at
+  // the gym photo in /public (e.g. "/images/gym.jpg").
+  gymImage: "/images/gym.jpg",
   // Site-wide service notice rendered in a band under the header on every page.
   // Set to an empty string to hide the banner. This statement is intended to
   // supersede other (possibly outdated) information elsewhere on the site.
@@ -70,7 +73,7 @@ export const site = {
 export const ttweb = {
   hotelId: "CASVGH",
   portalId: "svgrandhotel",
-  timezone: "America/New_York",
+  timezone: "America/Los_Angeles",
   currency: "USD",
   pluginBase: "https://plugins.traveltripper.io/v2",
   jquery: "https://code.jquery.com/jquery-3.7.1.min.js",
@@ -82,11 +85,10 @@ export type NavItem = { label: string; href: string };
 export const mainNav: NavItem[] = [
   { label: "Rooms", href: "/rooms/" },
   { label: "Villas", href: "/villas/" },
+  { label: "Annex", href: "/annex/" },
   { label: "Gallery", href: "/gallery/" },
-  { label: "Package", href: "/vidovich-vineyards/" },
   { label: "Events", href: "/events/" },
   { label: "Location", href: "/location/" },
-  { label: "News", href: "/news/" },
   { label: "Contact", href: "/contacts/" },
 ];
 
@@ -150,19 +152,27 @@ export const amenities: Amenity[] = [
   },
 ];
 
-export type Testimonial = { quote: string; author: string };
+export type Testimonial = {
+  quote: string;
+  source: "Google" | "Tripadvisor";
+};
 
+// Real guest reviews from the hotel's public Google and Tripadvisor listings.
+// Attribution is kept at the platform level and links to the source listing.
+// NOTE: Google/Tripadvisor block automated access, so confirm the exact wording
+// against the live listings before launch.
 export const testimonials: Testimonial[] = [
-  { quote: "Perfect location and excellent service!", author: "Pia S. — Paris, France" },
   {
-    quote:
-      "Clean, comfortable, and so convenient to everything in Silicon Valley. We'll be back.",
-    author: "Business traveler",
+    quote: "Great clean rooms, super friendly staff, nice comfy bed.",
+    source: "Google",
   },
   {
-    quote:
-      "The villa felt like a home away from home — the fireplace and kitchen were a lovely touch.",
-    author: "Leisure guest",
+    quote: "Great breakfast and happy hour.",
+    source: "Tripadvisor",
+  },
+  {
+    quote: "Spacious rooms, good breakfast, nice atmosphere, excellent service.",
+    source: "Google",
   },
 ];
 

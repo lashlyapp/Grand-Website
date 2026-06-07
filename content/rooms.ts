@@ -4,7 +4,7 @@
 export type Room = {
   code: string;
   name: string;
-  category: "room" | "villa" | "suite";
+  category: "room" | "villa" | "suite" | "annex";
   beds: string;
   description: string;
   features: string[];
@@ -97,6 +97,59 @@ export const rooms: Room[] = [
     gallery: ["/images/rooms/room-05.jpg", "/images/gallery/gallery-16.jpg", "/images/gallery/gallery-17.jpg"],
   },
   {
+    code: "ADK",
+    name: "Annex Deluxe King",
+    category: "annex",
+    beds: "1 King Bed",
+    description:
+      "An oversized deluxe room in our newly constructed Annex with a king bed, floor-to-ceiling windows, and direct access to the hotel gym.",
+    features: [
+      "King bed",
+      "Floor-to-ceiling windows",
+      "Direct gym access",
+      "Soaking tub",
+      "Granite countertops",
+      "Air conditioning",
+    ],
+    image: "/images/rooms/tour-deluxe-king.jpg",
+    gallery: ["/images/rooms/tour-deluxe-king.jpg", "/images/rooms/room-01.jpg"],
+  },
+  {
+    code: "ADQ",
+    name: "Annex Deluxe Two Queens",
+    category: "annex",
+    beds: "2 Queen Beds",
+    description:
+      "An oversized deluxe room in our newly constructed Annex with two queen beds, floor-to-ceiling windows, and direct access to the hotel gym.",
+    features: [
+      "Two queen beds",
+      "Floor-to-ceiling windows",
+      "Direct gym access",
+      "Soaking tub",
+      "Granite countertops",
+      "Air conditioning",
+    ],
+    image: "/images/rooms/tour-deluxe-room.jpg",
+    gallery: ["/images/rooms/tour-deluxe-room.jpg", "/images/rooms/room-03.jpg"],
+  },
+  {
+    code: "ADQH",
+    name: "Annex Deluxe Two Queens — Accessible",
+    category: "annex",
+    beds: "2 Queen Beds",
+    description:
+      "An ADA-accessible deluxe room in our newly constructed Annex with two queen beds, floor-to-ceiling windows, and direct access to the hotel gym.",
+    features: [
+      "Two queen beds",
+      "Accessible bathroom",
+      "Floor-to-ceiling windows",
+      "Direct gym access",
+    ],
+    accessible: true,
+    image: "/images/rooms/tour-deluxe-room.jpg",
+    gallery: ["/images/rooms/tour-deluxe-room.jpg", "/images/rooms/room-05.jpg"],
+  },
+  {
     code: "VK",
     name: "Villa King",
     category: "villa",
@@ -186,5 +239,8 @@ export const rooms: Room[] = [
   },
 ];
 
-export const guestRooms = rooms.filter((r) => r.category !== "villa");
+export const guestRooms = rooms.filter(
+  (r) => r.category !== "villa" && r.category !== "annex",
+);
 export const villas = rooms.filter((r) => r.category === "villa");
+export const annexRooms = rooms.filter((r) => r.category === "annex");

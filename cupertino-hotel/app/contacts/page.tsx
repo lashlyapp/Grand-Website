@@ -17,7 +17,7 @@ export default function ContactPage() {
         eyebrow="Say Hello"
         title="Contact"
         intro="We're here to help with reservations, events, and everything in between."
-        image="/images/services-first.jpg"
+        image="/images/contact-hero.jpg"
       />
       <section className="py-16 sm:py-24">
         <Container>

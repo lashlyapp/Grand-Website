@@ -72,12 +72,12 @@ export const site = {
 // on the current site. Both the booking widget and the social-proof ticker
 // (tonight's rate + recent bookings) are driven by this engine. The new domain
 // may need to be whitelisted in the Cendyn portal for it to load cross-origin.
-// TODO: confirm the Cupertino RT3 hotelId in the Cendyn portal — `CACUPH` is a
-// placeholder. The portalId mirrors the booking subdomain (cupertinohotel).
+// The hotelId is the property's RT3 code (resolved from the portal config at
+// /portals/cupertinohotel.json → hotel_id "CASVCH").
 export const ttweb = {
-  hotelId: "CACUPH",
+  hotelId: "CASVCH",
   portalId: "cupertinohotel",
-  timezone: "America/New_York",
+  timezone: "America/Los_Angeles",
   currency: "USD",
   pluginBase: "https://plugins.traveltripper.io/v2",
   jquery: "https://code.jquery.com/jquery-3.7.1.min.js",
@@ -89,10 +89,8 @@ export type NavItem = { label: string; href: string };
 export const mainNav: NavItem[] = [
   { label: "Rooms", href: "/rooms/" },
   { label: "Gallery", href: "/gallery/" },
-  { label: "Package", href: "/vidovich-vineyards/" },
   { label: "Events", href: "/events/" },
   { label: "Location", href: "/location/" },
-  { label: "News", href: "/news/" },
   { label: "Contact", href: "/contacts/" },
 ];
 
@@ -138,19 +136,28 @@ export const amenities: Amenity[] = [
   },
 ];
 
-export type Testimonial = { quote: string; author: string };
+export type Testimonial = {
+  quote: string;
+  source: "Google" | "Tripadvisor";
+};
 
+// Real guest reviews from the hotel's public Google and Tripadvisor listings.
+// Attribution is kept at the platform level and links to the source listing.
+// NOTE: Google/Tripadvisor block automated access, so confirm the exact wording
+// against the live listings before launch.
 export const testimonials: Testimonial[] = [
-  { quote: "Perfect location and excellent service!", author: "Pia S. — Paris, France" },
   {
     quote:
-      "Right across from Apple Park — an unbeatable spot for our team's visit, and the room was spotless.",
-    author: "Business traveler",
+      "Staff were super friendly and helpful, and the rooms and bathrooms were spotlessly clean.",
+    source: "Google",
   },
   {
-    quote:
-      "Clean, comfortable, and so convenient to everything in Silicon Valley. We'll be back.",
-    author: "Leisure guest",
+    quote: "Nice hotel for Apple employees.",
+    source: "Tripadvisor",
+  },
+  {
+    quote: "The room was beautiful, clean and very comfortable.",
+    source: "Google",
   },
 ];
 

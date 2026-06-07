@@ -8,6 +8,8 @@ import RoomCard from "@/components/RoomCard";
 import { Button, Container, SectionHeading } from "@/components/ui";
 import { amenities, site, testimonials } from "@/content/site";
 import { getGuestRooms } from "@/lib/rooms-data";
+import { getDisclaimer } from "@/lib/site-data";
+import { GoogleLogo, TripadvisorLogo } from "@/components/BrandLogos";
 
 // Cupertino's signature: the address itself. These travel facts anchor the
 // site's personality on what's unique to this property — being across the
@@ -21,10 +23,13 @@ const locationFacts = [
 
 export default async function HomePage() {
   const guestRooms = await getGuestRooms();
+  const disclaimer = (await getDisclaimer()).trim();
   return (
     <>
-      {/* Hero */}
-      <section className="relative flex min-h-[92vh] items-center overflow-hidden bg-ink">
+      {/* Hero — image runs full-bleed to the top of the screen, behind the fixed
+          header. The service notice rides as a translucent overlay at the very
+          top (inner pages show it as an in-flow band instead). */}
+      <section className="relative flex min-h-[88vh] flex-col overflow-hidden bg-ink">
         <Image
           src="/images/hero.jpg"
           alt="A king suite at The Cupertino Hotel"
@@ -36,7 +41,18 @@ export default async function HomePage() {
         {/* Tint is heaviest at the top (for the header + headline) and fades
             lighter toward the bottom so the hero image opens up. */}
         <div className="absolute inset-0 bg-gradient-to-b from-ink/85 via-ink/40 to-ink/10" />
-        <Container className="relative z-10 pt-24">
+        {disclaimer && (
+          <aside
+            role="region"
+            aria-label="Hotel service notice"
+            className="relative z-30 w-full border-b border-white/10 bg-ink/40 pb-3 pt-[84px] backdrop-blur-sm"
+          >
+            <div className="w-full px-5 sm:px-8">
+              <p className="text-xs leading-relaxed text-white/80">{disclaimer}</p>
+            </div>
+          </aside>
+        )}
+        <Container className="relative z-10 flex flex-1 flex-col justify-center py-12">
           <div className="max-w-2xl">
             <p className="text-xs font-semibold uppercase tracking-widest2 text-gold">
               Across from Apple Park · Cupertino
@@ -44,25 +60,19 @@ export default async function HomePage() {
             <h1 className="mt-4 font-serif text-5xl leading-[1.05] text-white sm:text-6xl">
               A welcoming haven in the heart of Silicon Valley
             </h1>
-            <p className="mt-6 max-w-xl text-lg leading-relaxed text-white/85">
+            <p className="mt-5 max-w-xl text-lg leading-relaxed text-white/85">
               {site.tagline}. The Cupertino Hotel is easily accessible from all
               major Silicon Valley freeways — directly across the street from
               Apple Park and just 15 minutes from San Jose International Airport.
             </p>
-            <div className="mt-8 flex flex-wrap gap-4">
-              <Button href="/rooms/">Explore Rooms</Button>
-              <Button href="/location/" variant="outline">
-                Find Us
-              </Button>
-            </div>
           </div>
 
-          <div className="mt-8 flex flex-wrap items-center gap-4">
+          <div className="mt-6 flex flex-wrap items-center gap-4">
             <HeroReviews />
             <HeroRateTicker />
           </div>
 
-          <div className="mt-6 max-w-4xl">
+          <div className="mt-5 max-w-4xl">
             <BookingBar floating />
           </div>
         </Container>
@@ -74,8 +84,8 @@ export default async function HomePage() {
           <div className="grid items-center gap-12 lg:grid-cols-2">
             <div className="relative aspect-[5/4] overflow-hidden rounded-xl">
               <Image
-                src="/images/lobby.jpg"
-                alt="Inside The Cupertino Hotel"
+                src="/images/comfort.jpg"
+                alt="A guest room at The Cupertino Hotel"
                 fill
                 sizes="(min-width: 1024px) 50vw, 100vw"
                 className="object-cover"
@@ -148,7 +158,9 @@ export default async function HomePage() {
         </Container>
       </section>
 
-      {/* Amenities */}
+      {/* Amenities — continuous marquee. A fixed grid left empty cells on the
+          last row; this scrolls instead, pausing on hover/focus and falling back
+          to a manual horizontal scroll when reduced motion is requested. */}
       <section className="py-20 sm:py-28">
         <Container>
           <SectionHeading
@@ -156,17 +168,29 @@ export default async function HomePage() {
             title="Thoughtful amenities, around the clock"
             align="center"
           />
-          <div className="mt-14 grid gap-px overflow-hidden rounded-xl bg-ink/10 sm:grid-cols-2 lg:grid-cols-4">
-            {amenities.map((a) => (
-              <div key={a.title} className="bg-cream p-7">
+        </Container>
+        <div className="group relative mt-14 overflow-hidden motion-reduce:overflow-x-auto">
+          <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-16 bg-gradient-to-r from-cream to-transparent motion-reduce:hidden sm:w-24" />
+          <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-16 bg-gradient-to-l from-cream to-transparent motion-reduce:hidden sm:w-24" />
+          <ul
+            aria-label="Hotel amenities"
+            className="flex w-max animate-marquee py-4 group-hover:[animation-play-state:paused] group-focus-within:[animation-play-state:paused] motion-reduce:animate-none"
+            style={{ animationDuration: `${amenities.length * 7}s` }}
+          >
+            {[...amenities, ...amenities].map((a, i) => (
+              <li
+                key={i}
+                aria-hidden={i >= amenities.length}
+                className="mr-5 flex w-72 shrink-0 flex-col rounded-xl bg-white p-7 shadow-sm ring-1 ring-ink/5"
+              >
                 <h3 className="font-serif text-xl text-ink">{a.title}</h3>
                 <p className="mt-3 text-sm leading-relaxed text-ink/70">
                   {a.description}
                 </p>
-              </div>
+              </li>
             ))}
-          </div>
-        </Container>
+          </ul>
+        </div>
       </section>
 
       {/* Testimonials */}
@@ -180,14 +204,14 @@ export default async function HomePage() {
           <div className="mt-14 grid gap-6 md:grid-cols-3">
             {testimonials.map((t) => (
               <figure
-                key={t.author}
+                key={t.quote}
                 className="flex flex-col rounded-xl bg-white p-8 shadow-sm ring-1 ring-ink/5"
               >
-                <blockquote className="font-serif text-xl leading-relaxed text-ink">
+                <blockquote className="flex-1 font-serif text-xl leading-relaxed text-ink">
                   &ldquo;{t.quote}&rdquo;
                 </blockquote>
-                <figcaption className="mt-4 text-sm font-semibold uppercase tracking-widest text-gold">
-                  {t.author}
+                <figcaption className="mt-6">
+                  {t.source === "Google" ? <GoogleLogo /> : <TripadvisorLogo />}
                 </figcaption>
               </figure>
             ))}

@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { useRoomDetail } from "./RoomDetailProvider";
 import { useBooking } from "./BookingProvider";
@@ -8,6 +8,12 @@ import { site } from "@/content/site";
 
 function isVideoFile(url: string): boolean {
   return /\.(mp4|webm|ogg)(\?|#|$)/i.test(url);
+}
+
+// Appends an autoplay flag to an embed (YouTube/Vimeo) URL so it starts on open.
+function embedAutoplaySrc(url: string): string {
+  const sep = url.includes("?") ? "&" : "?";
+  return `${url}${sep}autoplay=1`;
 }
 
 // Room detail modal with a "virtual tour" video. Opens from any room card and
@@ -18,6 +24,7 @@ export default function RoomModal() {
   const { room, closeRoom } = useRoomDetail();
   const { openBooking } = useBooking();
   const [activeImage, setActiveImage] = useState<string | null>(null);
+  const videoRef = useRef<HTMLVideoElement>(null);
 
   const open = room !== null;
 
@@ -25,6 +32,18 @@ export default function RoomModal() {
   useEffect(() => {
     setActiveImage(null);
   }, [room?.code]);
+
+  // Auto-start the tour video when a room opens. The modal opens from a user
+  // click, so playing with sound is usually permitted; if the browser blocks
+  // that, retry muted so the clip still starts.
+  useEffect(() => {
+    const v = videoRef.current;
+    if (!open || !v) return;
+    v.play().catch(() => {
+      v.muted = true;
+      v.play().catch(() => {});
+    });
+  }, [open, room?.code]);
 
   // Lock body scroll + close on Escape while open.
   useEffect(() => {
@@ -73,10 +92,12 @@ export default function RoomModal() {
             isVideoFile(room.video) ? (
               <video
                 key={room.video}
+                ref={videoRef}
                 className="h-full w-full object-cover"
                 controls
+                autoPlay
                 playsInline
-                preload="metadata"
+                preload="auto"
                 poster={room.image}
               >
                 <source src={room.video} type="video/mp4" />
@@ -85,7 +106,7 @@ export default function RoomModal() {
             ) : (
               <iframe
                 key={room.video}
-                src={room.video}
+                src={embedAutoplaySrc(room.video)}
                 title={`${room.name} virtual tour`}
                 className="h-full w-full"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen"
