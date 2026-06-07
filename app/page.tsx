@@ -72,8 +72,8 @@ export default async function HomePage() {
           <div className="grid items-center gap-12 lg:grid-cols-2">
             <div className="relative aspect-[5/4] overflow-hidden rounded-xl">
               <Image
-                src="/images/about_1.jpg"
-                alt="Inside The Grand Hotel"
+                src="/images/our-hotel.jpg"
+                alt="A guest working in a room at The Grand Hotel"
                 fill
                 sizes="(min-width: 1024px) 50vw, 100vw"
                 className="object-cover"
