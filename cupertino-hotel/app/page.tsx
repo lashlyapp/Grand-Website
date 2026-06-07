@@ -157,7 +157,9 @@ export default async function HomePage() {
         </Container>
       </section>
 
-      {/* Amenities */}
+      {/* Amenities — continuous marquee. A fixed grid left empty cells on the
+          last row; this scrolls instead, pausing on hover/focus and falling back
+          to a manual horizontal scroll when reduced motion is requested. */}
       <section className="py-20 sm:py-28">
         <Container>
           <SectionHeading
@@ -165,17 +167,29 @@ export default async function HomePage() {
             title="Thoughtful amenities, around the clock"
             align="center"
           />
-          <div className="mt-14 grid gap-px overflow-hidden rounded-xl bg-ink/10 sm:grid-cols-2 lg:grid-cols-4">
-            {amenities.map((a) => (
-              <div key={a.title} className="bg-cream p-7">
+        </Container>
+        <div className="group relative mt-14 overflow-hidden motion-reduce:overflow-x-auto">
+          <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-16 bg-gradient-to-r from-cream to-transparent motion-reduce:hidden sm:w-24" />
+          <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-16 bg-gradient-to-l from-cream to-transparent motion-reduce:hidden sm:w-24" />
+          <ul
+            aria-label="Hotel amenities"
+            className="flex w-max animate-marquee py-4 group-hover:[animation-play-state:paused] group-focus-within:[animation-play-state:paused] motion-reduce:animate-none"
+            style={{ animationDuration: `${amenities.length * 4.5}s` }}
+          >
+            {[...amenities, ...amenities].map((a, i) => (
+              <li
+                key={i}
+                aria-hidden={i >= amenities.length}
+                className="mr-5 flex w-72 shrink-0 flex-col rounded-xl bg-white p-7 shadow-sm ring-1 ring-ink/5"
+              >
                 <h3 className="font-serif text-xl text-ink">{a.title}</h3>
                 <p className="mt-3 text-sm leading-relaxed text-ink/70">
                   {a.description}
                 </p>
-              </div>
+              </li>
             ))}
-          </div>
-        </Container>
+          </ul>
+        </div>
       </section>
 
       {/* Testimonials */}
