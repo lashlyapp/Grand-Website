@@ -21,7 +21,7 @@ export default async function AnnexPage() {
         eyebrow="Accommodations"
         title="The Annex"
         intro="Oversized deluxe rooms in our newly constructed Annex — floor-to-ceiling windows, direct gym access, and a spacious soaking tub, in the heart of Silicon Valley."
-        image="/images/rooms/tour-deluxe-king.jpg"
+        image="/images/annex.jpg"
       />
       <Container className="-mt-8 relative z-10">
         <BookingBar />
