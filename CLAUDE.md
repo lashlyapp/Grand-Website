@@ -29,5 +29,6 @@ Read-only queries for debugging are fine.
 - Access is keyed by email in `public.admins` (granted before first sign-in).
 - `role` is `admin` (manage content) or `superadmin` (also invite/remove
   admins via the `/admins` page). Superadmin changes happen via migration only.
-- No open signup: the login page only sends magic links to listed emails, and
-  invites are restricted to `@cghotelgroup.com` (enforced in RLS).
+- No open signup: the login page only sends sign-in codes (6-digit email OTP)
+  to listed emails, and invites are restricted to `@cghotelgroup.com`
+  (enforced in RLS).

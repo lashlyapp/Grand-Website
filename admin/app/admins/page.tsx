@@ -38,7 +38,7 @@ export default async function AdminsPage() {
         <p className="mt-1 text-sm text-ink/60">
           People who can sign in and manage room content. Invitees don&rsquo;t
           get an email — once added, they sign in at the login page with their
-          @cghotelgroup.com address and receive a magic link.
+          @cghotelgroup.com address and a 6-digit code sent to it.
         </p>
       </div>
 
