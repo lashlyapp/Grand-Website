@@ -11,7 +11,7 @@ const RESEND_API_KEY = Deno.env.get("RESEND_API_KEY");
 const HOOK_SECRET = Deno.env.get("SEND_EMAIL_HOOK_SECRET");
 
 // Avoid "noreply": spam filters penalize it (flagged by Resend's insights).
-const FROM = "CG Hotels Admin <signin@cghotelgroup.com>";
+const FROM = "CG Hotels Admin <admin@cghotelgroup.com>";
 
 const SUBJECTS: Record<string, string> = {
   signup: "Your CG Hotels admin sign-in code",
