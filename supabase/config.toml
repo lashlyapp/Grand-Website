@@ -1,0 +1,3 @@
+# Minimal config so the Supabase CLI (and the migrations CI workflow) can link
+# to the shared project. Local-stack settings are intentionally omitted.
+project_id = "gc-group-website"

@@ -8,18 +8,19 @@ export async function getUser() {
   return user;
 }
 
-// True only if the signed-in user is listed in public.admins. RLS lets a user
-// read their own admin row (or none), so a non-admin simply gets back nothing.
+// True only if the signed-in user's email is listed in public.admins. Access
+// is keyed by verified email (magic-link sign-in), so invitees are admins
+// before their first sign-in. The check runs in the database (is_admin()).
 export async function isAdmin(): Promise<boolean> {
   const supabase = createSupabaseServerClient();
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
-  if (!user) return false;
-  const { data } = await supabase
-    .from("admins")
-    .select("user_id")
-    .eq("user_id", user.id)
-    .maybeSingle();
+  const { data } = await supabase.rpc("is_admin");
+  return !!data;
+}
+
+// Superadmins (role = 'superadmin' in public.admins) can invite and remove
+// admins; regular admins only manage content.
+export async function isSuperAdmin(): Promise<boolean> {
+  const supabase = createSupabaseServerClient();
+  const { data } = await supabase.rpc("is_superadmin");
   return !!data;
 }

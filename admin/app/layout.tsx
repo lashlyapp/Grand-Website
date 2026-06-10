@@ -1,7 +1,7 @@
 import "./globals.css";
 import Link from "next/link";
 import type { Metadata } from "next";
-import { getUser } from "@/lib/auth";
+import { getUser, isSuperAdmin } from "@/lib/auth";
 
 export const metadata: Metadata = {
   title: "CG Hotels Admin",
@@ -14,6 +14,7 @@ export default async function RootLayout({
   children: React.ReactNode;
 }) {
   const user = await getUser();
+  const superAdmin = user ? await isSuperAdmin() : false;
 
   return (
     <html lang="en">
@@ -23,14 +24,21 @@ export default async function RootLayout({
             <Link href="/" className="font-semibold tracking-tight">
               CG Hotels <span className="text-gold">Admin</span>
             </Link>
-            <nav className="flex items-center gap-4 text-sm text-ink/70">
-              <Link href="/rooms" className="hover:text-ink">
-                Rooms
-              </Link>
-              <Link href="/settings" className="hover:text-ink">
-                Settings
-              </Link>
-            </nav>
+            {user && (
+              <nav className="flex items-center gap-4 text-sm text-ink/70">
+                <Link href="/rooms" className="hover:text-ink">
+                  Rooms
+                </Link>
+                <Link href="/settings" className="hover:text-ink">
+                  Settings
+                </Link>
+                {superAdmin && (
+                  <Link href="/admins" className="hover:text-ink">
+                    Admins
+                  </Link>
+                )}
+              </nav>
+            )}
             {user && (
               <div className="ml-auto flex items-center gap-3 text-sm text-ink/60">
                 <span>{user.email}</span>
