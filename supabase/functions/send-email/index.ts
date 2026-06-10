@@ -10,7 +10,8 @@ import { Webhook } from "https://esm.sh/standardwebhooks@1.0.0";
 const RESEND_API_KEY = Deno.env.get("RESEND_API_KEY");
 const HOOK_SECRET = Deno.env.get("SEND_EMAIL_HOOK_SECRET");
 
-const FROM = "CG Hotels Admin <noreply@cghotelgroup.com>";
+// Avoid "noreply": spam filters penalize it (flagged by Resend's insights).
+const FROM = "CG Hotels Admin <signin@cghotelgroup.com>";
 
 const SUBJECTS: Record<string, string> = {
   signup: "Your CG Hotels admin sign-in code",
