@@ -1,7 +1,7 @@
 import "./globals.css";
 import Link from "next/link";
 import type { Metadata } from "next";
-import { getUser } from "@/lib/auth";
+import { getUser, isSuperAdmin } from "@/lib/auth";
 
 export const metadata: Metadata = {
   title: "CG Hotels Admin",
@@ -14,6 +14,7 @@ export default async function RootLayout({
   children: React.ReactNode;
 }) {
   const user = await getUser();
+  const superAdmin = user ? await isSuperAdmin() : false;
 
   return (
     <html lang="en">
@@ -31,6 +32,11 @@ export default async function RootLayout({
                 <Link href="/settings" className="hover:text-ink">
                   Settings
                 </Link>
+                {superAdmin && (
+                  <Link href="/admins" className="hover:text-ink">
+                    Admins
+                  </Link>
+                )}
               </nav>
             )}
             {user && (

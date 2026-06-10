@@ -14,6 +14,22 @@ export default function LoginPage() {
     setLoading(true);
     setError(null);
     const supabase = createSupabaseBrowserClient();
+
+    // There is no open signup: only emails on the admin list (managed by
+    // superadmins under /admins) get a magic link or an account.
+    const { data: allowed, error: checkError } = await supabase.rpc(
+      "is_allowed_email",
+      { check_email: email.trim() },
+    );
+    if (checkError || !allowed) {
+      setLoading(false);
+      setError(
+        checkError?.message ??
+          "This email doesn't have admin access. Ask an admin to invite you.",
+      );
+      return;
+    }
+
     const { error } = await supabase.auth.signInWithOtp({
       email: email.trim(),
       options: { emailRedirectTo: `${window.location.origin}/auth/callback` },
