@@ -23,14 +23,16 @@ export default async function RootLayout({
             <Link href="/" className="font-semibold tracking-tight">
               CG Hotels <span className="text-gold">Admin</span>
             </Link>
-            <nav className="flex items-center gap-4 text-sm text-ink/70">
-              <Link href="/rooms" className="hover:text-ink">
-                Rooms
-              </Link>
-              <Link href="/settings" className="hover:text-ink">
-                Settings
-              </Link>
-            </nav>
+            {user && (
+              <nav className="flex items-center gap-4 text-sm text-ink/70">
+                <Link href="/rooms" className="hover:text-ink">
+                  Rooms
+                </Link>
+                <Link href="/settings" className="hover:text-ink">
+                  Settings
+                </Link>
+              </nav>
+            )}
             {user && (
               <div className="ml-auto flex items-center gap-3 text-sm text-ink/60">
                 <span>{user.email}</span>
