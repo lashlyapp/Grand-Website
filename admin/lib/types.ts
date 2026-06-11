@@ -25,8 +25,6 @@ export type Room = {
   video_url: string | null;
   cover_image_url: string | null;
   gallery: string[];
-  // Nightly "Tonight's Rate" (USD) shown on the public sites; null hides it.
-  rate_tonight: number | null;
   sort_order: number;
   published: boolean;
   updated_at: string;

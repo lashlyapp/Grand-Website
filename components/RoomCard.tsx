@@ -37,12 +37,18 @@ export default function RoomCard({ room }: { room: Room }) {
           {room.beds}
         </p>
         <h3 className="mt-2 font-serif text-2xl text-ink">{room.name}</h3>
-        {room.rate != null && (
+        {room.rate !== undefined && (
           <div className="mt-4 flex items-baseline justify-between border-y border-ink/10 py-2.5">
             <span className="text-xs font-semibold uppercase tracking-widest text-ink/50">
               Tonight&apos;s Rate
             </span>
-            <span className="font-serif text-2xl text-gold-dark">{formatRate(room.rate)}</span>
+            {room.rate !== null ? (
+              <span className="font-serif text-2xl text-gold-dark">{formatRate(room.rate)}</span>
+            ) : (
+              <span className="text-xs font-semibold uppercase tracking-widest text-gold-dark">
+                Check Availability
+              </span>
+            )}
           </div>
         )}
         <p className="mt-3 text-sm leading-relaxed text-ink/70">{room.description}</p>

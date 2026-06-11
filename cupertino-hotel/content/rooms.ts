@@ -19,9 +19,11 @@ export type Room = {
   video?: string;
   // Optional extra photos for the detail modal; falls back to `image`.
   gallery?: string[];
-  // Optional nightly "Tonight's Rate" (USD) shown on the room card and detail
-  // modal. Managed via the admin (rooms.rate_tonight); omitted hides the rate.
-  rate?: number;
+  // Live "Tonight's Rate" (USD): the booking engine's lowest nightly price for
+  // a stay tonight, joined onto the room in lib/rooms-data.ts (see
+  // lib/rates.ts). `null` = no price tonight (sold out / closed out) and the
+  // UI shows "Check Availability"; omitted (feed unavailable) hides the row.
+  rate?: number | null;
 };
 
 // "$279" / "$279.50" — whole dollars unless the rate carries cents.
