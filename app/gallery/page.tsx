@@ -10,20 +10,17 @@ export const metadata: Metadata = {
   alternates: { canonical: "/gallery/" },
 };
 
+// Property photos from the hotel's MyHotelOps (Cloudflare) CDN media library.
+const MHO =
+  "https://cdn.myhotelops.com/cg-hotel-group/grand-hotel/8582.11603.sunnyvale.grand-hotel-sunnyvale";
+
 const photos = [
-  { src: "/images/suites.jpg", alt: "Guest suite", span: "lg:col-span-2 lg:row-span-2" },
-  { src: "/images/gallery/gallery-05.jpg", alt: "Guest room" },
-  { src: "/images/gallery/gallery-06.jpg", alt: "Guest room interior" },
-  { src: "/images/heated-pool.jpg", alt: "Heated outdoor pool", span: "lg:col-span-2" },
-  { src: "/images/gallery/gallery-07.jpg", alt: "Hotel interior" },
-  { src: "/images/gallery/gallery-08.jpg", alt: "Guest bathroom" },
-  { src: "/images/gallery/gallery-09.jpg", alt: "Villa living area" },
-  { src: "/images/gallery/gallery-10.jpg", alt: "Guest room with two queen beds", span: "lg:col-span-2" },
-  { src: "/images/gallery/gallery-14.jpg", alt: "Hotel grounds" },
-  { src: "/images/gallery/gallery-15.jpg", alt: "Hotel detail" },
-  { src: "/images/gallery/gallery-16.jpg", alt: "Guest room" },
-  { src: "/images/gallery/gallery-17.jpg", alt: "Hotel amenities" },
-  { src: "/images/amenities.jpg", alt: "Hotel amenities", span: "lg:col-span-2" },
+  { src: `${MHO}.overview.jpg`, alt: "The Grand Hotel — property overview", span: "lg:col-span-2 lg:row-span-2" },
+  { src: `${MHO}.other.exteriors-swimming-pool.jpg`, alt: "Hotel exterior and heated swimming pool", span: "lg:col-span-2" },
+  { src: `${MHO}.other.lobby-reception.jpg`, alt: "Lobby reception" },
+  { src: `${MHO}.amenity.meeting-room.jpg`, alt: "Meeting room" },
+  { src: `${MHO}.other.breakfast-bar.jpg`, alt: "Breakfast bar", span: "lg:col-span-2" },
+  { src: `${MHO}.other.room-service-robot.jpg`, alt: "Room-service delivery robot", span: "lg:col-span-2" },
 ];
 
 export default function GalleryPage() {

@@ -60,13 +60,16 @@ export default function Footer() {
               Explore
             </h2>
             <ul className="mt-4 space-y-2 text-sm text-white/75">
-              {mainNav.map((item) => (
-                <li key={item.href}>
-                  <Link href={item.href} className="hover:text-gold">
-                    {item.label}
-                  </Link>
-                </li>
-              ))}
+              {/* Footer has room, so dropdown groups are flattened out. */}
+              {mainNav
+                .flatMap((item) => item.children ?? [item])
+                .map((item) => (
+                  <li key={item.href}>
+                    <Link href={item.href} className="hover:text-gold">
+                      {item.label}
+                    </Link>
+                  </li>
+                ))}
             </ul>
           </div>
 

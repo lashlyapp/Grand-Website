@@ -9,6 +9,39 @@ export const metadata: Metadata = {
   alternates: { canonical: "/news/" },
 };
 
+// Cupertino-specific community coverage. Each item links out to its source —
+// only verifiable items belong here (no award claims without a public source).
+const community: {
+  title: string;
+  source: string;
+  url?: string;
+  body: string;
+}[] = [
+  {
+    title: "City's business “stars” recognized at awards show",
+    source: "Cupertino Today",
+    url: "https://cupertinotoday.com/2019/03/19/stars-recognized-awards-show/",
+    body: "The Cupertino Chamber of Commerce's Star Awards — honoring the city's brightest business and community leaders — held at The Cupertino Hotel.",
+  },
+  {
+    title: "“A local favorite with friendly service in the heart of town”",
+    source: "Cupertino Chamber of Commerce — Super Local",
+    url: "https://cupertino-chamber.org/super-local/",
+    body: "The Chamber's Super Local guide counts the Cupertino Hotel among its hometown picks.",
+  },
+  {
+    title: "Proud host of The Star Awards",
+    source: "@cupertinohotel on Instagram",
+    url: "https://www.instagram.com/cupertinohotel/",
+    body: "“The Cupertino Hotel was proud to host The Star Awards… recognizing outstanding leaders of our community, presented by the Cupertino Chamber.”",
+  },
+  {
+    title: "Cupertino's first hotel — family-owned ever since",
+    source: "Our Story",
+    body: "The first hotel built in Cupertino, still owned and operated by the same two local families that built it in the late 1980s.",
+  },
+];
+
 const updates = [
   {
     title: "Complimentary continental breakfast, daily",
@@ -55,8 +88,42 @@ export default function NewsPage() {
         </Container>
       </section>
 
-      {/* Hotel updates */}
+      {/* Community recognition */}
       <section className="bg-sand/50 py-16 sm:py-24">
+        <Container>
+          <SectionHeading eyebrow="In the Community" title="Part of Cupertino" />
+          <div className="mt-10 max-w-3xl divide-y divide-ink/10">
+            {community.map((p) => (
+              <article key={p.title} className="py-8">
+                <p className="text-xs font-semibold uppercase tracking-widest text-gold">
+                  {p.source}
+                </p>
+                <h2 className="mt-2 font-serif text-2xl text-ink">
+                  {p.url ? (
+                    <a
+                      href={p.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="transition-colors hover:text-gold"
+                    >
+                      {p.title}{" "}
+                      <span aria-hidden="true" className="text-base align-middle">
+                        ↗
+                      </span>
+                    </a>
+                  ) : (
+                    p.title
+                  )}
+                </h2>
+                <p className="mt-3 text-sm leading-relaxed text-ink/70">{p.body}</p>
+              </article>
+            ))}
+          </div>
+        </Container>
+      </section>
+
+      {/* Hotel updates */}
+      <section className="py-16 sm:py-24">
         <Container>
           <SectionHeading eyebrow="Updates" title="Happening at the hotel" />
           <div className="mt-10 max-w-3xl divide-y divide-ink/10">

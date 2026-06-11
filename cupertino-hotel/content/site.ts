@@ -90,13 +90,17 @@ export const mainNav: NavItem[] = [
   { label: "Rooms", href: "/rooms/" },
   { label: "Gallery", href: "/gallery/" },
   { label: "Events", href: "/events/" },
+  { label: "News", href: "/news/" },
   { label: "Location", href: "/location/" },
   { label: "Contact", href: "/contacts/" },
 ];
 
+// NOTE: /vidovich-vineyards/ (wine package) is intentionally NOT linked here —
+// the package is disabled by decision. The page code is kept for later use;
+// see the note in app/vidovich-vineyards/page.tsx before re-adding it.
 export const footerNav: NavItem[] = [
-  { label: "Privacy Policy", href: "/privacy-policy/" },
   { label: "Careers", href: "/careers/" },
+  { label: "Privacy Policy", href: "/privacy-policy/" },
   { label: "Accessibility Statement", href: "/accessibility/" },
 ];
 

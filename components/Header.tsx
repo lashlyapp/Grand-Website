@@ -46,17 +46,61 @@ export default function Header() {
         <div className="flex items-center gap-4">
           <nav className="hidden items-center gap-7 lg:flex" aria-label="Primary">
             {mainNav.map((item) => {
-              const active = pathname === item.href;
+              const active =
+                pathname === item.href ||
+                (item.children?.some((c) => pathname === c.href) ?? false);
+              const linkCls = `text-sm font-medium uppercase tracking-widest transition-colors ${
+                active ? "text-gold" : "text-white/85 hover:text-gold"
+              }`;
+
+              if (!item.children) {
+                return (
+                  <Link key={item.href} href={item.href} className={linkCls}>
+                    {item.label}
+                  </Link>
+                );
+              }
+
+              // Dropdown group (e.g. Rooms → Guest Rooms / Villas / Annex).
+              // Opens on hover and keyboard focus; the padded wrapper keeps the
+              // pointer inside the group while moving down to the menu.
               return (
-                <Link
-                  key={item.href}
-                  href={item.href}
-                  className={`text-sm font-medium uppercase tracking-widest transition-colors ${
-                    active ? "text-gold" : "text-white/85 hover:text-gold"
-                  }`}
-                >
-                  {item.label}
-                </Link>
+                <div key={item.href} className="group relative">
+                  <Link
+                    href={item.href}
+                    className={`${linkCls} inline-flex items-center gap-1.5`}
+                    aria-haspopup="true"
+                  >
+                    {item.label}
+                    <svg
+                      width="9"
+                      height="6"
+                      viewBox="0 0 10 6"
+                      fill="none"
+                      aria-hidden="true"
+                      className="transition-transform group-hover:rotate-180"
+                    >
+                      <path d="M1 1l4 4 4-4" stroke="currentColor" strokeWidth="1.5" />
+                    </svg>
+                  </Link>
+                  <div className="invisible absolute left-1/2 top-full -translate-x-1/2 pt-4 opacity-0 transition-all duration-150 group-hover:visible group-hover:opacity-100 group-focus-within:visible group-focus-within:opacity-100">
+                    <div className="min-w-44 rounded-xl bg-ink/95 p-2 shadow-xl ring-1 ring-white/10 backdrop-blur">
+                      {item.children.map((c) => (
+                        <Link
+                          key={c.href}
+                          href={c.href}
+                          className={`block rounded-lg px-4 py-2.5 text-sm font-medium uppercase tracking-widest transition-colors ${
+                            pathname === c.href
+                              ? "text-gold"
+                              : "text-white/85 hover:bg-white/5 hover:text-gold"
+                          }`}
+                        >
+                          {c.label}
+                        </Link>
+                      ))}
+                    </div>
+                  </div>
+                </div>
               );
             })}
             <button
@@ -95,15 +139,33 @@ export default function Header() {
       {open && (
         <nav className="border-t border-white/10 bg-ink lg:hidden" aria-label="Mobile">
           <div className="mx-auto max-w-content px-5 py-4">
-            {mainNav.map((item) => (
-              <Link
-                key={item.href}
-                href={item.href}
-                className="block border-b border-white/10 py-3 text-sm font-medium uppercase tracking-widest text-white/85"
-              >
-                {item.label}
-              </Link>
-            ))}
+            {mainNav.map((item) =>
+              item.children ? (
+                // Grouped pages render as the parent followed by indented children.
+                <div key={item.href} className="border-b border-white/10 py-3">
+                  <p className="text-xs font-semibold uppercase tracking-widest text-white/50">
+                    {item.label}
+                  </p>
+                  {item.children.map((c) => (
+                    <Link
+                      key={c.href}
+                      href={c.href}
+                      className="block py-2 pl-4 text-sm font-medium uppercase tracking-widest text-white/85"
+                    >
+                      {c.label}
+                    </Link>
+                  ))}
+                </div>
+              ) : (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  className="block border-b border-white/10 py-3 text-sm font-medium uppercase tracking-widest text-white/85"
+                >
+                  {item.label}
+                </Link>
+              ),
+            )}
           </div>
         </nav>
       )}

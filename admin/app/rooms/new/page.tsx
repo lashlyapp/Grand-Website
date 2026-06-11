@@ -5,6 +5,9 @@ import NotAdmin from "@/components/NotAdmin";
 import { createRoom } from "@/app/rooms/actions";
 
 export const dynamic = "force-dynamic";
+// Creating a room with a video URL downloads the video to extract its first
+// frame as the cover (see setCoverFromVideoFirstFrame) — allow up to a minute.
+export const maxDuration = 60;
 
 export default async function NewRoomPage() {
   if (!(await isAdmin())) return <NotAdmin />;

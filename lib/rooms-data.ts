@@ -1,4 +1,5 @@
 import { rooms as fallbackRooms, type Room } from "@/content/rooms";
+import { getTonightRates } from "./rates";
 
 // Reads room content from the shared Supabase project (managed via the admin),
 // falling back to the static content/rooms.ts whenever Supabase is unconfigured,
@@ -41,7 +42,7 @@ function mapRow(r: Row): Room {
   };
 }
 
-export async function getRooms(): Promise<Room[]> {
+async function loadRooms(): Promise<Room[]> {
   const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
   const key = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
   if (!url || !key) return fallbackRooms;
@@ -61,6 +62,15 @@ export async function getRooms(): Promise<Room[]> {
   } catch {
     return fallbackRooms;
   }
+}
+
+// Room content joined (by RezTrip code) with tonight's live rates from the
+// booking engine. When the rates feed is unavailable the rooms simply carry
+// no rate and the sites hide the rate row.
+export async function getRooms(): Promise<Room[]> {
+  const [rooms, rates] = await Promise.all([loadRooms(), getTonightRates()]);
+  if (rates.size === 0) return rooms;
+  return rooms.map((r) => ({ ...r, rate: rates.get(r.code) }));
 }
 
 export async function getGuestRooms(): Promise<Room[]> {

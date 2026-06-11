@@ -4,9 +4,35 @@ import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
 import { revalidatePublicSites } from "@/lib/revalidate";
+import { extractFirstFrame } from "@/lib/frames";
 import type { RoomCategory } from "@/lib/types";
 
 const CATEGORIES: RoomCategory[] = ["room", "villa", "suite"];
+const BUCKET = "room-media";
+
+// Whenever a room's tour video is set or replaced, the cover automatically
+// becomes the video's FIRST frame, so the thumbnail always matches the opening
+// shot of the tour. Best-effort: a failure here never blocks the save (the
+// previous cover simply stays, and the CoverPicker can regenerate manually).
+async function setCoverFromVideoFirstFrame(roomId: string, videoUrl: string) {
+  const supabase = createSupabaseServerClient();
+  try {
+    const buffer = await extractFirstFrame(videoUrl);
+    const path = `rooms/${roomId}/cover-first-frame.jpg`;
+    const { error: upErr } = await supabase.storage
+      .from(BUCKET)
+      .upload(path, buffer, { contentType: "image/jpeg", upsert: true });
+    if (upErr) throw new Error(upErr.message);
+    const { data } = supabase.storage.from(BUCKET).getPublicUrl(path);
+    // Cache-bust so a regenerated frame at the same path shows immediately.
+    await supabase
+      .from("rooms")
+      .update({ cover_image_url: `${data.publicUrl}?v=${Date.now()}` })
+      .eq("id", roomId);
+  } catch (e) {
+    console.error(`Auto cover from video first frame failed (room ${roomId}):`, e);
+  }
+}
 
 // Textareas hold one value per line (features, gallery).
 function lines(v: FormDataEntryValue | null): string[] {
@@ -37,11 +63,18 @@ function parseRoom(formData: FormData) {
 
 export async function updateRoom(id: string, formData: FormData) {
   const supabase = createSupabaseServerClient();
-  const { error } = await supabase
+  const parsed = parseRoom(formData);
+  const { data: prev } = await supabase
     .from("rooms")
-    .update(parseRoom(formData))
-    .eq("id", id);
+    .select("video_url")
+    .eq("id", id)
+    .maybeSingle();
+  const { error } = await supabase.from("rooms").update(parsed).eq("id", id);
   if (error) throw new Error(`Update failed: ${error.message}`);
+  // New or changed tour video → cover inherits its first frame.
+  if (parsed.video_url && parsed.video_url !== prev?.video_url) {
+    await setCoverFromVideoFirstFrame(id, parsed.video_url);
+  }
   revalidatePath("/rooms");
   await revalidatePublicSites();
   redirect("/rooms");
@@ -50,10 +83,17 @@ export async function updateRoom(id: string, formData: FormData) {
 export async function createRoom(formData: FormData) {
   const supabase = createSupabaseServerClient();
   const hotel_id = String(formData.get("hotel_id") ?? "").trim();
-  const { error } = await supabase
+  const parsed = parseRoom(formData);
+  const { data: created, error } = await supabase
     .from("rooms")
-    .insert({ hotel_id, ...parseRoom(formData) });
+    .insert({ hotel_id, ...parsed })
+    .select("id")
+    .single();
   if (error) throw new Error(`Create failed: ${error.message}`);
+  // New room with a tour video → cover starts as the video's first frame.
+  if (created && parsed.video_url) {
+    await setCoverFromVideoFirstFrame(created.id, parsed.video_url);
+  }
   revalidatePath("/rooms");
   await revalidatePublicSites();
   redirect("/rooms");

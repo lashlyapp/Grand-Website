@@ -61,8 +61,9 @@ export default function CoverPicker({
         <div>
           <h2 className="font-semibold">Cover image</h2>
           <p className="mt-1 text-sm text-ink/60">
-            Capture 3 stills from the tour video and pick one — no separate photo
-            upload needed.
+            The cover is set automatically to the tour video&rsquo;s first frame
+            whenever the video changes. To use a different moment instead,
+            capture 3 stills and pick one.
           </p>
         </div>
         <button
