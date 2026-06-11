@@ -24,6 +24,15 @@ editor. The only sanctioned path is:
 
 Read-only queries for debugging are fine.
 
+## Intentionally unlinked pages
+
+`/vidovich-vineyards/` (the wine-package page, on both public sites) is
+**disabled by decision** — the package is not currently offered. The page code
+is kept for a later re-launch, but it is deliberately absent from the navs,
+footers, and sitemaps. It is not an orphan; do not "fix" it by adding links.
+To re-enable, add it back to `footerNav` in each site's `content/site.ts`
+(the sitemaps derive from the nav lists).
+
 ## Admin access model
 
 - Access is keyed by email in `public.admins` (granted before first sign-in).

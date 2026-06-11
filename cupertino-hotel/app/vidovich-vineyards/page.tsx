@@ -1,3 +1,8 @@
+// DISABLED BY DECISION (2026-06): the Vidovich Vineyards wine package is not
+// currently offered, so this page is intentionally NOT linked from any nav,
+// footer, or sitemap. It is not an orphan — do not "fix" it by adding links.
+// The code is kept so the package can be re-launched later: to re-enable, add
+// it back to footerNav in content/site.ts (the sitemap derives from that list).
 import type { Metadata } from "next";
 import Image from "next/image";
 import PageHero from "@/components/PageHero";
