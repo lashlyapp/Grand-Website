@@ -79,21 +79,29 @@ export const ttweb = {
   jquery: "https://code.jquery.com/jquery-3.7.1.min.js",
 } as const;
 
-export type NavItem = { label: string; href: string };
+export type NavItem = { label: string; href: string; children?: NavItem[] };
 
 // Primary navigation — paths mirror the existing site to preserve SEO.
+// Accommodation pages are grouped under a single "Rooms" dropdown so the
+// header stays compact.
 export const mainNav: NavItem[] = [
-  { label: "Rooms", href: "/rooms/" },
-  { label: "Villas", href: "/villas/" },
-  { label: "Annex", href: "/annex/" },
+  {
+    label: "Rooms",
+    href: "/rooms/",
+    children: [
+      { label: "Guest Rooms", href: "/rooms/" },
+      { label: "Villas", href: "/villas/" },
+      { label: "Annex", href: "/annex/" },
+    ],
+  },
   { label: "Gallery", href: "/gallery/" },
   { label: "Events", href: "/events/" },
+  { label: "News", href: "/news/" },
   { label: "Location", href: "/location/" },
   { label: "Contact", href: "/contacts/" },
 ];
 
 export const footerNav: NavItem[] = [
-  { label: "News", href: "/news/" },
   { label: "Careers", href: "/careers/" },
   { label: "Privacy Policy", href: "/privacy-policy/" },
   { label: "Accessibility Statement", href: "/accessibility/" },
