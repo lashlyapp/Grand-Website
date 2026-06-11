@@ -9,6 +9,40 @@ export const metadata: Metadata = {
   alternates: { canonical: "/news/" },
 };
 
+// Grand-specific press coverage. Each item links out to its source — only
+// verifiable items belong here (no award claims without a public source).
+const community: {
+  title: string;
+  source: string;
+  url?: string;
+  body: string;
+}[] = [
+  {
+    title: "Silicon Valley's Grand Hotel announces $25 million addition",
+    source: "PR Newswire",
+    url: "https://www.prnewswire.com/news-releases/silicon-valleys-grand-hotel-sunnyvale-announces-25-million-dollar-addition-301202135.html",
+    body: "A 60,000 sq. ft. Annex across four floors — 51 new rooms, two state-of-the-art meeting spaces, and a new gym — completed June 2021.",
+  },
+  {
+    title: "Grand Hotel Sunnyvale opens new $25m annex",
+    source: "Hotel Management Network",
+    url: "https://www.hotelmanagement-network.com/news/grand-hotel-sunnyvale-annex/",
+    body: "Trade-press coverage of the Annex: floor-to-ceiling windows, advanced meeting spaces, contactless check-in, and 155 rooms in total.",
+  },
+  {
+    title: "Safe housing for healthcare workers and wildfire evacuees",
+    source: "Hospitality Net",
+    url: "https://www.hospitalitynet.org/announcement/41005724.html",
+    body: "Through the pandemic, The Grand housed healthcare workers from local institutions like Kaiser and El Camino, as well as Californians affected by the wildfire crisis.",
+  },
+  {
+    title: "GM Claudio Bono among CHLA's top nominees",
+    source: "Hotel Online",
+    url: "https://www.hotel-online.com/news/silicon-valleys-grand-hotel-sunnyvale-announces-25-million-dollar-addition",
+    body: "A top nominee for the California Hotel & Lodging Association's Outstanding General Manager of the Year 2020, past CREST Award recipient, and President Elect of the Cupertino Chamber of Commerce.",
+  },
+];
+
 const updates = [
   {
     title: "Fitness room now open on site",
@@ -55,8 +89,42 @@ export default function NewsPage() {
         </Container>
       </section>
 
-      {/* Hotel updates */}
+      {/* Press coverage */}
       <section className="bg-sand/50 py-16 sm:py-24">
+        <Container>
+          <SectionHeading eyebrow="In the News" title="The Grand, covered" />
+          <div className="mt-10 max-w-3xl divide-y divide-ink/10">
+            {community.map((p) => (
+              <article key={p.title} className="py-8">
+                <p className="text-xs font-semibold uppercase tracking-widest text-gold">
+                  {p.source}
+                </p>
+                <h2 className="mt-2 font-serif text-2xl text-ink">
+                  {p.url ? (
+                    <a
+                      href={p.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="transition-colors hover:text-gold"
+                    >
+                      {p.title}{" "}
+                      <span aria-hidden="true" className="text-base align-middle">
+                        ↗
+                      </span>
+                    </a>
+                  ) : (
+                    p.title
+                  )}
+                </h2>
+                <p className="mt-3 text-sm leading-relaxed text-ink/70">{p.body}</p>
+              </article>
+            ))}
+          </div>
+        </Container>
+      </section>
+
+      {/* Hotel updates */}
+      <section className="py-16 sm:py-24">
         <Container>
           <SectionHeading eyebrow="Updates" title="Happening at the hotel" />
           <div className="mt-10 max-w-3xl divide-y divide-ink/10">
