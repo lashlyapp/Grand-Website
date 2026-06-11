@@ -102,6 +102,7 @@ export const mainNav: NavItem[] = [
 ];
 
 export const footerNav: NavItem[] = [
+  { label: "Vidovich Vineyards", href: "/vidovich-vineyards/" },
   { label: "Careers", href: "/careers/" },
   { label: "Privacy Policy", href: "/privacy-policy/" },
   { label: "Accessibility Statement", href: "/accessibility/" },
