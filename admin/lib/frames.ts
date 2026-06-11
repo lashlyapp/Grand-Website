@@ -35,6 +35,33 @@ function framePercents(count: number): number[] {
   );
 }
 
+// The video's FIRST frame — used as the automatic cover whenever a room's tour
+// video is set or replaced (see setCoverFromVideoFirstFrame in rooms/actions),
+// so the thumbnail always matches the opening shot of the tour.
+export async function extractFirstFrame(
+  videoUrl: string,
+  opts: { width?: number } = {},
+): Promise<Buffer> {
+  const width = opts.width ?? 1600;
+  const dir = await mkdtemp(join(tmpdir(), "first-frame-"));
+  const videoFile = join(dir, "video.mp4");
+  try {
+    const res = await fetch(videoUrl);
+    if (!res.ok) throw new Error(`Could not fetch video (${res.status})`);
+    await writeFile(videoFile, Buffer.from(await res.arrayBuffer()));
+
+    const out = join(dir, "first.jpg");
+    await exec(
+      FF,
+      ["-y", "-i", videoFile, "-frames:v", "1", "-q:v", "3", "-vf", `scale=${width}:-2`, out],
+      { maxBuffer: 1 << 24 },
+    );
+    return await readFile(out);
+  } finally {
+    await rm(dir, { recursive: true, force: true });
+  }
+}
+
 // Downloads the video to a temp file, then extracts `count` JPEG frames with the
 // bundled static ffmpeg. We fetch the file ourselves (rather than letting ffmpeg
 // open the URL) because the CDN has no CORS and ffmpeg's HTTP layer is

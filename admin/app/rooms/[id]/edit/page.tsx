@@ -7,6 +7,9 @@ import NotAdmin from "@/components/NotAdmin";
 import { updateRoom, deleteRoom } from "@/app/rooms/actions";
 
 export const dynamic = "force-dynamic";
+// Saving with a new video URL downloads the video to extract its first frame
+// as the cover (see setCoverFromVideoFirstFrame) — allow up to a minute.
+export const maxDuration = 60;
 
 export default async function EditRoomPage({
   params,

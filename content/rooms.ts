@@ -38,6 +38,11 @@ export function formatRate(rate: number): string {
 
 // Virtual-tour videos served from the MyHotelOps Cloudflare CDN (kept as-is per
 // the migration plan — videos are not locked into Cendyn).
+//
+// Room covers (/images/rooms/frame-*.jpg) are by convention the FIRST frame of
+// the room's tour video, so the card thumbnail matches the opening shot of the
+// tour. Regenerate with `ffmpeg -i tour.mp4 -frames:v 1 -vf scale=1280:-2`
+// whenever a video changes.
 const CDN = "https://cdn.myhotelops.com/cg-hotel-group/grand-hotel";
 const tour = {
   deluxeKing: `${CDN}/8582.11603.sunnyvale.grand-hotel-sunnyvale.room.deluxe-standard-king.mp4`,

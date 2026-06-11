@@ -1,9 +1,10 @@
 -- Align Grand room covers with their tour videos. Several rooms used generic
 -- stock photos (room-0X.jpg) that didn't match the room's own tour, so the
--- card thumbnail showed a different room than the video. Each cover is now a
--- frame extracted from that room's actual tour video — committed on the grand
--- site as /images/rooms/frame-*.jpg — so the preview always matches the tour.
--- (Cupertino already uses per-video stills; no change needed there.)
+-- card thumbnail showed a different room than the video. Each cover is now the
+-- FIRST frame of that room's tour video — committed on the grand site as
+-- /images/rooms/frame-*.jpg — so the thumbnail is exactly what the tour shows
+-- when it starts playing. Regenerate with `ffmpeg -i tour.mp4 -frames:v 1` if
+-- a video changes. (Cupertino already uses per-video stills; no change there.)
 
 update public.rooms set cover_image_url = '/images/rooms/frame-deluxe-king.jpg'
   where hotel_id = 'grand' and code in ('DK', 'SK');
