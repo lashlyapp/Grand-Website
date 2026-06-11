@@ -33,7 +33,7 @@ export default function EventsPage() {
         eyebrow="Gather"
         title="Events"
         intro="Spaces and service for meetings, celebrations, and everything in between."
-        image="/images/our-hotel.jpg"
+        image="https://cdn.myhotelops.com/cg-hotel-group/grand-hotel/8582.11603.sunnyvale.grand-hotel-sunnyvale.amenity.meeting-room.jpg"
       />
 
       <section className="py-16 sm:py-24">
