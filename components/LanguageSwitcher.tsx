@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 // In-page language switcher powered by Google's client-side website translate
 // widget. We keep Google's actual gadget hidden and drive it with the
@@ -65,10 +65,18 @@ function setGoogtransCookie(value: string, clear = false) {
 
 export default function LanguageSwitcher() {
   const [current, setCurrent] = useState("en");
+  const selectRef = useRef<HTMLSelectElement>(null);
 
   useEffect(() => {
     patchDomForGoogleTranslate();
-    setCurrent(readCurrentLang());
+    const lang = readCurrentLang();
+    setCurrent(lang);
+    // Firefox/Safari restore form state across the reload and can overwrite
+    // the select with a stale value React doesn't know about (its virtual DOM
+    // still matches, so it won't correct it). Force the DOM back in sync with
+    // the cookie, otherwise picking the language the select already displays
+    // fires no change event and the control goes dead.
+    if (selectRef.current) selectRef.current.value = lang;
 
     // The widget reads the googtrans cookie on init and applies translation.
     window.googleTranslateElementInit = () => {
@@ -92,8 +100,14 @@ export default function LanguageSwitcher() {
     }
   }, []);
 
+  // No same-value guard here: change events only fire on real changes, and a
+  // guard against React state can swallow a legitimate switch when the browser
+  // restored a stale select value (worst case without it: one extra reload).
   function changeLanguage(code: string) {
-    if (code === current) return;
+    // Keep state in step with the user's pick before reloading; otherwise
+    // React reverts the controlled select to the old value and the browser
+    // snapshots that for form restoration.
+    setCurrent(code);
     if (code === "en") {
       setGoogtransCookie("", true); // clear → original
     } else {
@@ -106,7 +120,9 @@ export default function LanguageSwitcher() {
     <>
       <div id="google_translate_element" className="hidden" aria-hidden="true" />
       <select
+        ref={selectRef}
         aria-label="Select language"
+        autoComplete="off"
         translate="no"
         className="notranslate cursor-pointer rounded border border-white/30 bg-ink/40 px-2 py-1.5 text-sm font-medium text-white/85 outline-none transition-colors hover:border-gold hover:text-gold focus:border-gold"
         value={current}
