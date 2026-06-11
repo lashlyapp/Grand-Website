@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import Image from "next/image";
 import { useRoomDetail } from "./RoomDetailProvider";
 import { useBooking } from "./BookingProvider";
@@ -18,20 +18,14 @@ function embedAutoplaySrc(url: string): string {
 
 // Room detail modal with a "virtual tour" video. Opens from any room card and
 // shows the full room details, the tour video (native player for direct files,
-// iframe for embeds), a small photo gallery, and a Book button that hands off
-// to the slide-out booking drawer pre-set to this room.
+// iframe for embeds), and a Book button that hands off to the slide-out booking
+// drawer pre-set to this room.
 export default function RoomModal() {
   const { room, closeRoom } = useRoomDetail();
   const { openBooking } = useBooking();
-  const [activeImage, setActiveImage] = useState<string | null>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
 
   const open = room !== null;
-
-  // Reset the chosen gallery image whenever a new room opens.
-  useEffect(() => {
-    setActiveImage(null);
-  }, [room?.code]);
 
   // Auto-start the tour video when a room opens. The modal opens from a user
   // click, so playing with sound is usually permitted; if the browser blocks
@@ -61,9 +55,6 @@ export default function RoomModal() {
   }, [open, closeRoom]);
 
   if (!room) return null;
-
-  const gallery = room.gallery && room.gallery.length > 0 ? room.gallery : [room.image];
-  const poster = activeImage ?? room.image;
 
   return (
     <div
@@ -114,7 +105,7 @@ export default function RoomModal() {
               />
             )
           ) : (
-            <Image src={poster} alt={room.name} fill className="object-cover" sizes="100vw" />
+            <Image src={room.image} alt={room.name} fill className="object-cover" sizes="100vw" />
           )}
           {room.video && (
             <span className="pointer-events-none absolute left-4 top-4 rounded-full bg-ink/70 px-3 py-1 text-[11px] font-semibold uppercase tracking-widest text-white">
@@ -146,31 +137,6 @@ export default function RoomModal() {
               </li>
             ))}
           </ul>
-
-          {/* Photo gallery thumbnails (also swaps the still shown when no video) */}
-          {gallery.length > 1 && (
-            <div className="mt-6 grid grid-cols-3 gap-3">
-              {gallery.map((src) => (
-                <button
-                  key={src}
-                  type="button"
-                  onClick={() => setActiveImage(src)}
-                  className={`relative aspect-[4/3] overflow-hidden rounded-lg ring-2 transition ${
-                    poster === src ? "ring-gold" : "ring-transparent hover:ring-ink/20"
-                  }`}
-                  aria-label="View photo"
-                >
-                  <Image
-                    src={src}
-                    alt={`${room.name} photo`}
-                    fill
-                    className="object-cover"
-                    sizes="(min-width: 640px) 30vw, 33vw"
-                  />
-                </button>
-              ))}
-            </div>
-          )}
 
           <p className="mt-6 text-xs italic text-ink/45">
             {site.roomMediaDisclaimer}
