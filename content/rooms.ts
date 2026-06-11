@@ -49,7 +49,7 @@ const tour = {
   deluxeRoom: `${CDN}/8582.11603.sunnyvale.grand-hotel-sunnyvale.room.deluxe-standard-room.mp4`,
   villaKing: `${CDN}/8582.11603.sunnyvale.grand-hotel-sunnyvale.room.villa-1-king.mp4`,
   villaQueen: `${CDN}/8582.11603.sunnyvale.grand-hotel-sunnyvale.room.villa-2-queen.mp4`,
-  fireplaceSuite: `${CDN}/Grand---Fireplace-Suite-King-standard-and-handicap.mp4`,
+  fireplaceSuite: `${CDN}/Grand-Hotel---Premier-King-Fireplace.mp4`,
 } as const;
 
 export const rooms: Room[] = [
@@ -238,7 +238,7 @@ export const rooms: Room[] = [
     description:
       "A spacious fireplace suite with a king bed and a separate living room — our most generous accommodation.",
     features: ["King bed", "Separate living room", "Fireplace", "Spacious suite"],
-    image: "/images/rooms/frame-fireplace-suite.jpg",
+    image: "/images/rooms/frame-premier-king-fireplace.jpg",
     video: tour.fireplaceSuite,
     gallery: ["/images/rooms/room-03.jpg", "/images/gallery/gallery-05.jpg", "/images/gallery/gallery-07.jpg"],
   },
@@ -251,7 +251,7 @@ export const rooms: Room[] = [
       "An ADA-accessible premier fireplace suite with a king bed and separate living area.",
     features: ["King bed", "Accessible layout", "Separate living area", "Fireplace"],
     accessible: true,
-    image: "/images/rooms/frame-fireplace-suite.jpg",
+    image: "/images/rooms/frame-premier-king-fireplace.jpg",
     video: tour.fireplaceSuite,
     gallery: ["/images/rooms/room-04.jpg", "/images/gallery/gallery-06.jpg", "/images/gallery/gallery-08.jpg"],
   },

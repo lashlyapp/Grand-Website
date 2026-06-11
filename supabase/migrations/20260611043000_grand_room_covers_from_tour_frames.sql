@@ -18,5 +18,5 @@ update public.rooms set cover_image_url = '/images/rooms/frame-villa-king.jpg'
 update public.rooms set cover_image_url = '/images/rooms/frame-villa-queen.jpg'
   where hotel_id = 'grand' and code in ('VQ', 'PQ');
 
-update public.rooms set cover_image_url = '/images/rooms/frame-fireplace-suite.jpg'
+update public.rooms set cover_image_url = '/images/rooms/frame-premier-king-fireplace.jpg'
   where hotel_id = 'grand' and code in ('FP', 'HS');
