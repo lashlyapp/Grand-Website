@@ -49,6 +49,7 @@ export default async function RoomsPage() {
                     <th className="px-4 py-2 font-medium">Name</th>
                     <th className="px-4 py-2 font-medium">Category</th>
                     <th className="px-4 py-2 font-medium">Beds</th>
+                    <th className="px-4 py-2 font-medium">Rate</th>
                     <th className="px-4 py-2 font-medium">Flags</th>
                     <th className="px-4 py-2 font-medium">Video</th>
                     <th className="px-4 py-2 font-medium" />
@@ -82,6 +83,9 @@ function RoomRow({ room }: { room: Room }) {
       <td className="px-4 py-2 font-medium">{room.name}</td>
       <td className="px-4 py-2 capitalize text-ink/70">{room.category}</td>
       <td className="px-4 py-2 text-ink/70">{room.beds}</td>
+      <td className="px-4 py-2 text-ink/70">
+        {room.rate_tonight != null ? `$${room.rate_tonight}` : <span className="text-ink/30">—</span>}
+      </td>
       <td className="px-4 py-2">
         <div className="flex gap-1">
           {room.accessible && <Tag>Accessible</Tag>}

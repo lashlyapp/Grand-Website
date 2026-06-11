@@ -54,6 +54,19 @@ export default function RoomForm({
         </Field>
       </div>
 
+      <div className="grid grid-cols-2 gap-4">
+        <Field label="Tonight's rate (USD, blank hides it)">
+          <input
+            name="rate_tonight"
+            type="number"
+            step="0.01"
+            min="0"
+            defaultValue={room?.rate_tonight ?? ""}
+            className={inputCls}
+          />
+        </Field>
+      </div>
+
       <Field label="Description">
         <textarea
           name="description"

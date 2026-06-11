@@ -19,7 +19,18 @@ export type Room = {
   video?: string;
   // Optional extra photos for the detail modal; falls back to `image`.
   gallery?: string[];
+  // Optional nightly "Tonight's Rate" (USD) shown on the room card and detail
+  // modal. Managed via the admin (rooms.rate_tonight); omitted hides the rate.
+  rate?: number;
 };
+
+// "$279" / "$279.50" — whole dollars unless the rate carries cents.
+export function formatRate(rate: number): string {
+  return `$${rate.toLocaleString("en-US", {
+    minimumFractionDigits: 0,
+    maximumFractionDigits: Number.isInteger(rate) ? 0 : 2,
+  })}`;
+}
 
 // Every room features air conditioning, granite countertops, dual vanity
 // mirrors, an LCD TV, an iHome docking station, a mini-fridge, plush robes,

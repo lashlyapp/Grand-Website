@@ -23,6 +23,7 @@ type Row = {
   video_url: string | null;
   cover_image_url: string | null;
   gallery: string[] | null;
+  rate_tonight: number | null;
 };
 
 function mapRow(r: Row): Room {
@@ -38,6 +39,7 @@ function mapRow(r: Row): Room {
     image: r.cover_image_url || "/images/rooms/room-01.jpg",
     video: r.video_url || undefined,
     gallery: r.gallery && r.gallery.length ? r.gallery : undefined,
+    rate: r.rate_tonight != null ? Number(r.rate_tonight) : undefined,
   };
 }
 

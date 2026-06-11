@@ -5,6 +5,7 @@ import Image from "next/image";
 import { useRoomDetail } from "./RoomDetailProvider";
 import { useBooking } from "./BookingProvider";
 import { site } from "@/content/site";
+import { formatRate } from "@/content/rooms";
 
 function isVideoFile(url: string): boolean {
   return /\.(mp4|webm|ogg)(\?|#|$)/i.test(url);
@@ -124,6 +125,15 @@ export default function RoomModal() {
             {room.accessible && <Tag>Accessible</Tag>}
             {room.petFriendly && <Tag>Pet Friendly</Tag>}
           </div>
+
+          {room.rate != null && (
+            <div className="mt-4 flex items-baseline justify-between border-y border-ink/10 py-3">
+              <span className="text-xs font-semibold uppercase tracking-widest text-ink/50">
+                Tonight&apos;s Rate
+              </span>
+              <span className="font-serif text-3xl text-gold-dark">{formatRate(room.rate)}</span>
+            </div>
+          )}
 
           <p className="mt-4 text-sm leading-relaxed text-ink/75">{room.description}</p>
 

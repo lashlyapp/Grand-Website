@@ -16,6 +16,14 @@ function lines(v: FormDataEntryValue | null): string[] {
     .filter(Boolean);
 }
 
+// Optional non-negative dollar amount; blank or invalid input clears the rate.
+function parseRate(v: FormDataEntryValue | null): number | null {
+  const s = String(v ?? "").trim();
+  if (!s) return null;
+  const n = Number(s);
+  return Number.isFinite(n) && n >= 0 ? n : null;
+}
+
 function parseRoom(formData: FormData) {
   const category = String(formData.get("category") ?? "room") as RoomCategory;
   return {
@@ -28,6 +36,7 @@ function parseRoom(formData: FormData) {
     gallery: lines(formData.get("gallery")),
     video_url: String(formData.get("video_url") ?? "").trim() || null,
     cover_image_url: String(formData.get("cover_image_url") ?? "").trim() || null,
+    rate_tonight: parseRate(formData.get("rate_tonight")),
     accessible: formData.get("accessible") === "on",
     pet_friendly: formData.get("pet_friendly") === "on",
     published: formData.get("published") === "on",
