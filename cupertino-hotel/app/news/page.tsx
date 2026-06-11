@@ -9,6 +9,21 @@ export const metadata: Metadata = {
   alternates: { canonical: "/news/" },
 };
 
+// Community recognition — sourced from the hotel's own announcements and the
+// Cupertino Chamber of Commerce's Super Local guide.
+const community = [
+  {
+    title: "Proud host of the Star Awards",
+    date: "Community",
+    body: "The Cupertino Hotel was proud to host the Cupertino Chamber's Star Awards, an evening recognizing outstanding leaders of our community.",
+  },
+  {
+    title: "A Chamber of Commerce favorite",
+    date: "Super Local",
+    body: "“A local favorite with friendly service in the heart of town” — the Cupertino Chamber of Commerce's Super Local guide.",
+  },
+];
+
 const updates = [
   {
     title: "Complimentary continental breakfast, daily",
@@ -55,8 +70,26 @@ export default function NewsPage() {
         </Container>
       </section>
 
-      {/* Hotel updates */}
+      {/* Community recognition */}
       <section className="bg-sand/50 py-16 sm:py-24">
+        <Container>
+          <SectionHeading eyebrow="In the Community" title="Part of Cupertino" />
+          <div className="mt-10 max-w-3xl divide-y divide-ink/10">
+            {community.map((p) => (
+              <article key={p.title} className="py-8">
+                <p className="text-xs font-semibold uppercase tracking-widest text-gold">
+                  {p.date}
+                </p>
+                <h2 className="mt-2 font-serif text-2xl text-ink">{p.title}</h2>
+                <p className="mt-3 text-sm leading-relaxed text-ink/70">{p.body}</p>
+              </article>
+            ))}
+          </div>
+        </Container>
+      </section>
+
+      {/* Hotel updates */}
+      <section className="py-16 sm:py-24">
         <Container>
           <SectionHeading eyebrow="Updates" title="Happening at the hotel" />
           <div className="mt-10 max-w-3xl divide-y divide-ink/10">

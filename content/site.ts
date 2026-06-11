@@ -93,8 +93,9 @@ export const mainNav: NavItem[] = [
 ];
 
 export const footerNav: NavItem[] = [
-  { label: "Privacy Policy", href: "/privacy-policy/" },
+  { label: "News", href: "/news/" },
   { label: "Careers", href: "/careers/" },
+  { label: "Privacy Policy", href: "/privacy-policy/" },
   { label: "Accessibility Statement", href: "/accessibility/" },
 ];
 

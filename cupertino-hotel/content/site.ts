@@ -90,6 +90,7 @@ export const mainNav: NavItem[] = [
   { label: "Rooms", href: "/rooms/" },
   { label: "Gallery", href: "/gallery/" },
   { label: "Events", href: "/events/" },
+  { label: "News", href: "/news/" },
   { label: "Location", href: "/location/" },
   { label: "Contact", href: "/contacts/" },
 ];
