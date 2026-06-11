@@ -9,18 +9,36 @@ export const metadata: Metadata = {
   alternates: { canonical: "/news/" },
 };
 
-// Community recognition — sourced from the hotel's own announcements and the
-// Cupertino Chamber of Commerce's Super Local guide.
-const community = [
+// Cupertino-specific community coverage. Each item links out to its source —
+// only verifiable items belong here (no award claims without a public source).
+const community: {
+  title: string;
+  source: string;
+  url?: string;
+  body: string;
+}[] = [
   {
-    title: "Proud host of the Star Awards",
-    date: "Community",
-    body: "The Cupertino Hotel was proud to host the Cupertino Chamber's Star Awards, an evening recognizing outstanding leaders of our community.",
+    title: "City's business “stars” recognized at awards show",
+    source: "Cupertino Today",
+    url: "https://cupertinotoday.com/2019/03/19/stars-recognized-awards-show/",
+    body: "The Cupertino Chamber of Commerce's Star Awards — honoring the city's brightest business and community leaders — held at The Cupertino Hotel.",
   },
   {
-    title: "A Chamber of Commerce favorite",
-    date: "Super Local",
-    body: "“A local favorite with friendly service in the heart of town” — the Cupertino Chamber of Commerce's Super Local guide.",
+    title: "“A local favorite with friendly service in the heart of town”",
+    source: "Cupertino Chamber of Commerce — Super Local",
+    url: "https://cupertino-chamber.org/super-local/",
+    body: "The Chamber's Super Local guide counts the Cupertino Hotel among its hometown picks.",
+  },
+  {
+    title: "Proud host of The Star Awards",
+    source: "@cupertinohotel on Instagram",
+    url: "https://www.instagram.com/cupertinohotel/",
+    body: "“The Cupertino Hotel was proud to host The Star Awards… recognizing outstanding leaders of our community, presented by the Cupertino Chamber.”",
+  },
+  {
+    title: "Cupertino's first hotel — family-owned ever since",
+    source: "Our Story",
+    body: "The first hotel built in Cupertino, still owned and operated by the same two local families that built it in the late 1980s.",
   },
 ];
 
@@ -78,9 +96,25 @@ export default function NewsPage() {
             {community.map((p) => (
               <article key={p.title} className="py-8">
                 <p className="text-xs font-semibold uppercase tracking-widest text-gold">
-                  {p.date}
+                  {p.source}
                 </p>
-                <h2 className="mt-2 font-serif text-2xl text-ink">{p.title}</h2>
+                <h2 className="mt-2 font-serif text-2xl text-ink">
+                  {p.url ? (
+                    <a
+                      href={p.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="transition-colors hover:text-gold"
+                    >
+                      {p.title}{" "}
+                      <span aria-hidden="true" className="text-base align-middle">
+                        ↗
+                      </span>
+                    </a>
+                  ) : (
+                    p.title
+                  )}
+                </h2>
                 <p className="mt-3 text-sm leading-relaxed text-ink/70">{p.body}</p>
               </article>
             ))}
