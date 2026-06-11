@@ -10,21 +10,17 @@ export const metadata: Metadata = {
   alternates: { canonical: "/gallery/" },
 };
 
+// Property photos from the hotel's MyHotelOps (Cloudflare) CDN media library.
+const MHO =
+  "https://cdn.myhotelops.com/cg-hotel-group/cupertino-hotel/8583.11604.cupertino.cupertino-hotel";
+
 const photos = [
-  { src: "/images/hero.jpg", alt: "The Cupertino Hotel", span: "lg:col-span-2 lg:row-span-2" },
-  { src: "/images/rooms/executive-suite-king.jpg", alt: "Executive king suite" },
-  { src: "/images/rooms/deluxe-room.jpg", alt: "Deluxe guest room" },
-  { src: "/images/pool.jpg", alt: "Heated outdoor pool", span: "lg:col-span-2" },
-  { src: "/images/lobby.jpg", alt: "Lobby and reception" },
-  { src: "/images/rooms/executive-suite-queen.jpg", alt: "Executive two-queen room" },
-  { src: "/images/breakfast.jpg", alt: "Breakfast, restaurant & bar" },
-  { src: "/images/overview.jpg", alt: "The Cupertino Hotel", span: "lg:col-span-2" },
-  { src: "/images/rooms/fireplace-parlor.jpg", alt: "Fireplace parlor suite" },
-  { src: "/images/meeting-room.jpg", alt: "Meeting room" },
-  { src: "/images/gallery/c-02.jpg", alt: "The Cupertino Hotel interior" },
-  { src: "/images/gallery/c-05.jpg", alt: "The Cupertino Hotel grounds", span: "lg:col-span-2" },
-  { src: "/images/gallery/c-07.jpg", alt: "The Cupertino Hotel interior" },
-  { src: "/images/overview-2.jpg", alt: "The Cupertino Hotel" },
+  { src: `${MHO}.premium-overview.jpg`, alt: "The Cupertino Hotel — property overview", span: "lg:col-span-2 lg:row-span-2" },
+  { src: `${MHO}.other.exteriors-swimming-pool.jpg`, alt: "Hotel exterior and swimming pool", span: "lg:col-span-2" },
+  { src: `${MHO}.overview.jpg`, alt: "The Cupertino Hotel" },
+  { src: `${MHO}.amenity.meeting-room.jpg`, alt: "Meeting room" },
+  { src: `${MHO}.amenity.breakfast-restaurant-bar.jpg`, alt: "Breakfast, restaurant & bar", span: "lg:col-span-2" },
+  { src: `${MHO}.amenity.swimming-pool.jpg`, alt: "Heated swimming pool", span: "lg:col-span-2" },
 ];
 
 export default function GalleryPage() {

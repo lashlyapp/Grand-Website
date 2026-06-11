@@ -14,6 +14,9 @@ const nextConfig = {
     // migrated. The goal is for all media to live in /public (self-hosted) or
     // on the MyHotelOps Cloudflare account — NOT on Cendyn CDNs.
     remotePatterns: [
+      // MyHotelOps (Cloudflare) CDN — the hotel's own media library (tour
+      // videos and the gallery's property photos).
+      { protocol: "https", hostname: "cdn.myhotelops.com" },
       { protocol: "https", hostname: "res.cloudinary.com" },
       { protocol: "https", hostname: "cdn.traveltripper.io" },
       { protocol: "https", hostname: "*.cloudflarestream.com" },
