@@ -22,6 +22,25 @@ const nextConfig = {
       { protocol: "https", hostname: "*.supabase.co" },
     ],
   },
+  // Long-lived browser caching for the static photo library. Vercel's default
+  // for /public is max-age=0 + etag revalidation, which adds a round trip per
+  // image on every visit (and caps how long browsers keep optimizer output,
+  // since derivatives inherit the larger of this and minimumCacheTTL). The
+  // photos change rarely — and usually under a new filename — so a month with
+  // stale-while-revalidate is safe.
+  async headers() {
+    return [
+      {
+        source: "/images/:path*",
+        headers: [
+          {
+            key: "Cache-Control",
+            value: "public, max-age=2678400, stale-while-revalidate=86400",
+          },
+        ],
+      },
+    ];
+  },
 };
 
 export default nextConfig;
